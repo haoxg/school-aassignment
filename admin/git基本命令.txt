@@ -1,0 +1,7 @@
+git 提交基本命令
+
+1、git pull   //拉取远程版本库最新
+2、git status  //查看本地状态
+3、git add  文件名   
+4、git commit -m '描述'    
+5、git push -u origin master  //提交本地版本到远程库

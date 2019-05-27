@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../5.24/vue.js"></script>
+    <title>Document</title>
+    <style>
+        .clock {
+            width: 200px;
+            height: 200px;
+            border: 5px solid;
+            border-radius: 50%;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .radio {
+            width: 20px;
+            height: 20px;
+            background: #000;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border-radius: 50%;
+            z-index: 2;
+        }
+        
+        .hour {
+            width: 8px;
+            height: 80px;
+            background: #000;
+            position: absolute;
+            left: 50%;
+            margin-left: -4px;
+            top: 20px;
+            transform-origin: center bottom;
+        }
+        
+        .minute {
+            width: 6px;
+            height: 90px;
+            background: red;
+            position: absolute;
+            left: 50%;
+            margin-left: -3px;
+            top: 10px;
+            transform-origin: center bottom;
+        }
+        
+        .second {
+            width: 4px;
+            height: 95px;
+            background: blue;
+            position: absolute;
+            left: 50%;
+            margin-left: -2px;
+            top: 5px;
+            transform-origin: center bottom;
+        }
+        
+        .clock li {
+            width: 20px;
+            list-style: none;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: -10px;
+            height: 100%;
+            text-align: center;
+            padding-top: 5px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="clock">
+            <div class="radio"></div>
+            <div class="hour" :style="{transform:'rotate(' +hour+ 'deg)'}"></div>
+            <div class="minute" :style="{transform:'rotate(' +minute+ 'deg)'}"></div>
+            <div class="second" :style="{transform:'rotate(' +second+ 'deg)'}"></div>
+            <ul>
+                <li v-for='i in 12' :style="{transform:'rotate('+i*30+'deg)'}">{{i}}</li>
+            </ul>
+        </div>
+
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                hour: new Date().getHours() * 30,
+                minute: new Date().getMinutes() * 6,
+                second: new Date().getSeconds() * 6
+            },
+            created() {
+                this.dt();
+            },
+            methods: {
+                dt() {
+                    setInterval(() => {
+                        this.hour = new Date().getHours() * 30
+                        this.minute = new Date().getMinutes() * 6
+                        this.second = new Date().getSeconds() * 6
+                    }, 1000);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

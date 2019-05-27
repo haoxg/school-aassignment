@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        *{margin: 0;padding: 0;}
+        .time{width: 300px;height: 300px;border: 5px solid #000;border-radius: 50%;margin: 200px auto;position: relative;}
+        .hours{width: 10px;height: 100px;background: #000;margin-left:-5px;top:50px; }
+        .minutes{width: 8px;height: 120px;background: #f00;margin-left:-4px;top:30px;}
+        .seconds{width: 6px;height: 140px;background:#ff0;margin-left:-3px;top:10px;}
+        .commonality{position: absolute;left: 50%;transform-origin: center bottom;}
+        ul>li{list-style: none;width: 20px;height: 300px;text-align: center;position: absolute;left: 50%;margin-left:-10px ;}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="time">
+            <div class="commonality hours" :style="{transform: 'rotateZ('+hours+'deg)'}"></div>
+            <div class="commonality minutes" :style="{transform: 'rotateZ('+minutes+'deg)'}"></div>
+            <div class="commonality seconds" :style="{transform: 'rotateZ('+seconds+'deg)'}"></div>
+            <ul>
+                <li v-for='i in 12' :style="{transform: 'rotateZ('+i*30+'deg)'}">{{i}}</li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+            hours:new Date().getHours()*30,
+            minutes:new Date().getMinutes()*6,
+            seconds:new Date().getSeconds()*6
+        },
+        created(){
+            this.set()
+        },
+        methods:{
+            set(){
+                setInterval(() => {
+                    this.hours=new Date().getHours()*30
+                    this.minutes=new Date().getMinutes()*6
+                    this.seconds=new Date().getSeconds()*6
+                }, 1000)
+            }
+        }
+    })
+</script>
+</html>

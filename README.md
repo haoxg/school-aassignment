@@ -1,3 +1,0 @@
-# assignment-1808
-school-aassignment
-...

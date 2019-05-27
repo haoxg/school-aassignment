@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <style>
+        .box {
+            width: 300px;
+            height: 300px;
+            margin: 100px auto;
+            border: 1px solid #000000;
+        }
+        
+        .box>div {
+            width: 100px;
+            height: 100px;
+            border: solid 1px #000000;
+            float: left;
+            box-sizing: border-box;
+            text-align: center;
+            line-height: 100px;
+        }
+        
+        */
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="box">
+            <div v-for="item,index in arr" @click="">{{item}}</div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                arr: [1, 2, 3, 4, 5, 6, 7, 8, '']
+            },
+            methods: {
+                move(item, index) {
+                    var curentIndex = index;
+                    var vacncy = index;
+                    this.arr.forEach((element, index) => {
+                        if (element == '') {
+                            vanvncy = index;
+                        }
+                    });
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

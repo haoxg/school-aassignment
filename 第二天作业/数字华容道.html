@@ -23,6 +23,7 @@
 	</head>
 	<body>
 		<div id="app">
+			<h1>{{bushu}}</h1>
 			<button @click="three()">3*3</button>
 			<button @click="four()">4*4</button>
 			<button @click="five()">5*5</button>
@@ -35,7 +36,8 @@
 					el:'#app',
 					data:{
 						arr:[1,2,3,4,5,6,7,8,''],
-						n:3
+						n:3,
+						bushu:0
 					},
 					methods:{
 						three(){
@@ -66,6 +68,7 @@
 							this.arr.sort(() => Math.random() - 0.5);
 						},
 						move(item,index){
+							this.bushu++
 							var currentIndex = index
 							var kongge;
 							this.arr.forEach((element,ppp)=>{

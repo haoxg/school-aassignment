@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.hezi{
+				border: 1px solid #CCCCCC;
+				margin: auto;
+			}
+			.hezi>div{
+				width: 100px;
+				height: 100px;
+				float: left;
+				box-sizing: border-box;
+				border: 1px solid #CCCCCC;
+				text-align: center;
+				line-height: 100px;
+				font-size: 30px;
+			}
+			[v-cloak]{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box" v-cloak>
+			<div class="hezi" :style="{width:100*n+'px',height:100*n+'px'}">
+				<div v-for="(i,index) in arr" :key="index" @click="btn(i,index)">
+					{{i}}
+				</div>
+			</div>
+			<button @click="three">3*3</button>
+			<button @click="four">4*4</button>
+			<button @click="six">6*6</button>
+			<button @click="twelve">12*12</button>
+		</div>
+		<script src="vue.js"></script>
+		<script>
+			new Vue({
+				el:'#box',
+				data:{
+					arr:[1,2,3,4,5,6,7,8,''],
+					n:3
+				},
+				methods:{
+					btn(obj,idx){
+						var kong;
+						this.arr.forEach((element,index)=>{
+							if(element == ''){
+								kong=index
+							}
+						})
+						if (idx%this.n==0) {
+							if (idx+1==kong||idx+this.n==kong||idx-this.n==kong) {
+								this.$set(this.arr,idx,'')
+								this.$set(this.arr,kong,obj)
+							}
+						}else if((idx+1)%this.n==0){
+							if (idx-1==kong||idx+this.n==kong||idx-this.n==kong) {
+								this.$set(this.arr,idx,'')
+								this.$set(this.arr,kong,obj)
+							}
+						}else{
+							if (idx-1==kong||idx+1==kong||idx+this.n==kong||idx-this.n==kong) {
+								this.$set(this.arr,idx,'')
+								this.$set(this.arr,kong,obj)
+							}
+						}
+					},
+					three(){
+						this.n=3;
+						this.arr=[];
+						for (var i=0;i<this.n*this.n;i++) {
+							this.arr.push(i+1);
+						}
+						this.arr.splice(this.arr.indexOf([this.arr.length-1]),1,'')
+						this.arr.sort(()=> Math.random()-0.5);
+					},
+					four(){
+						this.n=4;
+						this.arr=[];
+						for (var i=0;i<this.n*this.n;i++) {
+							this.arr.push(i+1);
+						}
+						this.arr.splice(this.arr.indexOf([this.arr.length-1]),1,'')	
+						this.arr.sort(()=> Math.random()-0.5);
+					},
+					six(){
+						this.n=6;
+						this.arr=[];
+						for (var i=0;i<this.n*this.n;i++) {
+							this.arr.push(i+1);
+						}
+						this.arr.splice(this.arr.indexOf([this.arr.length-1]),1,'')
+						this.arr.sort(()=> Math.random()-0.5);
+					},
+					twelve(){
+						this.n=12;
+						this.arr=[];
+						for (var i=0;i<this.n*this.n;i++) {
+							this.arr.push(i+1);
+						}
+						this.arr.splice(this.arr.indexOf([this.arr.length-1]),1,'')
+						this.arr.sort(()=> Math.random()-0.5);
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

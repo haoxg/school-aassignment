@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+        
+        .active {
+            background-color: blue;
+        }
+        
+        ul li {
+            width: 40px;
+            height: 40px;
+            border: 1px solid red;
+            text-align: center;
+            line-height: 40px;
+            float: left;
+            user-select: none;
+        }
+        
+        span {
+            height: 40px;
+            float: left;
+            line-height: 40px;
+            margin-left: 10px;
+            text-align: center;
+            border: 1px solid black;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <p>显示总数：{{pages+2}}</p>
+        <p>当前页数：{{currentPage+1}}</p>
+        <span @click="head()">首页</span>
+        <span @click="top()">上页</span>
+        <ul>
+            <li>{{1}}</li>
+            <li v-show="ll">...</li>
+            <li v-for="i,index in maxPageSize" @click="move(firstPage+index)" :class="{active:firstPage+index==currentPage}">{{firstPage+index+1}}</li>
+            <li v-show="kk">...</li>
+            <li>{{pages+2}}</li>
+        </ul>
+        <span @click="bom()">下页</span>
+        <span @click="last()">尾页</span>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            pageSize: 5,
+            pages: 98,
+            currentPage: 5, //当前页数
+        },
+        computed: {
+            ll() {
+                if (this.currentPage >= 5) {
+                    return true
+                }
+            },
+            kk() {
+                if (this.currentPage <= this.pages - 5) {
+                    return true
+                }
+            },
+            maxPageSize() {
+                return this.pages < this.pageSize ? this.pages : this.pageSize
+            },
+            firstPage() {
+                if (this.currentPage <= Math.floor(this.pageSize / 2)) {
+                    return 1
+                } else if (this.currentPage >= this.pages - Math.floor(this.pageSize / 2)) {
+                    return this.pages - this.pageSize + 1
+                } else {
+                    return this.currentPage - Math.floor(this.pageSize / 2);
+                }
+            }
+        },
+        methods: {
+            head() { //首页
+                this.currentPage = 1;
+            },
+            top() { //上一页
+                this.currentPage--;
+                if (this.currentPage <= 1) return
+            },
+            bom() { //下一页
+                this.currentPage++;
+                if (this.currentPage >= this.pages) return
+
+            },
+            last() { //尾页
+                this.currentPage = this.pages
+            },
+            move(page) { //点击li
+                this.currentPage = page
+            }
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>高端大气上档次的分页器</title>
+    <script src='../vue.js'></script>
+    <style>
+       *{
+           margin:0;
+           padding:0;
+           list-style: none;
+       }
+       ul{
+           margin:50px auto;
+       }
+       ul>li{
+           padding:5px 10px;
+           float:left;
+           /* display:inline-block; */
+           border:1px #000 solid;
+           user-select: none;
+           cursor: pointer;
+       }
+       ul>li.active{
+           background-color: aqua;
+       }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li @click='first'>首页</li>
+            <li @click='next'>下一页</li>
+            <li @click='jump(firstPage+index)' v-for='item,index in pageSize' :class="{active:firstPage+index==currentPage}">{{firstPage+index}}</li>
+            <li @click='prev'>上一页</li>
+            <li @click='last'>尾页</li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                pageSize:9,
+                currentPage:1,//当前的页数
+                pages:100,//总共的页数
+            },
+            computed:{
+                maxpageSize(){
+                    return this.pages<this.pageSize?this.pages:this.pageSize;
+                },
+                firstPage(){
+                    if(this.currentPage<=Math.floor(this.pageSize/2)){
+                        return 1;
+                    }else if(this.currentPage>=this.pages-Math.floor(this.pageSize/2)){
+                        return this.pages-this.pageSize+1;
+                    }
+                    else{
+                        return this.currentPage-Math.floor(this.pageSize/2);
+                    }
+                   
+                }
+            },
+            methods: {
+                first(){
+                    this.currentPage=1;
+                },
+                last(){
+                    this.currentPage=this.pages;
+                },
+                prev(){
+                    if(this.currentPage<=1) return;
+                    this.currentPage--;
+                   
+                },
+                next(){
+                    if(this.currentPage>=this.pages) return;
+                    this.currentPage++;
+                    
+                },
+                jump(page){
+                    this.currentPage=page;
+                },
+            },
+        })
+    </script>
+</body>
+</html>

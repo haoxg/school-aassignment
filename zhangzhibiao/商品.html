@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        .clearfix::after,
+        .clearfix::before {
+            content: '';
+            display: table;
+        }
+        
+        .clearfix::after {
+            clear: both;
+        }
+        
+        .clearfix {
+            zoom: 1;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .box {
+            width: 1000px;
+            height: auto;
+            border: 1px #000 solid;
+            user-select: none;
+        }
+        
+        .commodity_box {
+            float: left;
+            width: 400px;
+            height: 50px;
+        }
+        
+        .price_box {
+            float: left;
+            width: 400px;
+            height: 50px;
+        }
+        
+        .commodity_box li {
+            position: relative;
+        }
+        
+        .commodity_box input,
+        .remark input {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .box li {
+            text-align: center;
+            border: 1px #000 solid;
+            float: left;
+            height: 100%;
+            line-height: 50px;
+            box-sizing: border-box;
+        }
+        
+        .width_30 {
+            width: 30%;
+        }
+        
+        .width_35 {
+            width: 35%;
+        }
+        
+        .price_box li {
+            width: 10%;
+        }
+        
+        .add {
+            border: 1px #000 solid;
+            width: 100%;
+            padding: 10px 0;
+            text-align: center;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+        
+        .totalPrices_box {
+            width: 100%;
+        }
+        
+        .totalPrices_box>div {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            float: left;
+            border: 1px #000 solid;
+            box-sizing: border-box;
+        }
+        
+        .remark {
+            text-align: center;
+            line-height: 50px;
+            float: left;
+            width: 200px;
+            height: 50px;
+            border: 1px #000 solid;
+            box-sizing: border-box;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="box">
+            <div class="clearfix">
+                <ul class="commodity_box clearfix">
+                    <li class="width_30">品名</li>
+                    <li class="width_35">数量</li>
+                    <li class="width_35">单价(元)</li>
+                </ul>
+                <ul class="price_box">
+                    <li v-for="item in arr">{{item}}</li>
+                </ul>
+                <div class="remark">备注</div>
+            </div>
+            <div v-for='item,i in arr1' class="clearfix">
+                <ul class="commodity_box clearfix">
+                    <li class="width_30" @click.self="tabclick">{{item.name}}<input @blur="tabblur" type="text" v-model="item.name"></li>
+                    <li class="width_35" @click.self="tabclick">{{item.number}}<input @blur="tabblur" type="text" v-model="item.number"></li>
+                    <li class="width_35" @click.self="tabclick">{{item.price}}<input @blur="tabblur" type="text" v-model="item.price"></li>
+                </ul>
+                <ul class="price_box clearfix">
+                    <li v-for="item1 in commoditylist[i]">{{item1}}</li>
+                </ul>
+                <div class="remark" @click.self="tabclick">{{item.text}}<input @blur="tabblur" type="text" v-model="item.text"></div>
+            </div>
+            <div @click="add()" class="add">增加商品</div>
+            <div class="totalPrices_box clearfix">
+                <div :style="{width:'15%'}">合计(大写)</div>
+                <div :style="{width:'85%'}">{{totalPrices|China}}</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                arr: ['千万', '百万', '十万', '万', '千', '百', '十', '元', '角', '分'],
+                arr1: [{
+                    name: '',
+                    number: '',
+                    price: '',
+                    text: '',
+                }, ],
+            },
+            filters: {
+                China(num) {
+                    var ChinaArr = ['', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
+                    var ChinaArr1 = ['元', '拾', '百', '千', '万', '拾', '百', '千'];
+                    var ChinaArr2 = ['角', '分'];
+                    a = num.split('.')
+                    var str = '';
+                    var str1 = '点';
+                    a.forEach((item, index) => {
+                        if (index == '0') {
+                            var itemarr = item.split('');
+                            for (var i = itemarr.length - 1; i >= 0; i--) {
+                                str += ChinaArr1[itemarr.length - 1 - i]
+                                str += ChinaArr[itemarr[i]] == '' ? '零' : ChinaArr[itemarr[i]];
+                            }
+                        } else {
+                            if (item == '00') {
+                                str1 = '';
+                            } else {
+                                var itemarr = item.split('');
+                                for (var i = 0; i < itemarr.length; i++) {
+                                    str1 += ChinaArr[itemarr[i]]
+                                    str1 += ChinaArr2[i]
+                                }
+                            }
+
+                        }
+                    });
+                    return str.split('').reverse().join('') + str1;
+                }
+            },
+            computed: {
+                len() {
+                    return this.arr1.length;
+                },
+                commoditylist() {
+                    var arr = [];
+                    this.arr1.forEach(item => {
+                        var a = ((item.number * item.price).toFixed(2) + '').split('.');
+                        if (a.length !== 2) {
+                            a.push('')
+                        }
+                        var str;
+                        // var str1;
+                        a.forEach((item1, index) => {
+                            if (index == '0') {
+                                str = item1;
+                                var b = this.arr.length - (item1.split('').length) - 2;
+                                for (var i = 0; i < b; i++) {
+                                    str = ' ' + str;
+                                }
+                            } else {
+                                str += item1;
+                                // var b = 2 - (item1.split('').length);
+                                // for (var i = 0; i < b; i++) {
+                                //     str1 = str1 + '1';
+                                // }
+                                // console.log(str1)
+                            }
+                        });
+                        arr.push(str)
+                    });
+                    return arr;
+                },
+                totalPrices() {
+                    var num = 0;
+                    this.arr1.forEach(item => {
+                        num += item.number * item.price
+                    });
+                    return (num).toFixed(2);
+                }
+            },
+            methods: {
+                add() {
+                    this.arr1.push({
+                        name: '',
+                        number: '',
+                        price: '',
+                        text: '',
+                    })
+                    console.log(this.arr1)
+                },
+                tabclick(ev) {
+                    ev.target.children[0].style.display = 'block';
+                    ev.target.children[0].focus();
+                },
+                tabblur(ev) {
+                    ev.target.style.display = 'none';
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

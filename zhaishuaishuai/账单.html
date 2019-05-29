@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin: 0;padding: 0;box-sizing: border-box}
+        .fl{float: left;width: 20%;}
+        table{width: 100%;text-align: center;margin: 0 auto;line-height: 36px;}
+        .isshow td{position: relative;height: 36px;}
+        td,th{ border:1px solid}
+        .isshow>td>input{position: absolute;left: 0;top: 0;width: 100%;box-sizing: border-box;line-height: 37px;border: none; display: none }
+    </style>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <table cellspacing=0 class="app">
+        <tr>
+            <td rowspan="2">品名</td>
+            <td rowspan="2">数量</td>
+            <td rowspan="2">单价</td>
+            <td colspan="5">金额</td>
+            <td rowspan="2">备注</td>
+        </tr>
+        <tr>
+            <td>万</td>
+            <td>千</td>
+            <td>百</td>
+            <td>十</td>
+            <td>个</td>
+        </tr>
+        <tr v-for='o,i in list' class="isshow">
+            <td @click.self='showinput'><input type="text" @blur="ss" v-model='o.name'> {{o.name}} </td>
+            <td @click.self='showinput'><input type="text" @blur="ss" v-model='o.number'>{{o.number}} </td>
+            <td @click.self='showinput'><input type="text" @blur="ss" v-model='o.price'> {{o.price}} </td>
+            <td>{{arrlist[i].split('')[arrlist[i].split('').length-5]}}</td>
+            <td>{{arrlist[i].split('')[arrlist[i].split('').length-4]}}</td>
+            <td>{{arrlist[i].split('')[arrlist[i].split('').length-3]}}</td>
+            <td>{{arrlist[i].split('')[arrlist[i].split('').length-2]}}</td>
+            <td>{{arrlist[i].split('')[arrlist[i].split('').length-1]}}</td>
+            <td @click.self='showinput'><input type="text" @blur="ss" v-model='o.remarks'>{{o.remarks}}</td>
+        </tr>
+        <tr>
+            <td>合计人民币(大写)</td>
+            <th colspan="8">{{he|toChinesNum}}元整</th>
+        </tr>
+    </table>
+</body>
+<script>
+    var vm = new Vue({
+        el: '.app',
+        data: {
+            list: [{
+                name: '',
+                number: '',
+                price: '',
+                remarks: ''
+            }, {
+                name: '',
+                number: '',
+                price: '',
+                remarks: ''
+            }, {
+                name: '',
+                number: '',
+                price: '',
+                remarks: ''
+            }, {
+                name: '',
+                number: '',
+                price: '',
+                remarks: ''
+            }]
+        },
+        computed: {
+            arrlist() {
+                var arr = [];
+                this.list.forEach(element => {
+                    arr.push(element.number * element.price + "")
+                });
+                // for(var i=0;i<arr.length;i++){
+                //     arr1.push(arr[i].split(''))
+                // }
+                // for(var i=0;i<arr1.length;i++){
+                //     // if(arr1[i].length<5){
+                //     //    for(var j=0;j<5-arr1[i].length;j++){
+                //     //        arr1[i].unshift('') 
+                //     //    }
+
+
+                //         //  console.log(5-arr1[i].length)
+
+                //     // }
+
+                // }
+                // if(arr.length<5)
+                console.log(arr)
+                return arr
+            },
+            he() {
+                var str = 0;
+                for (var i = 0; i < this.arrlist.length; i++) {
+                    str += parseInt(this.arrlist[i])
+                }
+                console.log(str)
+                return str
+            }
+        },
+        filters: {
+            toChinesNum(num) {
+                let changeNum = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']; //changeNum[0] = "零"
+                let unit = ["", "十", "百", "千", "万"];
+                num = parseInt(num);
+                let getWan = (temp) => {
+                    let strArr = temp.toString().split("").reverse();
+                    let newNum = "";
+                    for (var i = 0; i < strArr.length; i++) {
+                        newNum = (i == 0 && strArr[i] == 0 ? "" : (i > 0 && strArr[i] == 0 && strArr[i - 1] == 0 ? "" : changeNum[strArr[i]] + (strArr[i] == 0 ? unit[0] : unit[i]))) + newNum;
+                    }
+                    return newNum;
+                }
+                let overWan = Math.floor(num / 10000);
+                let noWan = num % 10000;
+                if (noWan.toString().length < 4) noWan = "0" + noWan;
+                return overWan ? getWan(overWan) + "万" + getWan(noWan) : getWan(num);
+            }
+        },
+        methods: {
+            ss(e) {
+                e.target.style.display = 'none';
+            },
+            showinput(e) {
+                e.target.children[0].style.display = 'block';
+                e.target.children[0].focus()
+            }
+        },
+    })
+</script>
+
+</html>

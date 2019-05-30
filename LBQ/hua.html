@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+	#box{
+		width: 300px;
+		height: 300px;
+		margin: 100px auto;
+	}
+	#box div{
+		width: 100px;
+		height: 100px;
+		display: inline-block;
+		border: 1px solid #ccc;
+		box-sizing: border-box;
+		vertical-align: top;
+		text-align: center;
+		line-height: 100px;
+	}
+</style>
+</head>
+<body>
+	<div id="app">
+		<button @click="three">3*3</button>
+		<button @click="four">4*4</button>
+		<button @click="five">5*5</button>
+		<button @click="six">6*6</button>
+		<button @click="seven">7*7</button>
+		<div id="box" :style="{width:100*i+'px',height:100*i+'px'}">
+			<div v-for="item,index in arr" @click="move(item,index)">{{item}}</div>
+		</div>
+	</div>
+</body>
+<script>
+	new Vue({
+		el:'#app',
+		data:{
+			arr:[1,2,3,4,5,6,7,8,''],
+			i:3
+		},
+		methods:{
+			three(){
+				this.i=3;
+				this.arr=[];
+				for(i=1;i<3*3;i++){
+					this.arr.push(i)
+				}
+				this.arr.splice(this.arr.length,1,'')
+			},
+			four(){
+				this.i=4;
+				this.arr=[];
+				for(i=1;i<4*4;i++){
+					this.arr.push(i)
+				}
+				this.arr.splice(this.arr.length,1,'')
+			},
+			five(){
+				this.i=5;
+				this.arr=[];
+				for(i=1;i<5*5;i++){
+					this.arr.push(i)
+				}
+				this.arr.splice(this.arr.length,1,'')
+			},
+			six(){
+				this.i=6;
+				this.arr=[];
+				for(i=1;i<6*6;i++){
+					this.arr.push(i)
+				}
+				this.arr.splice(this.arr.length,1,'')
+			},
+			seven(){
+				this.i=7;
+				this.arr=[];
+				for(i=1;i<7*7;i++){
+					this.arr.push(i)
+				}
+				this.arr.splice(this.arr.length,1,'')
+			},
+			move(item,index){
+				var vacancy;
+				var currentIndex = index;
+				this.arr.forEach((element,index)=>{
+					if(element==''){
+						vacancy=index
+					}
+				})
+				if (this.isCanMove(currentIndex,vacancy)) {
+					this.$set(this.arr,index,'');
+					Vue.set(this.arr,vacancy,item);
+				}
+			},
+			isCanMove(currentIndex,vacancy){
+				if (currentIndex%this.i==0) {
+					return (currentIndex+1==vacancy||currentIndex-this.i==vacancy||currentIndex+this.i==vacancy)
+				}else if ((currentIndex+1)%this.i==0) {
+					return (currentIndex-1==vacancy||currentIndex-this.i==vacancy||currentIndex+this.i==vacancy)
+				}else{
+					return (currentIndex-1==vacancy||currentIndex+1==vacancy||currentIndex-this.i==vacancy||currentIndex+this.i==vacancy)
+				}
+			}
+		}	
+	})
+</script>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        #box {
+            background: #ccc;
+        }
+        
+        #box>div {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            vertical-align: top;
+            text-align: center;
+            line-height: 100px;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <div id="box" :style="{width:100*n+'px',height:100*n+'px'}">
+            <div v-for="(item,index) in arr" @click="move(item,index)">{{item}}</div>
+        </div>
+        <button @click="btn(3)">3*3</button>
+        <button @click="btn(4)">4*4</button>
+        <button @click="btn(5)">5*5</button>
+        <button @click="btn(6)">6*6</button>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            arr: [],
+            // arr: [1, 2, 3, 4, 5, 6, 7, 8, ''],
+            n: ''
+        },
+        methods: {
+            sort(arr) {
+                arr.sort(function(a) {
+                    return a > 0.5 ? 1 : -1
+                })
+            },
+            btn(aa) {
+                this.arr = [];
+                for (var i = 1; i < aa * aa; i++) {
+                    this.arr.push(i);
+                }
+                this.arr.push('');
+                this.sort(this.arr)
+                this.n = Math.sqrt(this.arr.length)
+            },
+            move(item, index) {
+                var dianindex = index;
+                var kong;
+                this.arr.forEach((element, index) => {
+                    if (element == '') {
+                        kong = index
+                    }
+                });
+                if (this.isCanmove(dianindex, kong)) {
+                    this.$set(this.arr, index, '')
+                    Vue.set(this.arr, kong, item)
+                }
+            },
+
+            isCanmove(dianindex, kong) {
+                if (dianindex % this.n == 0) {
+                    if (dianindex + 1 == kong || dianindex - this.n == kong || dianindex + this.n == kong) {
+                        return true
+                    }
+                } else if (dianindex + 1 % this.n == 0) {
+                    if (dianindex - 1 == kong || dianindex - this.n == kong || dianindex + this.n == kong) {
+                        return true
+                    }
+                } else {
+                    if (dianindex + 1 == kong || dianindex - 1 == kong || dianindex - this.n == kong || dianindex + this.n == kong) {
+                        return true
+                    }
+                }
+            }
+
+        }
+    })
+</script>
+
+</html>

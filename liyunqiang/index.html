@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        #box {
+            margin: 0 auto;
+            border: 1px solid red;
+        }
+        
+        #box div {
+            width: 100px;
+            height: 100px;
+            float: left;
+            text-align: center;
+            line-height: 100px;
+            border: red solid 1px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="san">3*3</button>
+        <button @click="si">4*4</button>
+        <button @click="wu">5*5</button>
+        <div id="box" :style="{width:100*n+'px',height:100*n+'px'}">
+            <div v-for="item,index in arr" @click="move(item,index)">{{item}}</div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                arr: [1, 2, 3, 4, 5, 6, 7, 8, ''],
+                n: 3
+            },
+            methods: {
+                si() {
+                    this.n = 4;
+                    this.arr = [];
+                    for (var i = 0; i < 4 * 4; i++) {
+                        this.arr.push(i + 1)
+                    }
+                    this.arr.splice(this.arr.length - 1, 1, '')
+                    this.arr.sort(() => Math.random() - 0.5);
+                },
+                san() {
+                    this.n = 3;
+                    this.arr = [];
+                    for (var i = 0; i < 3 * 3; i++) {
+                        this.arr.push(i + 1)
+                    }
+                    this.arr.sort(() => Math.random() - 0.5);
+                    this.arr.splice(this.arr.length - 1, 1, '')
+                },
+                wu() {
+                    this.n = 5;
+                    this.arr = [];
+                    for (var i = 0; i < 5 * 5; i++) {
+                        this.arr.push(i + 1)
+                    }
+                    this.arr.sort(() => Math.random() - 0.5);
+                    this.arr.splice(this.arr.length - 1, 1, '')
+
+                },
+                move(item, index) {
+                    var currentIndex = index
+                    var kongge;
+                    this.arr.forEach((element, ppp) => {
+                        if (element == '') {
+                            kongge = ppp
+                        }
+                    })
+                    if (this.isCanMove(currentIndex, kongge)) {
+                        Vue.set(this.arr, index, '')
+                        Vue.set(this.arr, kongge, item)
+                    }
+                },
+                isCanMove(currentIndex, kongge) {
+                    if (currentIndex % this.n == 0) {
+                        return (currentIndex + 1 == kongge || currentIndex + this.n == kongge || currentIndex - this.n == kongge)
+                    } else if ((currentIndex + 1) % this.n == 0) {
+                        return (currentIndex - 1 == kongge || currentIndex + this.n == kongge || currentIndex - this.n == kongge)
+                    } else {
+                        return (currentIndex - 1 == kongge || currentIndex + 1 == kongge || currentIndex + this.n == kongge || currentIndex - this.n == kongge)
+                    }
+                }
+            }
+        })
+
+        vm.san()
+    </script>
+</body>
+
+</html>

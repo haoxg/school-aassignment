@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .box {
+            width: 300px;
+            height: 300px;
+            /* border: 10px solid; */
+            border-radius: 50%;
+            margin: 100px auto;
+            position: relative;
+            background: url(http://img1.imgtn.bdimg.com/it/u=4060837773,2546275730&fm=26&gp=0.jpg);
+            background-size: 400px 400px;
+            background-position: -50px -50px;
+        }
+        
+        .box::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            background: black;
+            position: absolute;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            z-index: 2;
+        }
+        
+        .clock {
+            position: absolute;
+            left: 50%;
+            transform-origin: center bottom;
+        }
+        
+        .hour {
+            width: 10px;
+            height: 70px;
+            background: black;
+            margin-left: -5px;
+            top: 80px
+        }
+        
+        .miute {
+            width: 8px;
+            height: 90px;
+            background: blue;
+            margin-left: -4px;
+            top: 60px
+        }
+        
+        .second {
+            width: 6px;
+            height: 110px;
+            background: red;
+            margin-left: -3px;
+            top: 40px
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="box">
+            <div class="clock hour" :style="{transform:'rotate('+hour+'deg)'}"></div>
+            <div class="clock miute" :style="{transform:'rotate('+miute+'deg)'}"></div>
+            <div class="clock second" :style="{transform:'rotate('+second+'deg)'}"></div>
+        </div>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            hour: new Date().getHours() * 30,
+            miute: new Date().getMinutes() * 6,
+            second: new Date().getSeconds() * 6
+
+        },
+        methods: {
+            dida() {
+                setInterval(() => {
+                    this.hour = new Date().getHours() * 30,
+                        this.miute = new Date().getMinutes() * 6,
+                        this.second = new Date().getSeconds() * 6
+
+                }, 1000);
+            },
+
+        }
+
+    })
+    app.dida()
+</script>
+
+</html>

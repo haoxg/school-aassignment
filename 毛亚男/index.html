@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        #box {
+            width: 300px;
+            height: 300px;
+            border: 1px solid #000;
+
+        }
+
+        #box>div {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000;
+            box-sizing: border-box;
+            float: left;
+            text-align: center;
+            line-height: 100px;
+
+        }
+
+        .btn {
+            width: 300px;
+            height: 40px;
+
+        }
+
+        .btn button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="btn">
+            <button v-for="item,index in 5" @click="create(index+3)">{{index+3}}*{{index+3}}</button>
+        </div>
+
+        <div id="box">
+            <div v-for="item,index in arr" @click="move(item,index)">{{item}}</div>
+        </div>
+    </div>
+
+
+
+
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                arr: [],
+                arr1: [],
+                mine: 0,
+                timer: null,
+                on: false,
+                leng: 3,
+             
+            },
+
+
+            //时间
+            watcher: {
+                arr() {
+                    if (this.arr.toString() == this.arr1.toString()) {
+                        clearInterval(this.timer);
+                        alert('用时' + this.mine + '秒');
+                    }
+                }
+            },
+            methods: {
+
+                //随机
+                sort() {
+                    this.arr.sort(function (a, b) {
+                        return Math.random() - Math.random()
+                    })
+                },
+                //
+                move(item, index) {
+                    if (!this.on) {
+                        this.on = true;
+                        this.timer = setInterval(() => {
+                            this.n++;
+                    
+                        }, 1000)
+                    }
+                    //
+                    var currentIndex = index
+                    var vacancy = ''
+                    this.arr.forEach((o, i) => {
+                    if (o == '') {
+                        vacancy = i;
+                    }
+                })
+                    if (this.isCanMove(currentIndex, vacancy)) {
+                        this.$set(this.arr, index, '')
+                        Vue.set(this.arr, vacancy, item)
+                    }
+
+                },
+                isCanMove(currentIndex, vacancy) {
+                    if (vacancy % this.leng == 0) {
+                        return (vacancy + 1 == currentIndex || vacancy + this.leng == currentIndex || vacancy - this.leng == currentIndex);
+                    } else if ((vacancy + 1) % this.leng == 0) {
+                        return (vacancy - 1 == currentIndex || vacancy + this.leng == currentIndex || vacancy - this.leng == currentIndex);
+                    } else {
+                        return (vacancy - 1 == currentIndex || vacancy + 1 == currentIndex || vacancy + 1 == currentIndex || vacancy + this.leng == currentIndex || vacancy - this.leng == currentIndex)
+                    }
+
+                },
+                create(num) {
+                this.arr = [];
+                this.arr1 = [];
+                this.leng = num;
+                box.style.height = box.style.width = num * 100 + 'px';
+                for (var i = 0; i < num * num; i++) {
+                    if (i == num * num - 1) {
+                        this.arr.push('');
+                        this.arr1.push('');
+                    } else {
+                        this.arr.push(i + 1);
+                        this.arr1.push(i + 1);
+                    }
+                }
+                this.sort();
+            }
+        }
+
+    })
+        app.sort();
+        app.create(3)
+
+    </script>
+</body>
+
+</html>

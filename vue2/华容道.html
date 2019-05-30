@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            margin: 20px auto;
+            border: 1px solid #000;
+        }
+
+        .box div {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000;
+            float: left;
+            box-sizing: border-box;
+            text-align: center;
+            line-height: 100px;
+            font-size: 20px;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <button @click="san">3*3</button>
+        <button @click="si">4*4</button>
+        <button @click="wu">5*5</button>
+        <button @click="liu">6*6</button>
+        <div class="box" :style="{width:100*n+'px',height:100*n+'px'}">
+            <div v-for="(i, index) in arr" :key="index" @click="move(i,index)">{{i}}</div>
+        </div>
+
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                arr: [1, 2, 3, 4, 5, 6, 7, 8, ''],
+                n: 3,
+            },
+            methods: {
+                san() {
+                    this.n = 3;
+                    this.arr = [];
+                    for (var i = 0; i < this.n * this.n; i++) {
+                        this.arr.push(i + 1)
+                    }
+                    this.arr.sort(() => Math.random() - 0.5);
+                    this.arr.splice(this.arr.indexOf(this.n * this.n), 1, '')
+                },
+                si() {
+                    this.n = 4;
+                    this.arr = [];
+                    for (var i = 0; i < this.n * this.n; i++) {
+                        this.arr.push(i + 1)
+                    }
+                    this.arr.sort(() => Math.random() - 0.5);
+                    this.arr.splice(this.arr.indexOf(this.n * this.n), 1, '')
+                },
+                wu() {
+                    this.n = 5;
+                    this.arr = [];
+                    for (var i = 0; i < this.n * this.n; i++) {
+                        this.arr.push(i + 1)
+                    }
+                    this.arr.sort(() => Math.random() - 0.5);
+                    this.arr.splice(this.arr.indexOf(this.n * this.n), 1, '')
+                },
+                liu() {
+                    this.n = 6;
+                    this.arr = [];
+                    for (var i = 0; i < this.n * this.n; i++) {
+                        this.arr.push(i + 1)
+                    }
+                    this.arr.sort(() => Math.random() - 0.5);
+                    this.arr.splice(this.arr.indexOf(this.n * this.n), 1, '')
+                },
+                move(obj, idx) {
+                    var a = idx;
+                    var ind;
+                    this.arr.forEach((element, index) => {
+                        if (element == '') {
+                            ind = index;
+                        }
+                    });
+                    if (a % this.n == 0) {
+                        if (a + 1 == ind || a + this.n == ind || a - this.n == ind) {
+                            this.$set(this.arr, idx, '')
+                            this.$set(this.arr, ind, obj)
+                        }
+                    } else if ((a + 1) % this.n == 0) {
+                        if (a - 1 == ind || a + this.n == ind || a - this.n == ind) {
+                            this.$set(this.arr, idx, '')
+                            this.$set(this.arr, ind, obj)
+                        }
+                    } else {
+                        if (a + 1 == ind || a - 1 == ind || a + this.n == ind || a - this.n == ind) {
+                            this.$set(this.arr, idx, '')
+                            this.$set(this.arr, ind, obj)
+                        }
+                    }
+                }
+            },
+
+            watch: {
+                monitor() {
+
+                }
+            },
+        })
+        vm.san();
+    </script>
+</body>
+
+</html>

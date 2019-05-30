@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算商品</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <script src='./vue.js'> </script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .table{
+            margin-bottom:0;
+        }
+        table.table>tbody>tr>td{
+            height:50px;
+            line-height:50px;
+            padding:0;
+            position: relative;
+
+        }
+        table.table>thead>tr>td{
+            height:25px;
+            line-height: 25px;
+            padding:0;
+        }
+        table input{
+                width: 100%;
+                height: 50px;
+                display: none;
+                position: absolute;
+                left: 0;top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1 style='text-align: center'>商品列表</h1>
+        <table class='table table-bordered text-center a'>
+            <tbody>
+                <tr>
+                    <td>品名</td>
+                    <td>数量</td>
+                    <td>单价（元）</td>
+                    <td :rowspan="goodsList.length+1">
+                        <table class='table table-bordered text-center a'>
+                            <thead>
+                                <tr>
+                                    <td colspan="7">金额</td>
+                                </tr>
+                                <tr>
+                                    <td>万</td>
+                                    <td>千</td>
+                                    <td>百</td>
+                                    <td>十</td>
+                                    <td>元</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="amout,index in amountList">
+                                    <td v-for="a in amout">{{a}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>备注</td>
+                </tr>
+                <tr v-for='goods,index in goodsList'>
+                    <td @click.self="showInput">{{goods.name}}<input type="text" v-model='goods.name' @blur="hideInput"></td>
+                    <td @click.self="showInput">{{goods.number}}<input type="text" v-model='goods.number' @blur="hideInput"></td>
+                    <td @click.self="showInput">{{goods.price}}<input type="text" v-model='goods.price' @blur="hideInput"></td>
+                    <td @click.self="showInput">{{goods.beizhu}}<input type="text" v-model='goods.beizhu' @blur="hideInput"></td>   
+                </tr>
+                <tr>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>   
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>合计(大写)</td>
+                    <td colspan="4">{{total|chinese}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                goodsList:[
+                    {
+                        name:'',
+                        number:'',
+                        price:'',
+                        beizhu:'',
+                    }
+                ]
+            },
+            filters:{
+                    chinese(value){
+                        var list1=['','壹','贰','叁','肆','伍','陆','柒','捌','玖'];
+                        var list2=['整元','拾','佰','仟','万','拾','佰','仟','亿',];
+                        value+='';
+                        var a='';
+                        for(var i=value.length;i>0;i--){
+                            a+=value.charAt(i-1)==0?'零':list2[value.length]
+                            a+=list1[value.charAt(i-1)];
+                        };
+                        return a.split("").reverse().join("");
+                    }
+                },
+                computed: {
+                    procductLength(){
+                        return this.goodsList.length;
+                    },
+                    amountList(){
+                        var arr=[];
+                        this.goodsList.forEach(element => {
+                            var a=element.price*element.number+'';
+                            var b=5-a.length;
+                            for(var i=0;i<b;i++){
+                                a=' '+a;
+                            }
+                            arr.push(a);
+                        });
+                        return arr;
+                    },
+                    total(){
+                        var total=0;
+                        this.goodsList.forEach(element=>{
+                            total+=element.price*element.number;
+                        })
+                        return total
+                    }
+                },
+                methods: {
+                    showInput(event){
+                        event.target.children[0].style.display='block';
+                        event.target.children[0].focus();
+                    },
+                    hideInput(event){
+                        event.target.style.display='none';
+                    }
+                },
+        })
+    </script>
+</body>
+</html>

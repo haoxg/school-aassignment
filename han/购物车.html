@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .header {
+            width: 400px;
+            height: 50px;
+            border: 1px #ccc solid;
+            box-sizing: border-box;
+        }
+        
+        .one {
+            width: 100%;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+        }
+        
+        .content {
+            width: 400px;
+            height: auto;
+            margin: 0 auto;
+        }
+        
+        .con {
+            width: 400px;
+            height: auto;
+        }
+        
+        .list-left {
+            width: 135px;
+            float: left;
+        }
+        
+        .list-left li {
+            height: 40px;
+            border: 1px #ccc solid;
+            border-top: none;
+            text-align: center;
+            line-height: 40px;
+            box-sizing: border-box;
+        }
+        
+        .list-left li:hover {
+            border-left: 2px orange solid;
+        }
+        
+        .list-right {
+            width: 265px;
+            float: left;
+        }
+        
+        .list-right li {
+            width: 100%;
+            height: 80px;
+            border: 1px #ccc solid;
+            border-left: none;
+            border-top: none;
+            box-sizing: border-box;
+        }
+        
+        .img {
+            width: 60px;
+            height: 60px;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="content">
+            <div class="header">
+                <div class="one">
+                    派送到 :<span>石景山</span>
+                </div>
+            </div>
+            <div class="con">
+                <div class="list-left">
+                    <ul>
+                        <li @click='allbtn'>热销商品</li>
+                        <li v-for='(i,$index) in arr' @click='btn(i.type)'>{{i.type}}</li>
+                    </ul>
+                </div>
+                <div class="list-right">
+                    <ul>
+                        <li v-for="i,index in arr2">
+                            <img class="img" :src="i.img" alt="">
+                            <p>{{i.brief}}</p>
+                            <span>{{i.Price}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <script>
+                new Vue({
+                    el: '#app',
+                    methods: {
+                        btn(a) {
+                            for (var i = 0; i < this.arr.length; i++) {
+                                if (this.arr[i].type == a) {
+                                    this.arr2 = this.arr[i].code
+                                }
+                            }
+                        },
+                        allbtn() {
+                            var arr = []
+                            for (var i = 0; i < this.arr.length; i++) {
+                                for (var j = 0; j < this.arr[i].code.length; j++) {
+                                    arr.push(this.arr[i].code[j])
+                                }
+                            }
+                            this.arr2 = arr
+                        }
+                    },
+                    created() {
+                        var arr = []
+                        for (var i = 0; i < this.arr.length; i++) {
+                            for (var j = 0; j < this.arr[i].code.length; j++) {
+                                arr.push(this.arr[i].code[j])
+                            }
+                        }
+                        this.arr2 = arr
+                    },
+                    data: {
+                        arr2: '',
+                        arr: [{
+                            type: '热销新品',
+                            code: [{
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }, {
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }, {
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }, {
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }, {
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }]
+                        }, {
+                            type: '优选水果',
+                            code: [{
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "12321321/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }, {
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "421421421/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }, {
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "21521521/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }, {
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "214321421421532532/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }, {
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "sadsadsads/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }]
+                        }, {
+                            type: '卤味熟食',
+                            code: [{
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "12321321/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }, {
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "421421421/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }, {
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "21521521/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }, {
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "214321421421532532/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }, {
+                                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                                brief: "sadsadsads/盒新鲜特价新鲜特价新鲜特价",
+                                Price: "￥10.8"
+                            }]
+                        }]
+                    }
+                })
+            </script>
+</body>
+
+</html>

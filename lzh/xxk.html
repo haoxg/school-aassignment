@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .box {
+            width: 500px;
+            height: auto;
+            margin: auto;
+            border: 1px solid #cccccc;
+        }
+
+        .box_head {
+            height: 50px;
+            width: 100%;
+            line-height: 50px;
+            text-align: center;
+            border-bottom: 1px solid rgb(218, 218, 218);
+        }
+
+        .search {
+            float: right;
+            width: 20px;
+            height: 20px;
+            margin-top: 15px;
+            margin-right: 20px;
+            background: url(./search.png);
+            background-size: cover;
+        }
+
+        .h_list {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            border-bottom: 1px solid #cccccc;
+        }
+
+        .h_list li {
+            flex: 1;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .box_foot {
+            position: fixed;
+            bottom: 0;
+            width: 500px;
+            height: 50px;
+        }
+
+        .box_foot div {
+            width: 50%;
+            height: 100%;
+            text-align: center;
+            line-height: 50px;
+            float: left;
+            background: rgb(247, 247, 247);
+            border-top: #ccc 1px solid;
+            z-index: 10;
+        }
+
+        .f_active {
+            color: orangered;
+        }
+
+        .right_list {
+            overflow: hidden;
+            float: left;
+            /* display: none; */
+        }
+
+        .right_list div {
+            width: 100%;
+            height: 100px;
+            border-bottom: #cccccc 1px solid;
+            border-left: #cccccc 1px solid;
+            box-sizing: border-box;
+        }
+
+        .left_list {
+            width: 100%;
+        }
+
+        .left_list p {
+            height: 50px;
+            border-bottom: 2px #ccc solid;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .box_cont {
+            overflow: hidden;
+            padding-bottom: 55px;
+        }
+
+        .lis_L {
+            overflow: hidden;
+            width: 30%;
+            float: left;
+        }
+        .lis_R{
+            overflow: hidden;
+            width: 70%;
+            float: right;
+        }
+
+        .right_list>div img {
+            width: 98px;
+            height: 98px;
+            margin-right: 30px;
+            float: left;
+        }
+
+        .right_list>div .name {
+            width: 200px;
+            height: 48px;
+            overflow: hidden;
+            font-size: 12px;
+            line-height: 2;
+            float: left;
+        }
+
+        .right_list>div .jiage {
+            width: 200px;
+            font-size: 12px;
+            line-height: 2;
+            float: left;
+        }
+
+        .right_list>div .num {
+            width: 200px;
+            font-size: 16px;
+            line-height: 1;
+            float: left;
+            text-align: right;
+        }
+
+        .right_list>div .num span {
+            padding: 0 10px;
+            border: 1px solid #ccc;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+        .jia,.jian{
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="box">
+            <div class="box_head">
+                <span>配送至:</span>
+                <select>
+                    <option value="1">北京市房山区</option>
+                    <option value="2">山东省菏泽市</option>
+                    <option value="3">山东省济南市</option>
+                </select>
+                <div class="search"></div>
+            </div>
+            <div class="box_cont">
+                <ul class="h_list">
+                    <li v-for="(i, index) in h_list" :key="index">{{i}}</li>
+                </ul>
+                <div class="lis_L">
+                    <div class="lis_l" v-for="(o, index) in c_list" :key="index">
+                        <div class="left_list">
+                            <p @click="idx=index">{{o.name}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lis_R" v-for="(o, index) in c_list" :key="index">
+                    <div class="right_list" v-show="index===idx">
+                        <div v-for="(i, index) in o.list" :key="index">
+                            <img :src="i.img" alt="">
+                            <p class="name">{{i.name}}</p>
+                            <p class="jiage" style="color: orangered;">{{i.jiage}}</p>
+                            <p class="num">
+                                <span class="jian" @click="jian(i)">-</span>
+                                <span>{{i.num}}</span>
+                                <span class="jia" @click="jia(i)">+</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="box_foot">
+                <div class="fl f_active">分类</div>
+                <div class="gwc">购物车</div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                h_list: ['热销产品', '综合排序', '按价格', '分类'],
+                idx: 0,
+                c_list: [{
+                    name: '猜你喜欢',
+                    list: [{
+                        name: "保税区现货Similac加拿大雅培3段幼儿奶粉850克原味 非转基因原料",
+                        img: "http://gw.alicdn.com/bao/uploaded/i4/1969845060/O1CN01mCHD0k1nFWaj40Lr7_!!0-item_pic.jpg",
+                        jiage: '￥175',
+                        num: '0'
+                    }, {
+                        name: "美国进口Labrada男性减脂胶囊 控制食欲顽固型燃脂瘦身大肚子60粒",
+                        img: "http://gw.alicdn.com/bao/uploaded/i2/3128735740/O1CN01mM6B2S1sGxwxrVxQB_!!0-item_pic.jpg",
+                        jiage: '￥148.8',
+                        num: '0'
+                    }, {
+                        name: "【会员专享】高丝无香型防晒喷雾50g",
+                        img: "http://gw.alicdn.com/bao/uploaded/i3/2877976327/O1CN015vht1F1wboPQNjleV_!!0-item_pic.jpg",
+                        jiage: '￥129.8',
+                        num: '0'
+                    }, {
+                        name: "保税区现货Similac加拿大雅培3段幼儿奶粉850克原味 非转基因原料",
+                        img: "http://gw.alicdn.com/bao/uploaded/i4/1969845060/O1CN01mCHD0k1nFWaj40Lr7_!!0-item_pic.jpg",
+                        jiage: '￥175',
+                        num: '0'
+                    }, {
+                        name: "美国进口Labrada男性减脂胶囊 控制食欲顽固型燃脂瘦身大肚子60粒",
+                        img: "http://gw.alicdn.com/bao/uploaded/i2/3128735740/O1CN01mM6B2S1sGxwxrVxQB_!!0-item_pic.jpg",
+                        jiage: '￥148.8',
+                        num: '0'
+                    }, {
+                        name: "【会员专享】高丝无香型防晒喷雾50g",
+                        img: "http://gw.alicdn.com/bao/uploaded/i3/2877976327/O1CN015vht1F1wboPQNjleV_!!0-item_pic.jpg",
+                        jiage: '￥129.8',
+                        num: '0'
+                    }, ]
+                }, {
+                    name: '美丽人生',
+                    list: [{
+                        name: "买1送1 赫恩男士面膜去黑头痘印送美白补水保湿控油祛痘收缩毛孔",
+                        img: "http://gw.alicdn.com/bao/uploaded/i3/693062995/O1CN01meyDHq1Xzkjx77KyS_!!0-item_pic.jpg",
+                        jiage: '￥175',
+                        num: '0'
+                    }, {
+                        name: "与狼共舞短袖t恤2019夏装新品潮流衣服夏季男士休闲黑色体恤男装",
+                        img: "http://gw.alicdn.com/bao/uploaded/i2/748172324/O1CN019UuhJa1T2QzNFlXIs_!!0-item_pic.jpg",
+                        jiage: '￥49.8',
+                        num: '0'
+                    }, {
+                        name: "Daphne/达芙妮杜拉拉夏新品时尚绒面拖鞋时装凉鞋1717303093",
+                        img: "http://gw.alicdn.com/bao/uploaded/i4/2105000994/O1CN01gtNZIP1JDIDp0DwnN_!!0-item_pic.jpg",
+                        jiage: '￥39',
+                        num: '0'
+                    }, {
+                        name: "春秋季环球低帮帆布鞋学生白色休闲韩版潮男女鞋子板鞋情侣款44码",
+                        img: "http://gw.alicdn.com/bao/uploaded/i2/T1f0WkFI0XXXXXXXXX_!!0-item_pic.jpg",
+                        jiage: '￥55',
+                        num: '0'
+                    }, {
+                        name: "买1送1 赫恩男士面膜去黑头痘印送美白补水保湿控油祛痘收缩毛孔",
+                        img: "http://gw.alicdn.com/bao/uploaded/i3/693062995/O1CN01meyDHq1Xzkjx77KyS_!!0-item_pic.jpg",
+                        jiage: '￥175',
+                        num: '0'
+                    }, {
+                        name: "与狼共舞短袖t恤2019夏装新品潮流衣服夏季男士休闲黑色体恤男装",
+                        img: "http://gw.alicdn.com/bao/uploaded/i2/748172324/O1CN019UuhJa1T2QzNFlXIs_!!0-item_pic.jpg",
+                        jiage: '￥49.8',
+                        num: '0'
+                    }, {
+                        name: "Daphne/达芙妮杜拉拉夏新品时尚绒面拖鞋时装凉鞋1717303093",
+                        img: "http://gw.alicdn.com/bao/uploaded/i4/2105000994/O1CN01gtNZIP1JDIDp0DwnN_!!0-item_pic.jpg",
+                        jiage: '￥39',
+                        num: '0'
+                    }, {
+                        name: "春秋季环球低帮帆布鞋学生白色休闲韩版潮男女鞋子板鞋情侣款44码",
+                        img: "http://gw.alicdn.com/bao/uploaded/i2/T1f0WkFI0XXXXXXXXX_!!0-item_pic.jpg",
+                        jiage: '￥55',
+                        num: '0'
+                    }, ]
+                }, {
+                    name: '潮电酷玩',
+                    list: [{
+                        name: "MOTOROLA 摩托罗拉XIR P3688对讲机原装原装充电器 WPLN4137",
+                        img: "http://gw.alicdn.com/bao/uploaded/i2/1969043540/TB1WyDdbPgy_uJjSZKPXXaGlFXa_!!0-item_pic.jpg",
+                        jiage: '￥255',
+                        num: '0'
+                    }, {
+                        name: "Mionix Alioth 大熊座 ε 细密纤维游戏鼠标垫包边防水电竞鼠标垫 ",
+                        img: "http://gw.alicdn.com/bao/uploaded/i4/4222945926/O1CN01SA4eQl1te9Yp8fAYV_!!0-item_pic.jpg",
+                        jiage: '￥148.8',
+                        num: '0'
+                    }, {
+                        name: "万利达小孩k歌唱歌宝宝话筒儿童麦克风3-6岁可充电无线蓝牙卡拉ok",
+                        img: "http://gw.alicdn.com/bao/uploaded/i4/2528444943/O1CN01zrGjBM1mNwFPrUiph_!!0-item_pic.jpg",
+                        jiage: '￥78',
+                        num: '0'
+                    }, {
+                        name: "艾美特(Airmate电风扇FSW61R家用遥控落地扇摇头定时三叶扇1",
+                        img: "http://gw.alicdn.com/bao/uploaded/i2/3793318790/O1CN01VCc8TG2Enrw3UunpT_!!0-item_pic.jpg",
+                        jiage: '￥199',
+                        num: '0'
+                    }, {
+                        name: "原装正品无线蓝牙耳机运动跑步双耳塞挂耳入耳颈挂脖式头戴苹果音乐HIFI重低音低音炮手机通用型男女生立体声 ",
+                        img: "http://gw.alicdn.com/bao/uploaded/i1/3898002436/O1CN011TrjHTGT64vadFe_!!0-item_pic.jpg",
+                        jiage: '￥98',
+                        num: '0'
+                    }, {
+                        name: "MOTOROLA 摩托罗拉XIR P3688对讲机原装原装充电器 WPLN4137",
+                        img: "http://gw.alicdn.com/bao/uploaded/i2/1969043540/TB1WyDdbPgy_uJjSZKPXXaGlFXa_!!0-item_pic.jpg",
+                        jiage: '￥255',
+                        num: '0'
+                    }, {
+                        name: "Mionix Alioth 大熊座 ε 细密纤维游戏鼠标垫包边防水电竞鼠标垫 ",
+                        img: "http://gw.alicdn.com/bao/uploaded/i4/4222945926/O1CN01SA4eQl1te9Yp8fAYV_!!0-item_pic.jpg",
+                        jiage: '￥148.8',
+                        num: '0'
+                    }, ]
+                }, {
+                    name: '居家生活',
+                    list: [{
+                        name: "口水娃蚕豆兰花豆1000克小包装蟹香牛肉香辣口水豆休闲零食小吃",
+                        img: "http://gw.alicdn.com/bao/uploaded/i1/3487667435/O1CN01cmPjst24nHElPO9Ub_!!0-item_pic.jpg",
+                        jiage: '￥10.5',
+                        num: '0'
+                    }, {
+                        name: "RELEA/物生物 沁茗泡茶杯茶仓",
+                        img: "http://gw.alicdn.com/bao/uploaded/i1/2787695101/TB21qXeD9tYBeNjSspaXXaOOFXa_!!2787695101-0-item_pic.jpg",
+                        jiage: '￥10',
+                        num: '0'
+                    }, {
+                        name: "中公2019年山东省教师招聘考试用书教育基础知识易混易错纠错1000题山东教师招聘菏泽枣庄烟台临沂青岛市山东教师招聘教基纠错习题",
+                        img: "http://gw.alicdn.com/bao/uploaded/i2/2738171614/O1CN01On74KI1NnFm98AEMs_!!0-item_pic.jpg",
+                        jiage: '￥20',
+                        num: '0'
+                    }, {
+                        name: "口水娃蚕豆兰花豆1000克小包装蟹香牛肉香辣口水豆休闲零食小吃",
+                        img: "http://gw.alicdn.com/bao/uploaded/i1/3487667435/O1CN01cmPjst24nHElPO9Ub_!!0-item_pic.jpg",
+                        jiage: '￥10.5',
+                        num: '0'
+                    }, {
+                        name: "RELEA/物生物 沁茗泡茶杯茶仓",
+                        img: "http://gw.alicdn.com/bao/uploaded/i1/2787695101/TB21qXeD9tYBeNjSspaXXaOOFXa_!!2787695101-0-item_pic.jpg",
+                        jiage: '￥10',
+                        num: '0'
+                    }, {
+                        name: "天堂伞2025E碰半自动二折男士商务晴雨伞弯勾折叠一甩干强拒水",
+                        img: "http://gw.alicdn.com/bao/uploaded/i3/14160029412328281/T13B7FXk4bXXXXXXXX_!!0-item_pic.jpg",
+                        jiage: '￥39',
+                        num: '0'
+                    }, ]
+                }, ]
+            },
+            computed: {
+            },
+            methods: {
+                jia(num) {
+                    var price=num.num++;
+                },
+                jian(num) {
+                   if(num.num<=0){
+                       return
+                   }
+                   num.num--;
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

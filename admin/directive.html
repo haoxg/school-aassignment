@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>directive自定义指令</title>
+    <script src="../assets/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="change">1</button>
+        <div v-if="msg" v-shadow="style">123</div>
+        <abc v-shadow="style"></abc>
+    </div>
+    <script>
+        Vue.component('abc',{
+            template:'<div>123<a>111</a></div>',
+
+        });
+
+
+        Vue.filter('filtername',function(value,arg1){
+
+        });
+        // Vue.directive('shadow',function(el,binding,VNode,oldVNode){
+        //    el.style.boxShadow = binding.value;
+        // });
+        Vue.directive('shadow',{
+            bind(el,binding,VNode,oldVNode){
+                console.log(1);
+                el.style.boxShadow = binding.value;
+            },
+            inserted(el,binding,VNode,oldVNode){
+                console.log(2);
+            },
+            update(el,binding,VNode,oldVNode){
+                el.style.boxShadow = binding.value;
+                console.log(3);
+            },
+            componentUpdated(el,binding,VNode,oldVNode){
+
+            },
+            unbind(el,binding,VNode,oldVNode){
+                console.log(4);
+            }
+        })
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg:true,
+                style: 'blue 10px 1px 1px'
+            },
+            methods: {
+                change(){
+                    this.msg = !this.msg;
+                }
+            },
+            computed: {
+                abc:{
+                    get(){},
+                    set(){},
+                }
+            },
+
+        })
+    </script>
+</body>
+</html>

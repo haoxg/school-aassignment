@@ -20,16 +20,27 @@
         .bg {
             background: coral;
         }
+        .fl{float: left;}
     </style>
 </head>
 
 <body>
     <div id="app">
-        <span @click='btn1'>首页</span>
-        <span @click='inup'>上一页</span>
-        <span v-for='i,o in maxSize' @click='color(o)' :class='{bg:abc+o==bgclass}'>{{abc+o}}</span>
-        <span @click='up'>下一页</span>
-        <span @click='btn10'>尾页</span>
+        <div class="fl">
+            <span @click='btn1'>首页</span>
+            <span @click='inup'>上一页</span>
+        </div>
+        <div class="fl">
+            <span v-show='qqq'>1</span>
+            <span v-show='qqq'>...</span>
+            <span v-for='i,o in maxSize' @click='color(abc+o)' :class='{bg:abc+o==bgclass}'>{{abc+o}}</span>
+            <span v-show='aaa'>...</span>
+            <span v-show='aaa'>{{list}}</span>  
+        </div>
+        <div class="fl">
+            <span @click='up'>下一页</span>
+            <span @click='btn10'>尾页</span>
+        </div>
     </div>
 </body>
 <script>
@@ -38,27 +49,37 @@
         data: {
             lee: 9,
             list: 100,
-            bgclass: 1,
+            bgclass: 55,
         },
         computed: {
-            maxSize() {
-                return this.list < this.lee ? this.list : this.lee
+            qqq(){
+                if(this.bgclass-Math.floor(this.lee/2)>1){
+                    return true
+                }
+            },
+            aaa(){
+                if(this.bgclass-Math.floor(this.lee/2)<this.list-this.lee){
+                    return true
+                }
+            },
+            maxSize(){
+                return this.list>this.lee?this.lee:this.list
             },
             abc() {
-                if (this.bgclass <= Math.floor(this.lee / 2)) {
+                if(this.bgclass<=Math.floor(this.lee/2)){
                     return 1
-                } else if (this.bgclass >= this.list - Math.floor(this.lee / 2)) {
-                    console.log(this.bgclass >= this.list - Math.floor(this.lee / 2))
-                    return this.list - this.lee + 1
-                } else {
-                    return this.bgclass - Math.floor(this.lee / 2)
+                }else if(this.bgclass>=this.list-Math.floor(this.lee/2)){
+                    return this.list-this.lee+1
+                }else{
+                    return this.bgclass-Math.floor(this.lee/2)
                 }
+                
             }
 
         },
         methods: {
             up() {
-                this.bgclass = this.bgclass < this.list ? ++this.bgclass : this.list;
+                this.bgclass = this.bgclass < this.list ? ++this.bgclass : this.list;           
             },
             inup() {
                 this.bgclass = this.bgclass > 1 ? --this.bgclass : 1;
@@ -69,8 +90,8 @@
             btn10() {
                 this.bgclass = this.list;
             },
-            color(o) {
-                this.bgclass = o;
+            color(i) {
+                this.bgclass = i;
             },
         }
     })

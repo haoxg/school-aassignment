@@ -35,10 +35,13 @@
     <div id="app">
         <ul>
             <li @click="first">首页</li>
-            <li @click="prev">上一页</li>
-            <li v-for="i,index in maxpagesize" @click="zhh(firstPage+index)" :class="{active:firstPage+index==currentPage}" id="oli">{{firstPage+index}}</li>
-            <li>{{pages}}</li>
 
+            <li @click="prev">上一页</li>
+            <!-- <li>1</li> -->
+            <li v-show="leftt">...</li>
+            <li v-for="i,index in maxpagesize" @click="zhh(firstPage+index)" :class="{active:firstPage+index==currentPage}" id="oli">{{firstPage+index}}</li>
+            <li v-show="rightt">...</li>
+            <li>{{pages}}</li>
             <li @click="next">下一页</li>
             <li @click="last">尾页</li>
 
@@ -51,9 +54,29 @@
         data: {
             pageSize: 5,
             currentPage: 1,
-            pages: 50
+            pages: 50,
+            leftt: false,
+            rightt: false
         },
         computed: {
+            leftt() {
+                if (this.pages > this.pageSize) {
+                    if (this.currentPage > Math.floor(this.pageSize / 2) + 1) {
+                        return true
+                    } else {
+                        return false
+                    }
+                }
+            },
+            rightt() {
+                if (this.pages > this.pageSize) {
+                    if (this.currentPage > Math.floor(this.pageSize / 2) + 1) {
+                        return true
+                    } else {
+                        return false
+                    }
+                }
+            },
 
             maxpagesize() {
                 return this.pages < this.pageSize ? this.pages : this.pageSize

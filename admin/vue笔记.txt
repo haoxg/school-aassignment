@@ -38,6 +38,20 @@ v-for和v-if同时出现是，v-for的优先级大于v-if
     监听对象属性 对象键路径必须加上引号（’obj.name’）
     通过实例方法$watch 来监听数据   vm.$watch('数据',function(){})
 
+--filter--
+   管道符：|
+   过滤器定义：
+	全局定义：Vue.filter('过滤器名字'，function（）｛｝)
+	局部定义：filters｛'过滤器名字'：function（）｛｝｝
+    过滤器的第一个参数是，要过滤的值
+    过滤器的第二个参数是，过滤器的第一个参数,以此类推
+    可以用在双花括号插值和 v-bind 表达式
+    过滤器 可以链式调用
+    过滤器参数： data | filterA (arg1,arg2)
+    过滤器更像是‘一对多’的计算熟悉 vs 计算属性 一对一
+    vue1.X的内置过滤器：（了解，2.x版本已经移除这些过滤器），
+	Capitalize、uppercase、lowercase、currency、pluralize、debounce、limitBy、filterBy、orderBy
+
 
 
 

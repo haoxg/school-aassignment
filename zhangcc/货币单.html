@@ -110,11 +110,11 @@
             filters:{
                 chinese(value){
                     var list1=['','壹','贰','叁','肆','伍','陆','柒','捌','玖'];
-                    var list2=['整元','拾','佰','仟','万','拾','佰','仟','亿',];
+                    var list2=['整元','拾','佰','仟','万','拾','佰','仟',];
                     value+='';
                     var a='';
                     for(var i=value.length;i>0;i--){
-                        a+=value.charAt(i-1)==0?'零':list2[value.length]
+                        a+=value.charAt(i-1)==0?'零':list2[value.length-i]
                         a+=list1[value.charAt(i-1)];
                     };
                     return a.split("").reverse().join("");

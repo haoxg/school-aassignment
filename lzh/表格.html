@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border: 1px solid #000000;
+            border-collapse: collapse;
+        }
+
+        tr {
+            overflow: hidden;
+        }
+
+        td {
+            width: 250px;
+            height: 100px;
+            border: 1px solid #000;
+            text-align: center;
+
+        }
+
+        .div1 {
+            width: 250px;
+            height: 100px;
+            text-align: center;
+            line-height: 100px;
+        }
+
+        td input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            text-align: center;
+            line-height: 100px;
+            position: absolute;
+            top: 0;left: 0;
+            display: none;
+        }
+        [v-cloak]{
+            display: none;
+        }
+        .shuru td{
+            text-align: center;
+            line-height: 100px;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        <div class="div1" contenteditable="true">品名</div>
+                    </td>
+                    <td>
+                        <div class="div1" contenteditable="true">数量</div>
+                    </td>
+                    <td>
+                        <div class="div1" contenteditable="true">单价(元)</div>
+                    </td>
+                    <td :rowspan="len">
+                        <table>
+                            <tr>
+                                <td style="height: 50px" colspan="5">金额</td>
+                            </tr>
+                            <tr>
+                                <td style="height: 50px">万</td>
+                                <td style="height: 50px">千</td>
+                                <td style="height: 50px">百</td>
+                                <td style="height: 50px">十</td>
+                                <td style="height: 50px">元</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <div contenteditable="true">备注</div>
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="shuru" v-for="(i, index) in list" :key="index">
+                    <td @click.self="ninput">
+                        {{i.name}}<input type="text" @blur="binput" v-model="i.name"></div>
+                    </td>
+                    <td @click.self="ninput">
+                        {{i.num}}<input type="text" @blur="binput" v-model="i.num"></div>
+                    </td>
+                    <td @click.self="ninput">
+                        {{i.price}}<input type="text" @blur="binput" v-model="i.price"></div>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td v-for="(i, index) in sum" :key="index">
+                                    {{i}}
+                                </td>
+                                <!-- <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td> -->
+                            </tr>
+                        </table>
+                    </td>
+                    <td colspan="2">
+                        <input type="text" v-model="i.txt">
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>合计</td>
+                    <td colspan="4">{{sum | count(sum)}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                list: [{
+                    name: '(￣▽￣)',
+                    num: '',
+                    price: '',
+                    txt: '',
+                }]
+            },
+            filters:{
+                count(value){
+                    var list1=[' ','壹','贰','叁','肆','伍','陆','柒','扒','玖',]
+                    var list2=['元整','拾','佰','仟','萬',]
+                    value+='';
+                    var a='';
+                    for(var i=value.length;i>0;i--){
+                        a+=value.charAt(i-1)==0?'零':list2[value.length-1];
+                        a+=list1[value.charAt(i-1)]
+                    }  
+                    return a.split("").reverse().join(''); 
+                }
+            },
+            computed: {
+                len(){
+                    return this.list.length+1
+                },
+                sum(){
+                    var arr=[];
+                    var str='';
+                    var arr1=[];
+                    this.list.forEach(element => {
+                        var a=element.num*element.price+'';
+                        var b=5-a.length;
+                        for (let i = 0; i < b; i++) {
+                            a=''+a;
+                        }
+                        arr.push(a)
+                        arr1=arr[0].split(' ').join(' ');
+                    });
+                    return arr1;
+                },
+            },
+            methods: {
+                ninput(event){
+                    console.log()
+                    event.target.children[0].style.display="block";
+                    event.target.children[0].focus()
+                },
+                binput(){
+                    event.target.style.display="none";
+                },
+            },
+        })
+    </script>
+</body>
+
+</html>

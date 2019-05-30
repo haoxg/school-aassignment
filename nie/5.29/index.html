@@ -1,0 +1,263 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../5.24/vue.js"></script>
+    <title>Document</title>
+    <style>
+        table {
+            width: 1000px;
+            height: 300px;
+            text-align: center
+        }
+        
+        .input {
+            width: 100%;
+            height: 100%;
+            border: none
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+
+
+
+        <table border="1" cellspacing=0>
+            <tr>
+                <td rowspan="2">品名</td>
+                <td rowspan="2">数量</td>
+                <td rowspan="2">单价</td>
+                <td colspan="5">金额</td>
+                <td rowspan="2">备注</td>
+            </tr>
+            <tr>
+                <td>万</td>
+                <td>千</td>
+                <td>百</td>
+                <td>十</td>
+                <td>个</td>
+            </tr>
+            <tr>
+                <td><input class="input" type="text"></td>
+                <td><input class="input" type="text"></td>
+                <td><input class="input" type="text"></td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><input class="input" type="text"></td>
+            </tr>
+            <tr>
+                <td><input class="input" type="text"></td>
+                <td><input class="input" type="text"></td>
+                <td><input class="input" type="text"></td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td><input class="input" type="text"></td>
+            </tr>
+            <tr>
+                <td>合计人民币(大写)</td>
+                <th colspan="8">元整</th>
+            </tr>
+        </table>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                list: [{
+                    name: '1',
+                    number: '',
+                    price: '',
+                    beizhu: ''
+                }, {
+                    name: '',
+                    number: '',
+                    price: '',
+                    beizhu: ''
+                }]
+            },
+            computed: {
+                leg() {
+                    return this.list.length
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <script src="../5.24/vue.js"></script>
+
+    <title>Document</title>
+    <style>
+        .table {
+            margin: 0;
+        }
+        
+        .table tbody>tr>td {
+            height: 50px;
+            line-height: 50px;
+            padding: 0;
+            position: relative;
+        }
+        
+        .table2 thead>tr>td {
+            height: 25px;
+            line-height: 25px;
+            padding: 0;
+        }
+        
+        .input {
+            width: 100%;
+            height: 50px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <table class="table table-bordered" style="text-align:center">
+            <tbody>
+                <tr>
+                    <td>品名</td>
+                    <td>数量</td>
+                    <td>单价(元)</td>
+                    <td :rowspan="productLength+1">
+                        <table class="table2 table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td colspan="5">金额</td>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>万</td>
+                                    <td>千</td>
+                                    <td>百</td>
+                                    <td>十</td>
+                                    <td>元</td>
+                                </tr>
+                                <tr v-for="i,index in amountList">
+                                    <!-- <td v-for="item in list[index].prie*list[index].number+''">{{item}}</td> -->
+                                    <td v-for="a in i">{{a}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>备注</td>
+                </tr>
+                <tr v-for="product,index in list">
+                    <td @click.self="shouwInput">{{product.name}} <input @blur="hideInput" class="input" type="text" v-model="product.name"></td>
+                    <td @click.self="shouwInput">{{product.number}} <input @blur="hideInput" class="input" type="text" v-model="product.number"></td>
+                    <td @click.self="shouwInput">{{product.prie}} <input @blur="hideInput" class="input" type="text" v-model="product.prie"></td>
+                    <td @click.self="shouwInput">{{product.beizhu}} <input @blur="hideInput" class="input" type="text" v-model="product.beizhu"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>合计(大写)</td>
+                    <td colspan="4">{{total}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                list: [{
+                    name: '3',
+                    number: '2',
+                    prie: '3',
+                    beizhu: '4'
+                }, {
+                    name: '',
+                    number: '',
+                    prie: '',
+                    beizhu: ''
+                }]
+            },
+
+            computed: {
+                productLength() {
+                    return this.list.length
+                },
+                amountList() {
+                    var arr = []
+                    this.list.forEach(element => {
+                        var a = element.prie * element.number + '';
+                        var b = 5 - a.length;
+                        for (var i = 0; i < b; i++) {
+                            a = ' ' + a
+                        }
+                        arr.push(a);
+
+                    });
+                    console.log(arr)
+                    return arr
+                },
+                total() {
+                    var totl = 0;
+                    this.list.forEach(element => {
+                        totl += element.prie * element.number
+                    })
+                    return totl
+                }
+
+            },
+            // filters: {
+            //     chinese(value) {
+            //         var list1 = ['', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖']
+            //         var list2 = ['正元', '拾', '佰', '仟', '万', '拾', '佰', '仟', '亿']
+            //         value += '';
+            //         var a = '';
+            //         for (let i = 0; i < value.length; i--) {
+            //             a += value.charAt(i - 1) == 0 ? '零' : list2[value.length - i]
+            //             a += list1[value.charAt(i - 1)]
+            //         }
+            //         return a.split("").reverse().join("")
+            //     }
+            // },
+            methods: {
+                shouwInput(e) {
+                    e.target.children[0].style.display = 'block'
+
+                },
+                hideInput(e) {
+                    e.target.style.display = 'none'
+                }
+
+            }
+
+        })
+    </script>
+</body>
+
+</html>

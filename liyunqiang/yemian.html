@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload = function() {
+            document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 * 100 + 'px';
+            window.onresize = function() {
+                document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 * 100 + 'px';
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="../zhouhuiling/font_qort9ra9nzk/iconfont.css">
+    <link rel="stylesheet" href="../zhouhuiling/font_qort9ra9nzk/demo_index.html">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            text-decoration: none;
+        }
+        
+        #box {
+            width: 100%;
+            min-height: 12.5rem;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+        }
+        
+        #header {
+            width: 100%;
+            height: 1.25rem;
+        }
+        
+        #ziti {
+            height: 1.25rem;
+            text-align: center;
+            line-height: 1.25rem;
+            font-size: .35rem;
+        }
+        
+        #sousuo {
+            float: right;
+            margin-right: 15%;
+            font-size: .35rem
+        }
+        
+        #nav {
+            width: 99%;
+            height: 1.25rem;
+            border: 1px solid #ccc;
+        }
+        
+        #nav ul {
+            width: 100%;
+            height: 1.25rem;
+        }
+        
+        #nav ul li {
+            width: 24.5%;
+            height: 1.25rem;
+            line-height: 1.25rem;
+            border-right: 1px solid #ccc;
+            font-size: .3rem;
+            text-align: center;
+            float: left;
+        }
+        
+        #nav ul li:nth-of-type(4) {
+            border-right: none;
+        }
+        
+        #left {
+            width: 25%;
+            height: 8rem;
+            border: 1px solid #ccc;
+        }
+        
+        #right {
+            width: 35%;
+            float: right;
+        }
+        
+        #first {
+            float: right;
+            width: 50%;
+        }
+        
+        span {
+            font-size: 14px;
+            width: 50px;
+        }
+        
+        img {
+            width: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="box">
+            <div id="header">
+                <p id="ziti">派送至:北京石景山
+                    <span class="icon iconfont">&#xe615;</span>
+                    <span class="icon iconfont" id="sousuo">&#xe61f;</span>
+                </p>
+            </div>
+            <div id="nav">
+                <ul>
+                    <li>热销新品</li>
+                    <li>综合排序</li>
+                    <li>按价格</li>
+                    <li>分类</li>
+                </ul>
+            </div>
+            <div id="right ">
+                <div id="first " v-for="b,index in arr[indexl].con ">
+                    <img :src="b.img">
+                    <span>{{b.text}}</span>
+                    <span>{{b.jiage}}</span>
+                </div>
+            </div>
+            <div id="left">
+                <ul>
+                    <li v-for="a,index in arr" style="font-size: 18px;width: 100%;height: 40px;border-bottom: 1px solid #ccc;text-align: center;line-height: 40px" @click="showItem(index)">{{a.name}}</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            indexl: 0,
+            arr: [{
+                name: '优选水果',
+                con: [{
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: '新鲜青柠500g/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }]
+            }, {
+                name: '优选水果',
+                con: [{
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }]
+            }, {
+                name: '优选水果',
+
+            }, {
+                name: '优选水果',
+
+            }, {
+                name: '优选水果',
+
+            }, {
+                name: '优选水果',
+
+            }, {
+                name: '优选水果',
+
+            }, {
+                name: '优选水果',
+
+            }, {
+                name: '优选水果',
+
+            }, {
+                name: '优选水果',
+
+            }, {
+                name: '优选水果',
+
+            }]
+        },
+        methods: {
+            showItem(index) {
+                this.indexl = index;
+                console.log(index)
+
+            },
+
+        }
+    })
+</script>
+
+</html>

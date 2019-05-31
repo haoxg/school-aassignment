@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="font/font_qort9ra9nzk/iconfont.css">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none
+    }
+    
+    #box {
+        width: 360px;
+        height: 600px;
+        border: 1px solid #ccc;
+        margin: 20px auto;
+    }
+    
+    #title {
+        width: 100%;
+        height: 60px;
+        border-bottom: 1px solid #ccc;
+        text-align: center;
+        line-height: 40px
+    }
+    
+    #left {
+        width: 90px;
+        height: 560px;
+        border-right: 1px solid #ccc
+    }
+    
+    #left li {
+        width: 100%;
+        height: 40px;
+        border-bottom: 1px solid #ccc;
+        text-align: center;
+        line-height: 40px
+    }
+    
+    #right {
+        width: 270px;
+        height: 560px;
+        /* border: 1px solid #ccc; */
+        float: right;
+        box-sizing: border-box
+    }
+    
+    #r-title {
+        border-bottom: 1px solid #ccc
+    }
+    
+    #r-title li {
+        width: 84px;
+        text-align: center;
+        line-height: 40px;
+        display: inline-block;
+        font-size: 14px
+    }
+    
+    #img img {
+        width: 80px;
+        height: 80px;
+        margin-left: 1px;
+        float: left;
+    }
+    
+    #list2 {
+        width: 189px;
+        height: 80px;
+        float: right;
+    }
+    
+    .active {
+        background: #daadad;
+        border-left: 2px solid blue;
+        box-sizing: border-box
+    }
+    
+    #text {
+        font-size: 14px;
+        margin-left: 5px;
+        font-size: 12px
+    }
+    
+    #pirce {
+        color: rgb(174, 209, 18);
+        margin-top: 15px;
+        margin-left: 5px;
+        ;
+    }
+    
+    #list2 {
+        border-bottom: 1px solid #ccc
+    }
+    
+    button {
+        width: 15px;
+        outline: none;
+    }
+    
+    #ss {
+        float: right;
+        margin: 25px
+    }
+</style>
+
+<body>
+
+    <div id="app">
+        <div id="box">
+            <div id="title">
+                <p>配送至:边马乡<span class="icon iconfont">&#xe615;</span></p>
+            </div>
+            <div id="con">
+                <div id="right">
+                    <div id="r-title">
+                        <ul>
+                            <li>综合排序</li>
+                            <li>按价格</li>
+                            <li>分类</li>
+                        </ul>
+                    </div>
+                    <div id="r-con" v-for="a,index in arr[indexl].con">
+
+
+                        <div id="list2">
+                            <div>
+                                <span id="text">{{a.text}}</span>
+                                <!-- <span id="ss"><button>-</button><b>0</b><button>+</button></span> -->
+
+                                <p id="pirce">{{a.pirce}}</p>
+                            </div>
+                        </div>
+                        <div id="img"><img :src="a.img" alt=""></div>
+
+                    </div>
+
+                </div>
+                <div id="left">
+                    <ul>
+                        <li v-for="i,index in arr" @click="aa(index)" id="oli" :class="{active:istrue==index}">
+                            {{i.name}}
+
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            indexl: 0,
+            istrue: 0,
+            arr: [{
+                name: '热销新品',
+                con: [{
+                    img: "http://pic37.nipic.com/20140113/8800276_184927469000_2.png",
+                    text: '新鲜青柠500g/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    pirce: '￥12元'
+                }, {
+                    img: "http://pic37.nipic.com/20140113/8800276_184927469000_2.png",
+                    text: '新鲜青柠500g/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    pirce: '￥12元'
+                }]
+            }, {
+                name: '优选水果',
+                con: [{
+                    img: "http://k.zol-img.com.cn/sjbbs/7692/a7691515_s.jpg",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    pirce: '￥12元'
+                }]
+            }, {
+                name: '卤味熟食',
+                con: [{
+                    img: "http://pic15.nipic.com/20110628/1369025_192645024000_2.jpg",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    pirce: '￥12元'
+                }]
+
+            }, {
+                name: '牛奶面包',
+                con: [{
+                    img: "http://pic37.nipic.com/20140110/17563091_221827492154_2.jpg",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    pirce: '￥12元'
+                }]
+
+            }, {
+                name: '热饮',
+                con: [{
+                    img: "http://pic1.nipic.com/2009-02-17/200921701719614_2.jpg",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    pirce: '￥12元'
+                }]
+
+            }, {
+                name: '冰淇淋',
+                con: [{
+                    img: "http://pic9.nipic.com/20100923/2531170_140325352643_2.jpg",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    pirce: '￥12元'
+                }]
+
+            }, {
+                name: '饮料酒水',
+                con: [{
+                    img: "http://k.zol-img.com.cn/sjbbs/7692/a7691515_s.jpg",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    pirce: '￥12元'
+                }]
+
+            }, {
+                name: '休闲零食',
+                con: [{
+                    img: "http://k.zol-img.com.cn/sjbbs/7692/a7691515_s.jpg",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    pirce: '￥12元'
+                }]
+
+            }, {
+                name: '方便速食',
+                con: [{
+                    img: "http://k.zol-img.com.cn/sjbbs/7692/a7691515_s.jpg",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    pirce: '￥12元'
+                }]
+
+            }, {
+                name: '数码家电',
+                con: [{
+                    img: "http://k.zol-img.com.cn/sjbbs/7692/a7691515_s.jpg",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    pirce: '￥12元'
+                }]
+
+            }, {
+                name: '环球美食',
+                con: [{
+                    img: "http://k.zol-img.com.cn/sjbbs/7692/a7691515_s.jpg",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    pirce: '￥12元'
+                }]
+
+            }]
+        },
+        methods: {
+            aa(index) {
+                this.indexl = index;
+                this.istrue = index;
+            }
+        },
+    })
+</script>
+
+</html>

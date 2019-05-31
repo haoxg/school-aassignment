@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue/dist/vue.js"></script>
+    <style>
+        #app {
+            width: 360px;
+            height: 640px;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        
+        .box {
+            width: 120px;
+            line-height: 40px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            text-align: center;
+            padding-left: 2px;
+            padding: 2px 0px;
+        }
+        
+        active {
+            border-left: 2px solid blue;
+        }
+        
+        .box1 {
+            width: 238px;
+            border: 1px solid #ccc;
+            line-height: 60px;
+            float: right;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div style="width: 120px;height: auto;float: left;">
+            <div class="box" v-for="(i,index) in list" @click="arr=index" :key="index">{{i.u}}</div>
+        </div>
+        <div class="box1" v-if="arr == index" v-for="(i,index) in list">
+            {{i.j}}
+
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                arr: 0,
+                list: [{
+                    u: '热销新品',
+                    j: '苹果'
+                }, {
+                    u: '优选水果',
+                    j: '香蕉'
+                }, {
+                    u: '卤味熟食',
+                    j: '鸭肉'
+                }, {
+                    u: '牛奶面包',
+                    j: '面包'
+                }, {
+                    u: '热饮',
+                    j: '奶茶'
+                }, {
+                    u: '冰淇淋',
+                    j: '小布丁'
+                }, {
+                    u: '饮料酒水',
+                    j: '鸡尾酒'
+                }],
+
+            },
+            methods: {
+
+            }
+
+        })
+    </script>
+</body>
+
+</html

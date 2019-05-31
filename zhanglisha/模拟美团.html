@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript">	
+		window.onload = function () {
+			document.documentElement.style.fontSize = document.documentElement.clientWidth/ 640 * 100 + 'px';
+			window.onresize = function () {
+				document.documentElement.style.fontSize = document.documentElement.clientWidth/ 640 * 100 + 'px';
+			}
+		}
+	</script>
+    <title>模拟美团</title>
+    <script src='./vue.js'></script>
+    <link rel="stylesheet" href="./iconfont(1).css">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style: none;
+            font-size: 0.18rem;
+        }
+        .clearfix::after,.clearfix::before {
+            content: '';
+            display: table;
+        }
+        .clearfix::after {
+            clear: both;
+        }
+        .clearfix {
+            zoom: 1;
+        }
+        .box{
+            width:100%;
+            height:auto;
+            margin:0 auto;
+        }
+        .header{
+            width:100%;
+            height:0.7rem;
+            line-height: 0.7rem;
+            text-align: center;
+            background-color: aqua;
+            position:relative;
+        }
+        .header h1{
+            font-size:0.18rem;
+        }
+        .iconfont{
+            font-size:0.18rem;
+        }
+        .icon-icon-test{
+            position:absolute;
+            right:0.3rem;
+        }
+        .nav{
+            width:100%;
+            height:0.7rem;
+            line-height: 0.7rem;
+            text-align: center;
+            border:1px #ccc solid;
+        }
+        .list{
+            display: flex;
+            justify-content: space-between;
+        }
+        .list li{
+            width:25%;
+            float:left;
+        }
+        .hot{
+            border-right:1px #ccc solid;
+        }
+        .active{
+            background-size: 0.05rem 0.25rem;
+           background: url(./img/images/bj.png) no-repeat 0.1rem center;
+        }
+        .content{
+            width:100%;
+            height:auto;
+        }
+        .product{
+            width:25%;
+            border:1px #ccc solid;
+            text-align: center;
+            float:left;
+            box-sizing: border-box;
+        }
+        .product li{
+            width:100%;
+            height:0.7rem;
+            line-height: 0.7rem;
+            box-sizing: border-box;
+            border-bottom:1px #ccc solid;
+        }
+        .information{
+            width:75%;
+            height:auto;
+            float:left;
+        }
+        .item-box{
+            width:100%;
+            height:1.4rem;
+            padding:0.1rem;
+            border-bottom:1px #ccc solid;
+           
+            box-sizing: border-box;
+        }
+        .img{
+            width:1.2rem;
+            height:1.2rem;
+            float:left;
+        }
+        .img img{
+            width:100%;
+            height:100%;
+        }
+        .text{
+            width:70%;
+            margin-left:0.1rem;
+            float:left;
+            position: relative;
+        }
+        .text .bt{
+           margin-top:0.3rem;
+           
+        }
+        .price{
+            color:orange;
+        }
+        .text .bt input{
+            width:0.15rem;
+            height:0.15rem;
+            border:none;
+            border:1px #ccc solid;
+            text-align: center;
+        }
+        .text .bt p{
+            float:right;
+        }
+        .jian,.jia{
+            width:0.15rem;
+            height:0.15rem;
+            text-align: center;
+            line-height: 0.15rem;
+            display: inline-block;
+            border:1px solid #ccc;
+            border-radius: 50%;
+            margin:0 0.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div id='app'>
+        <div class="box">
+            <header class='header'>
+                <h1>派送至：北京石景山<i class='iconfont icon-xiala'></i><i class='iconfont icon-icon-test'></i></h1>
+            </header>
+            <div class="nav">
+                <ul class='list'>
+                    <li class='hot active'>热销新品</li>
+                    <li>综合排序</li>
+                    <li>按价格<i class='iconfont icon-shangxiajiantou'></i></li>
+                    <li>排序</li>
+                </ul>
+            </div>
+            <div class="content clearfix">
+                <ul class='product'>
+                    <li @click='xianshi(index)' v-for='item,index in productlist' :class="{'active':i==index}">{{item}}</li>
+                </ul>
+                <div class='information'>
+                    <div class='item-box clearfix' v-for='item,index in list'>
+                        <div class="img">
+                            <img :src="item.img" alt="">
+                        </div>
+                        <div class="text">
+                            <h3>{{item.text}}</h3>
+                            <div class='bt'>
+                                <span class='price'>{{item.price}}</span>
+                                <p>
+                                    <span class='jian'>-</span><input type='text' value='0'><span class='jia'>+</span>
+                                </p>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+       
+    </div>
+    <script>
+       var vm = new Vue({
+            el:'#app',
+            data:{
+                productlist:['优选水果','卤味熟食','牛奶面包','热饮','冰激凌','饮料酒水','休闲零食','方便速食','数码家电','环球美食','运动户外'],
+                arr: [
+                        [
+                            {
+                                img:'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1313270453,3807247283&fm=26&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'http://img02.tooopen.com/images/20150414/tooopen_sy_118451441751.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'http://img4.imgtn.bdimg.com/it/u=2851445260,1524768388&fm=26&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'http://img2.imgtn.bdimg.com/it/u=4259438085,1196209161&fm=26&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'http://img1.imgtn.bdimg.com/it/u=989743373,1247199668&fm=26&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'http://img2.imgtn.bdimg.com/it/u=3941718376,2643720830&fm=26&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'http://img1.imgtn.bdimg.com/it/u=1898610548,51609395&fm=26&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            }
+                            ,{
+                                img:'http://img0.imgtn.bdimg.com/it/u=2611172137,4195398711&fm=26&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            }
+                        ],
+                        [
+                            {
+                                img:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=270613959,1981868654&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3746385074,1140602455&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2929614044,2614709093&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1159558640,543848856&fm=26&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1130404426,1788912373&fm=26&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2929614044,2614709093&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2446440385,2674115126&fm=26&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2361039587,1911492176&fm=26&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=591731724,2807699705&fm=26&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                        ],
+                        [
+                            {
+                                img:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=891543169,1646849409&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1925523793,1792055423&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            }
+                        ],
+                        [
+                            {
+                                img:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2746186180,730858575&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1141338740,1367994576&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            }
+                        ],
+                        [
+                            {
+                                img:'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=792914383,750654932&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1908930410,3356823207&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价', 
+                                price:'￥10.8',
+                                number:'',
+                            }
+                        ],
+                        [
+                            {
+                                img:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2951920470,3970239851&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2522866663,1798252010&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            }
+                        ],
+                        [
+                            {
+                                img:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1427332273,3339980770&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3132824135,2844314173&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            }
+                        ],
+                        [
+                            {
+                                img:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1427332273,3339980770&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3132824135,2844314173&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            }
+                        ],
+                        [
+                            {
+                                img:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1427332273,3339980770&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3132824135,2844314173&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            }
+                        ],
+                        [
+                            {
+                                img:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1427332273,3339980770&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3132824135,2844314173&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            }
+                        ],
+                        [
+                            {
+                                img:'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1427332273,3339980770&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            },
+                            {
+                                img:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3132824135,2844314173&fm=27&gp=0.jpg',
+                                text:'新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                                price:'￥10.8',
+                                number:'',
+                            }
+                        ],
+                    ],
+                    list:[],
+                    i:0,
+            },
+            methods:{
+                xianshi(index){
+                    this.list=this.arr[index];
+                    this.i = index;
+                }
+            },
+        })
+        vm.xianshi(0);
+    </script>
+</body>
+</html>

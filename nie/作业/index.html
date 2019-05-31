@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../../5.24/vue.js"></script>
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .header {
+            width: 400px;
+            height: 50px;
+            border: 1px #ccc solid;
+            box-sizing: border-box;
+        }
+        
+        .content {
+            width: 400px;
+            height: auto;
+            margin: 0 auto;
+        }
+        
+        .con {
+            width: 400px;
+            height: auto;
+        }
+        
+        .list-left {
+            width: 135px;
+            float: left;
+        }
+        
+        .list-left li {
+            height: 40px;
+            border: 1px #ccc solid;
+            border-top: none;
+            text-align: center;
+            line-height: 40px;
+            box-sizing: border-box;
+        }
+        
+        .list-left li:hover {
+            border-left: 2px orange solid;
+        }
+        
+        .list-right {
+            width: 265px;
+            float: left;
+        }
+        
+        .list-right li {
+            width: 100%;
+            height: 80px;
+            border: 1px #ccc solid;
+            border-left: none;
+            border-top: none;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+        
+        .img {
+            width: 60px;
+            height: 60px;
+            float: left;
+            margin-right: 10px;
+        }
+        
+        .span {
+            color: orangered
+        }
+        
+        .p {
+            font-size: 12px;
+            line-height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="content">
+            <div class="header">asdfgj</div>
+            <div class="con">
+                <div class="list-left">
+                    <ul>
+                        <li v-for="item,index in list" @click="btn(item.type)">{{item.type}}</li>
+                    </ul>
+                </div>
+                <div class="list-right">
+                    <ul>
+                        <li v-for="i,index in arr2">
+                            <img class="img" :src="i.img" alt="">
+                            <p class="p">{{i.brief}}</p>
+                            <span class="span">{{i.Price}}</span>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        var arr = [{
+            type: '热销新品',
+            code: [{
+                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img.mp.itc.cn/upload/20160415/59cca1073eaa49788e349c67e4a9c37e.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }]
+        }, {
+            type: '优选水果',
+            code: [{
+
+                img: "http://img2.imgtn.bdimg.com/it/u=2569506716,2804469352&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img2.imgtn.bdimg.com/it/u=2569506716,2804469352&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img0.imgtn.bdimg.com/it/u=2410879087,715013057&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img0.imgtn.bdimg.com/it/u=2410879087,715013057&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img0.imgtn.bdimg.com/it/u=2410879087,715013057&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }]
+        }, {
+            type: '卤味熟食',
+            code: [{
+                img: "http://img1.imgtn.bdimg.com/it/u=2620999328,2967997041&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img1.imgtn.bdimg.com/it/u=2620999328,2967997041&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img1.imgtn.bdimg.com/it/u=2620999328,2967997041&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img1.imgtn.bdimg.com/it/u=2620999328,2967997041&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img1.imgtn.bdimg.com/it/u=2620999328,2967997041&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }]
+        }, {
+            type: '牛奶面包',
+            code: [{
+
+                img: "http://img3.imgtn.bdimg.com/it/u=2363037083,4182949652&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img3.imgtn.bdimg.com/it/u=2363037083,4182949652&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img3.imgtn.bdimg.com/it/u=2363037083,4182949652&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img3.imgtn.bdimg.com/it/u=2363037083,4182949652&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img3.imgtn.bdimg.com/it/u=2363037083,4182949652&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }]
+        }, {
+            type: '热饮',
+            code: [{
+
+                img: "http://img3.imgtn.bdimg.com/it/u=2363037083,4182949652&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img3.imgtn.bdimg.com/it/u=2363037083,4182949652&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img3.imgtn.bdimg.com/it/u=2363037083,4182949652&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img3.imgtn.bdimg.com/it/u=2363037083,4182949652&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img3.imgtn.bdimg.com/it/u=1160786852,2482799599&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }]
+        }, {
+            type: '冰淇淋',
+            code: [{
+
+                img: "http://img3.imgtn.bdimg.com/it/u=1160786852,2482799599&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img3.imgtn.bdimg.com/it/u=4249265489,2863718384&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img3.imgtn.bdimg.com/it/u=4249265489,2863718384&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img3.imgtn.bdimg.com/it/u=4249265489,2863718384&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img3.imgtn.bdimg.com/it/u=4249265489,2863718384&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }]
+        }, {
+            type: '饮料酒水',
+            code: [{
+
+                img: "http://img5.imgtn.bdimg.com/it/u=1141682540,1659055239&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img5.imgtn.bdimg.com/it/u=1141682540,1659055239&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img5.imgtn.bdimg.com/it/u=1141682540,1659055239&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img5.imgtn.bdimg.com/it/u=1141682540,1659055239&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img5.imgtn.bdimg.com/it/u=1141682540,1659055239&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }]
+        }, {
+            type: '休闲零食',
+            code: [{
+
+                img: "http://img5.imgtn.bdimg.com/it/u=1815171837,3738444444&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img5.imgtn.bdimg.com/it/u=1815171837,3738444444&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img5.imgtn.bdimg.com/it/u=1815171837,3738444444&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img5.imgtn.bdimg.com/it/u=1815171837,3738444444&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img5.imgtn.bdimg.com/it/u=1815171837,3738444444&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }]
+        }, {
+            type: '方便速食',
+            code: [{
+
+                img: "http://img4.imgtn.bdimg.com/it/u=4253815709,2032032765&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img4.imgtn.bdimg.com/it/u=4253815709,2032032765&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img4.imgtn.bdimg.com/it/u=4253815709,2032032765&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img4.imgtn.bdimg.com/it/u=4253815709,2032032765&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img4.imgtn.bdimg.com/it/u=4253815709,2032032765&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }]
+        }, {
+            type: '数码家电',
+            code: [{
+
+                img: "http://img1.imgtn.bdimg.com/it/u=3139371874,1979821837&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img1.imgtn.bdimg.com/it/u=3139371874,1979821837&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img1.imgtn.bdimg.com/it/u=3139371874,1979821837&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img1.imgtn.bdimg.com/it/u=3139371874,1979821837&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img1.imgtn.bdimg.com/it/u=3139371874,1979821837&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }]
+        }, {
+            type: '环球美食',
+            code: [{
+                img: "http://img0.imgtn.bdimg.com/it/u=1320059693,324969373&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img0.imgtn.bdimg.com/it/u=1320059693,324969373&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img0.imgtn.bdimg.com/it/u=1320059693,324969373&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img0.imgtn.bdimg.com/it/u=1320059693,324969373&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }, {
+                img: "http://img0.imgtn.bdimg.com/it/u=1320059693,324969373&fm=26&gp=0.jpg",
+                brief: "新鲜青柠500g/盒新鲜特价新鲜特价新鲜特价",
+                Price: "￥10.8"
+            }]
+        }]
+        console.log(arr)
+        new Vue({
+            el: "#app",
+            data: {
+                list: arr,
+                arr2: []
+            },
+            methods: {
+                btn(index) {
+                    for (var i = 0; i < this.list.length; i++) {
+                        if (this.list[i].type == index) {
+                            this.arr2 = this.list[i].code
+                            console.log(this.arr2)
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>生命周期</title>
+  <script src="../assets/js/vue.js"></script>
+
+</head>
+<body>
+  <div id="app">
+    {{a}}{{c}}
+    <button @click="change">change</button>
+    <button @click="destroy">destroy</button>
+
+    <!-- <keep-alive> -->
+      <component :is="view"></component>
+    <!-- </keep-alive> -->
+  </div>
+
+  <script>
+    Vue.component('view1',{
+      template: '<div>view1</div>',
+      activated(){
+        console.log('-------activated keep-alive view组件激活时调用---------');
+      },
+      deactivated(){
+        console.log('-------deactivated keep-alive view组件停用时调用---------');
+      }
+    });
+    Vue.component('view2',{
+      template: '<div>view2</div>'
+    });
+    var vm = new Vue({
+      el:'#app',
+      data:{
+        a:1,
+        c:1,
+        view:'view1'
+      },
+      beforeCreate:function(){
+        // 该状态一般用于假的loading加载  
+        console.log('-------beforeCreate 实例创建前状态---------');
+        console.log(this.$el);
+        console.log(this.$data);
+        console.log(document.getElementById('app').innerHTML);
+      },
+      created() {
+        // 改状态一般用于请求数据接口、结束loading、初始化一些数据等
+        // 如果后台返回数据操作dom，需要把代码放进Vue.nextTick()回调里
+        console.log('-------created 实例创建完成状态---------');
+        console.log(this.$data);
+        console.log(this.b);
+        console.log(this.$el);
+        console.log(document.getElementById('app').innerHTML);
+        // this.$nextTick(function(){
+        //   console.log('执行了nextTick回调');
+        // })
+        Vue.nextTick(function(){
+          console.log('执行了nextTick回调');
+        })
+      },
+      beforeMount() {
+        // 
+        console.log('-------beforeMount 挂载之前的状态---------');
+        console.log(this.$el);
+        console.log(this.$data);
+        console.log(this.b);
+        console.log(document.getElementById('app').innerHTML);
+      },
+      mounted() {
+        // 完成了dom的渲染，可以在这里操作dom、$ref，发起异步请求
+        console.log('-------mounted 已经挂载的状态---------');
+        console.log(this.$el);
+        console.log(this.$data);
+        console.log(this.b);
+        console.log(document.getElementById('app').innerHTML);
+      },
+      beforeUpdate(){
+        console.log('-------beforeUpdate 数据更新dom前的状态---------');
+        console.log(document.getElementById('app').innerHTML);
+      },
+      updated(){
+        console.log('-------updated 数据更新完dom的状态---------');
+        console.log(document.getElementById('app').innerHTML);
+      },
+      // 不常用的钩子函数
+      beforeDestroy(){
+        console.log('-------beforeDestroy 实例销毁之前的状态---------');
+        console.log(this.$el);
+        console.log(this.$data);
+        console.log(this.b);
+        console.log(document.getElementById('app').innerHTML);
+      },
+      destroyed(){
+        console.log('-------destroy 实例销毁的状态---------');
+        console.log(this.$el);
+        console.log(this.$data);
+        console.log(this.b);
+        console.log(document.getElementById('app').innerHTML);
+      },
+
+
+      methods:{
+        b:function(){
+          return 1
+        },
+        change(){
+          console.log(this.c);
+          this.c = 100;
+        },
+        destroy(){
+          this.$destroy();
+        }
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        #app {
+            width: 350px;
+            min-height: 382px;
+            border: 1px solid #ccc;
+            margin: auto;
+        }
+
+        .listl {
+            width: 253px;
+            height: 40px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            margin-top: -442px;
+            float: right;
+           
+        }
+
+        .listl a {
+            width: 77px;
+            height: 40px;
+            color: #000000;
+            text-align: center;
+            line-height: 40px;
+            display: inline-block;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .list1 a:nth-child(2),
+        .list1 a:nth-child(3) {
+            border-left: 1px solid #ccc;
+        }
+
+        .list1 {
+            width: 95px;
+            height: auto;
+            border: 1px solid #cccccc;
+        }
+
+        .list1 li {
+            width: 95px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-bottom: 1px solid #cccccc;
+            font-size: 12px;
+        }
+
+        .head {
+            width: 350px;
+            height: 60px;
+            text-align: center;
+            line-height: 60px;
+            font-size: 18px;
+
+        }
+
+        .tabCon {
+            width: 253px;
+            min-height: 280px;
+            float: right;
+            margin-top:-400px;
+        }
+
+        .tabCon li {
+            width: 253px;
+            height: 80px;
+            padding-left: 10px;
+            padding-top: 10px;
+            background: #ffffff;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .tabCon li img {
+            width: 60px;
+            height: 60px;
+
+
+        }
+
+        .details {
+            width: 170px;
+            height: 50px;
+            font-size: 12px;
+            float: right;
+        }
+
+        .price {
+            width: 170px;
+            height: 30px;
+
+            float: right;
+            margin-top: -24px;
+        }
+
+        .sole {
+            color: khaki;
+            font-size: 16px;
+        }
+
+        .i-left {
+            width: 70px;
+            height: 30px;
+            float: right;
+        }
+
+        .icon {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            border-radius: 20%;
+            border: 1px solid #ccc;
+            text-align: center;
+            line-height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="head">石景山</div>
+       
+        <ul class="list1">
+            <li v-for="item,index in tabarr" @click="tab(index)" :class="{active:index == num}" @click="tab(index)">
+                {{item}}</li>
+        </ul>
+        <p class="listl"><a href="#">综合排序</a> <a href="#"> 按价格</a> <a href="#">分类 </a></p>
+        <ul class="tabCon">
+         
+            <li v-for="item,index  in list">
+                <img :src="item.img" alt="">
+                <p class="details">{{item.text}}</p>
+                <p class="price"> <span class="sole">{{item.price}}</span> <span class="i-left"><span
+                            class="icon">-</span>&nbsp;0&nbsp;<span class="icon">+</span></span></p>
+              
+            </li>
+        </ul>
+    </div>
+
+
+
+    <script >
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                list: [],
+                num: 0,
+                tabarr: ['热销新品', '休闲零食', '牛奶面包', '热饮', '冰淇淋', '饮料酒水', '休闲食品', '方便速食', '数码家电', '环球美食', '户外运动'],
+                listarr: [
+                    [{
+                        img: 'https://hbimg.huabanimg.com/dc21b2015474d48bca61ce5584c974efc126e957498bc-cMuxcC_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    }, {
+                        img: 'https://hbimg.huabanimg.com/323bc62a74209558320dc2119fb28df4451310db9e24a-bXYNRe_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    }],
+                    [{
+                        img: 'https://hbimg.huabanimg.com/e902f78ba482b0f40dc99da10669625d42097a13127927-7z1yye_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    }, {
+                        img: 'https://hbimg.huabanimg.com/0059863ea80891986460161c1c186b1eccb8bdbf46c71-MDawXO_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    },],
+                    [{
+                        img: 'https://hbimg.huabanimg.com/356a4b976599248b76c44ab3c72dba972fa4be4d2d4f1-ZJfPNo_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    }, {
+                        img: 'https://hbimg.huabanimg.com/4601440543ba99b90dcdb00309bf7c0fff638e5c4d235-x3bIZX_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    },],
+                    [{
+                        img: 'https://hbimg.huabanimg.com/4bb6f44dee1eed40b75c621ab89da7d1d27c774717a76-86S21K_fw658',
+                        text:  '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    }, {
+                        img: 'https://hbimg.huabanimg.com/492a05963d39134f4ffbce2a32aed48adfa00d5563120-DcVmce_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    },],
+                    [{
+                        img: 'https://hbimg.huabanimg.com/6c843c32999cabc1c68581ccd48cfa1d4e6bc0d615aa75-AUghGI_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    }, {
+                        img: 'https://hbimg.huabanimg.com/0059863ea80891986460161c1c186b1eccb8bdbf46c71-MDawXO_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    },],
+                    [{
+                        img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    }, {
+                        img: 'https://hbimg.huabanimg.com/dc21b2015474d48bca61ce5584c974efc126e957498bc-cMuxcC_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    },],
+                    [{
+                        img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    }, {
+                        img: 'https://hbimg.huabanimg.com/0f1a494ef7a2f20b97c0174d56eaed843905689b13032-VWB9jZ_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    },],
+                    [{
+                        img: 'https://hbimg.huabanimg.com/d6adca56c56e3bd37c094c4d7c619b720cc10eca4244d-ySdV6t_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    }, {
+                        img: 'https://hbimg.huabanimg.com/d8265934835a4c4428180c3c899fefee8f7273303dc19-9B69Hu_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    },],
+                    [{
+                        img: 'https://hbimg.huabanimg.com/4bb6f44dee1eed40b75c621ab89da7d1d27c774717a76-86S21K_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    }, {
+                        img: 'https://hbimg.huabanimg.com/da6f8c7da76a5dd94079560ca3668c4355885dc918953-5OuTUK_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    },],
+                    [{
+                        img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    }, {
+                        img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    },],
+                    [{
+                        img: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2676343009,1944317430&fm=11&gp=0.jpg',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    }, {
+                        img: 'https://hbimg.huabanimg.com/6c843c32999cabc1c68581ccd48cfa1d4e6bc0d615aa75-AUghGI_fw658',
+                        text: '新鲜青柠500g/皇新鲜特价新鲜特价新鲜待价',
+                        price: '￥10.8',
+
+                    },],
+                ],
+
+
+            },
+            methods: {
+                tab(index) {
+                    this.list = this.listarr[index];
+                    this.num = index;
+                },
+
+
+            }
+        })
+        vm.tab(0)
+
+
+    </script>
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload = function() {
+            document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 * 100 + 'px';
+            window.onresize = function() {
+                document.documentElement.style.fontSize = document.documentElement.clientWidth / 640 * 100 + 'px';
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="../zhouhuiling/font_qort9ra9nzk/iconfont.css">
+    <link rel="stylesheet" href="../zhouhuiling/font_qort9ra9nzk/demo_index.html">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            text-decoration: none;
+        }
+        
+        #box {
+            width: 100%;
+            min-height: 12.5rem;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+        }
+        
+        #header {
+            width: 100%;
+            height: 1.25rem;
+        }
+        
+        #ziti {
+            height: 1.25rem;
+            text-align: center;
+            line-height: 1.25rem;
+            font-size: .35rem;
+        }
+        
+        #sousuo {
+            float: right;
+            margin-right: 15%;
+            font-size: .35rem
+        }
+        
+        #nav {
+            width: 99%;
+            height: 1.25rem;
+            border: 1px solid #ccc;
+        }
+        
+        #nav ul {
+            width: 100%;
+            height: 1.25rem;
+        }
+        
+        #nav ul li {
+            width: 24.5%;
+            height: 1.25rem;
+            line-height: 1.25rem;
+            border-right: 1px solid #ccc;
+            font-size: .3rem;
+            text-align: center;
+            float: left;
+        }
+        
+        #nav ul li:nth-of-type(4) {
+            border-right: none;
+        }
+        
+        #left {
+            width: 25%;
+            height: 8rem;
+            border: 1px solid #ccc;
+            float: left;
+        }
+        
+        #right {
+            width: 74%;
+            height: 8rem;
+            float: right;
+        }
+        
+        #first {
+            float: right;
+            width: 100%;
+            height: 1.25rem;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        #jia {
+            color: orange;
+            margin-top: 5%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="box">
+            <div id="header">
+                <p id="ziti">派送至:北京石景山
+                    <span class="icon iconfont">&#xe615;</span>
+                    <span class="icon iconfont" id="sousuo">&#xe61f;</span>
+                </p>
+            </div>
+            <div id="nav">
+                <ul>
+                    <li>热销新品</li>
+                    <li>综合排序</li>
+                    <li>按价格</li>
+                    <li>分类</li>
+                </ul>
+            </div>
+            <div id="right">
+                <div id="first " v-for="b,index in arr[indexl].con ">
+                    <img :src="b.img" style="width: 20%;height: 100%">
+                    <p style="font-size:8px;margin-left: 20%;margin-top: -20%">{{b.text}}</p>
+                    <p style="font-size:12px;margin-left: 20%;" id="jia">价格:{{b.jiage}}</p>
+                </div>
+            </div>
+            <div id="left">
+                <ul>
+                    <li v-for="a,index in arr" style="font-size: 18px;width: 100%;height: 40px;border-bottom: 1px solid #ccc;text-align: center;line-height: 40px" @click="showItem(index)">{{a.name}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            indexl: 0, //左导航下标
+            arr: [{
+                name: '优选水果',
+                con: [{
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: '新鲜青柠500g/盒新鲜特价盒新鲜新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286003&di=5a0751f7e4817ac66bb3127a126e3e6e&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fdesign%2F00%2F83%2F87%2F53%2F5919789d3cf74.png ",
+                    text: '新鲜青柠500g/盒新鲜特价盒新鲜新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286003&di=6fd9a87b478eb48f1ccd1c8f592ad615&imgtype=0&src=http%3A%2F%2Fimgsa.baidu.com%2Fexp%2Fw%3D500%2Fsign%3Dc98e89da5282b2b7a79f39c401afcb0a%2F95eef01f3a292df58834bdcbb7315c6035a8737c.jpg ",
+                    text: '新鲜青柠500g/盒新鲜特价盒新鲜新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559237502588&di=c2594a837a0dbf1b29ad7937e768782e&imgtype=0&src=http%3A%2F%2Fimg.xinxic.com%2Fimg%2Ff2f584ba5b333f4c.jpg ",
+                    text: '新鲜青柠500g/盒新鲜特价盒新鲜新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559237502578&di=5aa84e25e6056eabd8807f6034401f99&imgtype=0&src=http%3A%2F%2Fpic33.nipic.com%2F20131011%2F2531170_205042654000_2.jpg ",
+                    text: '新鲜青柠500g/盒新鲜特价盒新鲜新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559237663434&di=c6cc8e888b6b9d11857e9f313c3f94ff&imgtype=0&src=http%3A%2F%2Fpic41.nipic.com%2F20140505%2F2531170_153545138000_2.jpg ",
+                    text: '新鲜青柠500g/盒新鲜特价盒新鲜新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559237663432&di=0a572b048981df77d57f133169aa3740&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F28%2F82%2F14%2F49d58PICapS9ZB8BVCVUf_PIC2018.png%2521%2Ffw%2F1024%2Fwatermark%2Furl%2FL2ltYWdlcy93YXRlcm1hcmsvZGF0dS5wbmc%3D%2Frepeat%2Ftrue%2Fcrop%2F0x1970a0a0 ",
+                    text: '新鲜青柠500g/盒新鲜特价盒新鲜新鲜特价',
+                    jiage: '12元'
+                }]
+            }, {
+                name: '牛奶面包',
+                con: [{
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559237663429&di=ac9823cad1f5b9d0bcc48a9994cbc9be&imgtype=0&src=http%3A%2F%2Fwww.coreldrawchina.com%2FWebSource%2Fcoreldraw%2Fnews%2Fold%2Fuploads%2Fimages%2Fsupport3%2Fzhaopian-tubiao-7.png ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559237699624&di=44566973f2dc7c84e6269acc1ee3b2d3&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F16%2F83%2F92%2F35t58PICk76_1024.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559237699622&di=fbf1f2cebee5f9b6f141c84d00d4a6a5&imgtype=0&src=http%3A%2F%2Fpic44.nipic.com%2F20140730%2F2531170_054449651000_2.jpg",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559237699621&di=ecea297f0c391f971af0e88ea26b927c&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F15%2F30%2F50%2F48X58PICqRt_1024.jpg",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286003&di=5a0751f7e4817ac66bb3127a126e3e6e&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fdesign%2F00%2F83%2F87%2F53%2F5919789d3cf74.png ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286003&di=6fd9a87b478eb48f1ccd1c8f592ad615&imgtype=0&src=http%3A%2F%2Fimgsa.baidu.com%2Fexp%2Fw%3D500%2Fsign%3Dc98e89da5282b2b7a79f39c401afcb0a%2F95eef01f3a292df58834bdcbb7315c6035a8737c.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }]
+            }, {
+                name: '冰淇淋',
+                con: [{
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559237502578&di=5aa84e25e6056eabd8807f6034401f99&imgtype=0&src=http%3A%2F%2Fpic33.nipic.com%2F20131011%2F2531170_205042654000_2.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559237663429&di=ac9823cad1f5b9d0bcc48a9994cbc9be&imgtype=0&src=http%3A%2F%2Fwww.coreldrawchina.com%2FWebSource%2Fcoreldraw%2Fnews%2Fold%2Fuploads%2Fimages%2Fsupport3%2Fzhaopian-tubiao-7.png ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286003&di=6fd9a87b478eb48f1ccd1c8f592ad615&imgtype=0&src=http%3A%2F%2Fimgsa.baidu.com%2Fexp%2Fw%3D500%2Fsign%3Dc98e89da5282b2b7a79f39c401afcb0a%2F95eef01f3a292df58834bdcbb7315c6035a8737c.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }]
+            }, {
+                name: '酸奶可乐',
+                con: [{
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }]
+            }, {
+                name: '休闲零食',
+                con: [{
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }]
+            }, {
+                name: '数码电器',
+                con: [{
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }]
+            }, {
+                name: '运动户外',
+                con: [{
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }]
+            }, {
+                name: '环球美食',
+                con: [{
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }]
+            }, {
+                name: '美妆',
+                con: [{
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }]
+            }, {
+                name: '时尚服饰',
+                con: [{
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }]
+            }, {
+                name: '优选水果',
+                con: [{
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }, {
+                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286004&di=aeb41613e6076ee1befc8007b1a68760&imgtype=0&src=http%3A%2F%2Fp5.zbjimg.com%2Ftask%2F2011-08%2F07%2F954218%2Flarge4e3e3d0f37200.jpg ",
+                    text: 'e/盒新鲜特价盒新鲜特价盒新鲜特价',
+                    jiage: '12元'
+                }]
+            }]
+        },
+        methods: {
+            showItem(index) {
+                this.indexl = index;
+                console.log(index)
+            },
+
+        }
+    })
+</script>
+
+</html>

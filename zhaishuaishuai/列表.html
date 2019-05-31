@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+    /* 重置样式表 */
+    *{margin: 0;padding: 0;}
+    ul,ol{list-style: none;}
+    em,i{font-style: normal;}
+    a{text-decoration: none; color: #000;}
+    /* a:hover{text-decoration: underline;} */
+    input{border:none; outline: none; background-color: transparent;}
+    body,html{height: 100%;font-size: 26px}
+    body{position: relative; overflow-x: hidden;}
+    /*公用*/
+    .clearfix:after,.clearfix:before{content: '';display: table;}.clearfix:after{clear: both;}
+    .hide{display: none;}
+    .fl{float: left;}
+    .fr{float: right;}
+
+    header{display: flex}
+    header p{display: inline-block;margin: 0 auto;}
+    #app{display: flex}
+    .list{flex:3}
+    .detailed_list{flex:7}
+    .detailed_list img{width: 1.5rem;height: 1.5rem;}
+    .clearfix{border: 1px solid;font-size:16px}
+    .li{border: 1px solid}
+    </style>
+</head>
+
+<body>
+    <header>
+        <p>
+            <span>派送至:</span>
+            <select name="" id="">
+                <option value="">北京石景山</option>
+            </select>
+            <!-- <div class="fr"></div> -->
+        </p>
+    </header>
+    <main id="app">
+        <div class="list">
+            <div class="li" v-for='i,index in arr' @click='choose(index)'>{{i.name}}</div>
+        </div>
+        <div class="detailed_list">
+            <div v-for='item,key,indx in arr1.li' class="clearfix">
+                <img :src="item.img" class="fl">
+                <span>{{item.titel}}</span>
+                <br>
+                <span>{{item.price}}</span>
+            </div>
+        </div>
+
+    </main>
+</body>
+<script>
+    Vue.directive("hello",function(el,binding,vnode){
+       el.style["color"]= binding.value;
+    })
+    const arr = [
+        {
+            name:'热销食品',
+            li:[ {
+                img: 'http://img2.imgtn.bdimg.com/it/u=1738421581,3107064791&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            }, {
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },]
+        },
+        {
+            name:'优选水果',
+            li:[{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            }, {
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },]
+        },
+        {
+            name:'卤味熟食',
+            li:[{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },]
+        },
+        {
+            name:'牛奶面包',
+            li:[{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price:'￥10.8'
+            },]
+        }
+    ]
+    window.onload = function () {
+        document.documentElement.style.fontSize = document.documentElement.clientWidth/ 1080 * 100 + 'px';
+        window.onresize = function () {
+            document.documentElement.style.fontSize = document.documentElement.clientWidth/ 1080 * 100 + 'px';
+        }
+    }
+    var vm=new Vue({
+        el:'#app',
+        data:{
+           arr:arr,
+           arr1:''
+        },
+        computed: {
+        //    hui(){
+        //        console.log(this.choose)
+        //        return this.choose
+        //    }
+        },
+        methods: {
+             choose(index){
+                this.arr1=this.arr[index];
+                console.log(this.arr1)
+            }
+        },
+        directives:{
+            
+        }
+    })
+    console.log(arr)
+</script>
+
+</html>

@@ -210,7 +210,13 @@
             },
             shrink() {
                 this.isShrink = !this.isShrink;
-                main_left.style.transform = this.isShrink ? "translateX(-220px)" : 'translateX(0)';
+               if (this.isShrink) {
+                    main_left.style.transform = "translateX(-220px)";
+                    main_right.style.left = "0";
+                } else {
+                    main_left.style.transform = 'translateX(0)';
+                    main_right.style.left = "220px";
+                }
 
             },
             menu(o, i) {

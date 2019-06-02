@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>周末</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+	</head>
+
+	<body>
+		<div class="admin_container">
+			<!--头部-->
+			<div class="admin_header">
+				<div class="admin_header-z">
+					<div class="admin_header-left">
+						<span>L-admin v2.0</span>
+					</div>
+					<div class="admin_header-right">
+						<i class="iconfont click_nav" style="font-size: 31px; z-index: 333; line-height: 42px; margin-left: 5px;">&#xe663;</i>
+						<span>前台首页</span>
+					</div>
+				</div>
+			</div>
+			<div class="admin_menu">
+				<div class="admin_menu-nav" id="app">
+					<!--<ul>
+						<li class="zhu">主页</li>
+						<div class="xia">
+							<li>主页主页</li>
+							<li>主页主页</li>
+							<li>主页主页</li>
+							<li>主页主页</li>
+							<li>主页主页</li>
+							<li>主页主页</li>
+						</div>
+					</ul>-->
+					
+					
+						<ul v-for="(item,index) in nav" v-cloak>
+							<li class="one_li" @click="Switch(index)" style="position: relative;">
+								<i class="iconfont" style="font-size: 20px; position: absolute; left: -10px;" v-html="item.nav_iconFont"></i>  
+								<span style="position: absolute; left: 40px;">{{item.nav_listName}}</span>
+								
+								
+								<i class="iconfont" v-html="item.nav_off" v-show="o" style="position: absolute; right: 16px;"></i>
+								<i class="iconfont" v-html="item.nav_open" style="position: absolute; right: 16px;"></i>
+							</li>
+							<div class="son_li">
+								<li v-for="(item,index) in item.nav_listContent">
+									{{item}}
+								</li>
+							</div>
+							
+						</ul>
+						
+					
+					
+				</div>
+				<div class="admin_menu-content">
+					<div class="admin_menu-content-header">
+						<i class="iconfont" style="text-indent: 10px; font-size: 22px;">&#xe61d;</i> 我的桌面
+					</div>
+					
+					<div class="admin_menu-content-bottom">
+						<div class="admin_menu-ple">
+							欢迎管理员： 
+						</div>
+						<div class="admin_menu-name" style="position: relative;">
+							<div class="tian">
+								数据统计
+							</div>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<script src="js/vue.js"></script>
+		<script src="js/jquery.js"></script>
+		<script type="text/javascript">
+			
+			
+			
+			new Vue({
+				el: '#app',
+				data:{
+				//	nav : ["主页"," 基本元素","组件页面","排版布局","订单管理","管理员管理","用户管理","系统统计"]
+	
+					nav: [
+							{
+								
+								nav_listName:"主页",
+								nav_listContent:["控制台"],
+								nav_iconFont: "&#xe66e;",
+								nav_open: "&#xe6af;",
+								nav_off: "&#xe62a;"
+								
+							},
+							{
+								nav_listName:"基本元素",
+								nav_listContent:["图标字体","表单元素","表单组合","按钮","导航/面包屑","选项卡","进度条","面板","微章"],
+								nav_iconFont: "&#xe66c;",
+								nav_open: "&#xe6af;",
+								nav_off: "&#xe62a;"
+							},
+							{
+								nav_listName:"组件页面",
+								nav_listContent:["文件上传","分页","多级分类","轮播图","城市三级联动"],
+								nav_iconFont: "&#xe820;",
+								nav_open: "&#xe6af;",
+								nav_off: "&#xe62a;"
+							},
+							{
+								nav_listName:"排版布局",
+								nav_listContent:["栅格","排版"],
+								nav_iconFont: "&#xe664;",
+								nav_open: "&#xe6af;",
+								nav_off: "&#xe62a;"
+							},
+							{
+								nav_listName:"订单管理",
+								nav_listContent:["订单列表"],
+								nav_iconFont: "&#xe665;",
+								nav_open: "&#xe6af;",
+								nav_off: "&#xe62a;"
+							},
+							{
+								nav_listName:"管理员管理",
+								nav_listContent:["管理员列表","角色管理","权限分类","权限管理",],
+								nav_iconFont: "&#xe667;",
+								nav_open: "&#xe6af;",
+								nav_off: "&#xe62a;"
+								
+							},
+							{
+								nav_listName:"用户管理",
+								nav_listContent:["会员列表","会员删除","会员管理"],
+								nav_iconFont: "&#xe6ca;",
+								nav_open: "&#xe6af;",
+								nav_off: "&#xe62a;"
+							},
+							{
+								nav_listName:"系统统计",
+								nav_listContent:["拆线图","柱状图","地图"],
+								nav_iconFont: "&#xe66d;",
+								nav_open: "&#xe6af;",
+								nav_off: "&#xe62a;"
+							}
+						],
+				},
+				methods:{
+					Switch(index){
+					
+						$(".son_li").stop().eq(index).slideToggle("fast",function(){
+
+						});
+					
+						
+						$(".son_li").eq(index).css({
+							background: "rgb(24,24,24)",
+						});
+						//$(".one_li").removeClass("active");
+						
+						//$(".one_li").eq(index).addClass("active");
+					},
+				}
+			})
+			
+			
+			
+			
+			var when = true;
+			$(".click_nav").click(function() {
+				if(when) {
+					$(".admin_menu-nav").stop().animate({
+						left: "-260px"
+					}, 200);
+					$(".admin_menu-content").stop().animate({
+						width: "100%",
+						left: "0px"
+					}, 200);
+					when = false;
+				} else {
+					$(".admin_menu-nav").stop().animate({
+						left: "0px"
+					}, 200);
+					$(".admin_menu-content").stop().animate({
+						width: "84.6%",
+						left: "260px"
+					}, 200);
+					when = true;
+				}
+
+			})
+			
+	</script>
+	</body>
+
+</html>

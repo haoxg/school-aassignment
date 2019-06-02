@@ -54,7 +54,10 @@
                 <img :src="item.img" class="fl">
                 <span>{{item.titel}}</span>
                 <br>
-                <span><span style="color:red">{{item.price}}</span> <i class="fr"><button class="btn">-</button>{{num}}<button class="btn">+</button></i></span>
+                <span>
+                    <span style="color:red">{{item.price}}</span> 
+                    <i class="fr"><button class="btn">-</button>{{num}}<button class="btn" @click='add(i)'>+</button></i>
+                </span>
             </div> 
         </div>
 
@@ -63,204 +66,208 @@
 <script>
     const arr = [
         {
-            name:'热销食品',
-            li:[ {
+            name: '热销食品',
+            li: [{
                 img: 'http://img2.imgtn.bdimg.com/it/u=1738421581,3107064791&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
+                price: '￥10.8'
             }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },]
-        },
-        {
-            name:'优选水果',
-            li:[{
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
+                price: '￥10.8'
             }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
+                price: '￥10.8'
             },]
         },
         {
-            name:'卤味熟食',
-            li:[{
+            name: '优选水果',
+            li: [{
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
+                price: '￥10.8'
+            }, {
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price: '￥10.8'
             },]
         },
         {
-            name:'牛奶面包',
-            li:[{
+            name: '卤味熟食',
+            li: [{
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
+                price: '￥10.8'
+            }, {
                 img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
                 titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
+                price: '￥10.8'
+            },]
+        },
+        {
+            name: '牛奶面包',
+            li: [{
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price: '￥10.8'
+            }, {
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price: '￥10.8'
+            }, {
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price: '￥10.8'
+            }, {
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price: '￥10.8'
+            }, {
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price: '￥10.8'
+            }, {
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price: '￥10.8'
+            }, {
+                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                price: '￥10.8'
             },]
         }
     ]
     window.onload = function () {
-        document.documentElement.style.fontSize = document.documentElement.clientWidth/ 1080 * 100 + 'px';
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 1080 * 100 + 'px';
         window.onresize = function () {
-            document.documentElement.style.fontSize = document.documentElement.clientWidth/ 1080 * 100 + 'px';
+            document.documentElement.style.fontSize = document.documentElement.clientWidth / 1080 * 100 + 'px';
         }
     }
-    var vm=new Vue({
-        el:'#app',
-        data:{
-            num:0,
-           arr:arr,
-           arr1:{
-            name:'热销食品',
-            li:[ {
-                img: 'http://img2.imgtn.bdimg.com/it/u=1738421581,3107064791&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            }, {
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },{
-                img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
-                titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
-                price:'￥10.8'
-            },]
-        }
-        },
-        computed: {
-        //    hui(){
-        //        console.log(this.choose)
-        //        return this.choose
-        //    }
-        },
-        methods: {
-             choose(index){
-                this.arr1=this.arr[index];
-                console.log(this.arr1)
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            num: 0,
+            arr: arr,
+            arr1: {
+                name: '热销食品',
+                li: [{
+                    img: 'http://img2.imgtn.bdimg.com/it/u=1738421581,3107064791&fm=26&gp=0.jpg',
+                    titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                    price: '￥10.8'
+                }, {
+                    img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                    titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                    price: '￥10.8'
+                }, {
+                    img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                    titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                    price: '￥10.8'
+                }, {
+                    img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                    titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                    price: '￥10.8'
+                }, {
+                    img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                    titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                    price: '￥10.8'
+                }, {
+                    img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                    titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                    price: '￥10.8'
+                }, {
+                    img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                    titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                    price: '￥10.8'
+                }, {
+                    img: 'http://img0.imgtn.bdimg.com/it/u=4248882409,3318633819&fm=26&gp=0.jpg',
+                    titel: '新鲜莱姆500克/盒新鲜特餐新鲜特餐新鲜特餐',
+                    price: '￥10.8'
+                },]
             }
         },
-        directives:{
-            
+        computed: {
+
+            //    hui(){
+            //        console.log(this.choose)
+            //        return this.choose
+            //    }
+        },
+        methods: {
+            choose(index) {
+                this.arr1 = this.arr[index];
+                console.log(this.arr1)
+            },
+            add(i) {
+                this.num++
+            }
+        },
+        directives: {
+
         }
     })
     console.log(arr)

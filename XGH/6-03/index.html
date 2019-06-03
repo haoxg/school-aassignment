@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="./font_1224024_x864am01ko/iconfont.css">
+    <link rel="stylesheet" href="./font_3xehwgbinsh/iconfont.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+        
+        .container {
+            width: 100%;
+            height: 55px;
+            background: #111;
+            border-bottom: 1px solid rgba(0, 0, 0, .8);
+        }
+        
+        .left {
+            position: absolute;
+            top: 51px;
+            left: 0;
+            padding-top: 10px;
+            background: #222324;
+            width: 220px;
+            height: 632px;
+            max-width: 220px;
+            overflow: hidden;
+            z-index: 2;
+            border-right: 1px solid #131e26;
+        }
+        
+        .left-ul {
+            width: 220px;
+        }
+        
+        .left-ul .li {
+            line-height: 30px;
+            width: 220px;
+            transition: all .5s;
+            z-index: 3;
+            border-left: 4px solid #222324;
+        }
+        
+        .left-ul .li:hover {
+            background: #181818;
+            border-left: 4px solid #42b8f1;
+            color: #fff;
+        }
+        
+        .left-ul .li div {
+            font-size: 14px;
+            padding: 12px 15px 12px 20px;
+            display: block;
+            cursor: pointer;
+            color: #8e8e8e;
+        }
+        
+        .left-ul .li div:hover {
+            color: #fff;
+        }
+        
+        .left-ul .li div i {
+            padding-right: 10px;
+            padding-top: 8px;
+            line-height: 14px;
+        }
+        
+        .left-ul .li div i:hover {
+            color: #fff;
+        }
+        
+        #jt {
+            float: right;
+            font-size: 16px;
+        }
+        
+        .right {
+            position: absolute;
+            width: 1145px;
+            height: 642px;
+            top: 51px;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            z-index: 1;
+            background: #fff;
+        }
+        
+        .logo a {
+            width: 200px;
+            height: 50px;
+            line-height: 50px;
+            float: left;
+            padding-left: 20px;
+            color: #fff;
+            font-size: 18px;
+        }
+        
+        .ull .lli {
+            line-height: 30px;
+            width: 220px;
+            padding: 12px 15px 12px 20px;
+            transition: all .5s;
+            z-index: 3;
+            color: #8e8e8e;
+            font-size: 14px;
+        }
+        
+        .ull .lli:hover {
+            background: #282b33!important;
+            /* border-left: 4px solid #42b8f1; */
+            color: #fff;
+        }
+        
+        .jtt {
+            padding-right: 10px;
+            padding: 8px 10px 0px 20px;
+            line-height: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="logo">
+                <a href="#">L-admin v2.0</a>
+            </div>
+        </div>
+        <div class="left">
+            <ul class="left-ul" v-for="(item,index) in arr">
+                <div class="li">
+                    <div :class="[{active:item.show}]" @click="changeli(index,item)">
+                        <i v-html=" item.ir " class="iconfont ">{i.ir}}</i> {{item.name}}
+                        <i v-html="item.is " class="iconfont " id="jt">{{item.is}}</i>
+                    </div>
+                    <ul v-show="item.show" class="ull">
+                        <!-- 循环二级菜单数据并使用.stop阻止冒泡 -->
+                        <li class="lli" v-for="(a,index) in item.list" v-on:click.stop="doThis(index)">
+                            <i v-html="item.is " class="iconfont jtt">{{item.is}}</i> {{a}}
+                        </li>
+                    </ul>
+                </div>
+
+            </ul>
+
+        </div>
+        <div class="right ">
+            <ul v-for="i in arr ">
+                {{i.list}}
+            </ul>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+
+            methods: {
+                changeli: function(ind, item) {
+                    // 先循环数据中的show将其全部置为false,此时模板里的v-if判断生效关闭全部二级菜单,并移除样式
+                    this.arr.forEach(i => {
+                        // 判断如果数据中的headerData[i]的show属性不等于当前数据的show属性那么headerData[i]等于false
+                        if (i.show !== this.arr[ind].show) {
+                            i.show = false;
+                        };
+                    });
+                    // 取反(true或false)
+                    item.show = !item.show;
+                    console.log(item.name)
+                },
+                doThis: function(index) {
+                    alert(index)
+                }
+            },
+            data: {
+                arr: [{
+                    name: "主页 ",
+                    ir: "&#xe61e; ",
+                    is: "&#xe64e; ",
+                    show: false,
+                    list: ["控制台 "]
+                }, {
+                    name: "基本元素 ",
+                    ir: "&#xe62b; ",
+                    is: "&#xe64e; ",
+                    show: false,
+                    list: ["图标字体 ", "表单元素 ", "表单组合 ", "按钮 ", "导航/面包屑 ", "选项卡 ", "进度条 ", "面板 ", "微章 ", "时间线 ", "静态表格 "]
+                }, {
+                    name: "组件元素 ",
+                    ir: "&#xe61d; ",
+                    is: "&#xe64e; ",
+                    show: false,
+                    list: ["文件上传 ", "分页 ", "多级分类 ", "轮播图 ", "城市三级联动 "]
+                }, {
+                    name: "排版布局 ",
+                    ir: "&#xe694; ",
+                    is: "&#xe64e; ",
+                    show: false,
+                    list: ["栅格 ", "排版 "]
+                }, {
+                    name: "订单管理 ",
+                    ir: "&#xe899; ",
+                    is: "&#xe64e; ",
+                    show: false,
+                    list: ["订单列表 "]
+
+                }, {
+                    name: "管理员管理 ",
+                    ir: "&#xe60b; ",
+                    is: "&#xe64e; ",
+                    show: false,
+                    list: ["管理员列表 ", "角色管理 ", "权限分类 ", "权限管理 "]
+                }, {
+                    name: "用户管理 ",
+                    ir: "&#xe65e; ",
+                    is: "&#xe64e; ",
+                    show: false,
+                    list: ["会员列表 ", "会员删除 ", "会员管理 "]
+                }, {
+                    name: "系统统计 ",
+                    ir: "&#xeb8d; ",
+                    is: "&#xe64e; ",
+                    show: false,
+                    list: ["拆线图 ", "柱状图 ", "地图 ", "饼图 "]
+
+                }]
+            },
+
+        })
+    </script>
+</body>
+
+</html>

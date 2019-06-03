@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="font/iconfont.css" type="text/css">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            text-decoration: none;
+        }
+
+        .head {
+            width: 100%;
+            height: 55px;
+            background-color: #111;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .logo {
+            float: left;
+            color: rgb(255, 255, 255);
+            font-size: 18px;
+            padding-left: 20px;
+            line-height: 56px;
+            width: 200px;
+            transition: 0.3s ease 0s;
+            text-align: center;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .more_btn {
+            width: 32px;
+            height: 32px;
+            background: rgba(128, 128, 128, 0.3);
+            float: left;
+            margin-top: 10px;
+            border-radius: 2px;
+            user-select: none;
+        }
+
+        .more {
+            font-size: 25px;
+            color: #bdbdbd;
+            text-align: center;
+            line-height: 32px;
+            display: block;
+        }
+
+        .app_cont {
+            width: 100%;
+            margin-top: 56px;
+            height: auto;
+        }
+
+        .app_left {
+            width: 220px;
+            background: #000;
+            min-height: 800px;
+            position: fixed;
+            top: 56px;
+            left: 0;
+            user-select: none;
+        }
+
+        .app_rigth {
+            background: #e0e0e0;
+            height: 700px;
+            float: right;
+        }
+
+        .add {
+            color: rgb(211, 211, 211);
+            float: left;
+            width: 100px;
+            height: 100%;
+            line-height: 56px;
+            text-align: center;
+            box-sizing: border-box;
+            position: relative;
+            user-select: none;
+        }
+
+        .icon_add {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            font-size: 12px;
+            padding-top: 3px;
+            box-sizing: border-box;
+        }
+
+        .icon_admin {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            font-size: 12px;
+            padding-top: 3px;
+            box-sizing: border-box;
+        }
+
+        .add_list {
+            position: absolute;
+            top: 56px;
+            left: 0;
+            width: 100px;
+            border: 1px solid #aaaaaa;
+            box-sizing: border-box;
+            overflow: hidden;
+            height: 0;
+        }
+
+        .admin {
+            color: rgb(211, 211, 211);
+            float: right;
+            width: 120px;
+            height: 100%;
+            line-height: 56px;
+            text-align: center;
+            box-sizing: border-box;
+            position: relative;
+            user-select: none;
+        }
+
+        .add_list li {
+            height: 50px;
+            color: #111;
+            line-height: 50px;
+            text-align: center;
+            font-size: 14px;
+            background: rgb(240, 240, 240);
+        }
+
+        .admin_list {
+            position: absolute;
+            top: 56px;
+            left: 0;
+            width: 120px;
+            border: 1px solid #aaaaaa;
+            box-sizing: border-box;
+            overflow: hidden;
+            height: 0;
+        }
+
+        .admin_list li {
+            height: 50px;
+            color: #111;
+            line-height: 50px;
+            text-align: center;
+            font-size: 14px;
+            background: rgb(240, 240, 240);
+        }
+
+        .index {
+            float: right;
+            line-height: 56px;
+            padding: 0 35px;
+            color: #ccc;
+        }
+
+        .admin_p,
+        .add_p {
+            text-align: center;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+
+        .name1 {
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            color: #ccc;
+            background: rgb(33, 34, 35);
+            box-sizing: border-box;
+            border-left: 3px solid rgb(33, 34, 35);
+        }
+
+        .name2 {
+            width: 100%;
+            height: 0px;
+            line-height: 60px;
+            text-align: center;
+            color: #ccc;
+            background: rgb(33, 34, 35);
+            overflow: hidden;
+            z-index: 2;
+            border-left: 3px solid rgb(33, 34, 35);
+            box-sizing: border-box;
+        }
+
+        .icon_list {
+            line-height: 60px;
+            float: right;
+            margin-right: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="head">
+            <a class="logo" href="#">管理</a>
+            <div class="more_btn">
+                <i class="iconfont more">&#xe641;</i>
+            </div>
+            <div class="add">
+                <p class="add_p">+新增</p>
+                <i class="iconfont icon_add">&#xe613;</i>
+                <ul class="add_list">
+                    <li v-for="i in add_list">
+                        {{i}}
+                    </li>
+                </ul>
+            </div>
+            <a href="#" class="index">前台首页</a>
+            <div class="admin">
+                <p class="admin_p">+admin</p>
+                <i class="iconfont icon_admin">&#xe613;</i>
+                <ul class="admin_list">
+                    <li v-for="i in admin_list">
+                        {{i}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="app_cont">
+            <div class="app_left">
+                <div class="name1" v-for="(i1, index) in arr" :key="index" :style="{top:(i1.list.length)*60+'px'}"
+                    @click="name1(i1,index)">
+                    {{i1.name}}
+                    <i v-if="i1.list" class="iconfont icon_list">&#xe68b;</i>
+                    <div class="name2" v-for="(i2, index) in i1.list" :key="index" :style="{top:(index+1)*60+'px'}"
+                        @click="name2(i2,index)">
+                        {{i2.name}}
+                        <!-- <i class="iconfont icon_list">&#xe68b;</i> -->
+                    </div>
+                </div>
+            </div>
+            <div class="app_rigth">
+                {{cont}}
+            </div>
+        </div>
+    </div>
+    <script src="vue.js"></script>
+    <script src="jquery.min.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                cont: '',
+                add_list: ['资料', '图片', '用户'],
+                admin_list: ['个人信息', '切换账号', '退出'],
+                k1: true,
+                kkk: false,
+                arr: [{
+                    name: '主页',
+                    list: [{
+                        name: '控制台',
+                        cont: '控制台控制台控制台控制台控制台控制台控制台控制台控制台控制台'
+                    }, ]
+                }, {
+                    name: '基本元素',
+                    list: [{
+                        name: '字体图标',
+                        cont: '字体图标字体图标字体图标字体图标字体图标字体图标'
+                    }, {
+                        name: '表单元素',
+                        cont: '表单元素表单元素表单元素表单元素表单元素'
+                    }, {
+                        name: '表单组合',
+                        cont: '表单组合表单组合表单组合表单组合'
+                    }, {
+                        name: '按钮',
+                        cont: '按钮按钮按钮按钮按钮按钮'
+                    }, {
+                        name: '选项卡',
+                        cont: '选项卡选项卡选项卡'
+                    }, {
+                        name: '进度条',
+                        cont: '进度条进度条进度条'
+                    }, ]
+                }, {
+                    name: '组件页面',
+                    list: [{
+                        name: '文件上传',
+                        cont: '文件上传文件上传文件上传'
+                    }, {
+                        name: '分页',
+                        cont: '分页分页分页分页'
+                    }, {
+                        name: '多级分类',
+                        cont: '多级分类多级分类多级分类'
+                    }, ]
+                }, {
+                    name: '排版布局',
+                    list: [{
+                        name: '栅格',
+                        cont: '栅格栅格栅格栅格栅格栅格栅格栅格栅格栅格栅格'
+                    }, {
+                        name: '排版',
+                        cont: '排版排版排版排版排版排版排版排版排版排版'
+                    }, {
+                        name: '多级分类',
+                        cont: '多级分类多级分类多级分类'
+                    }, ]
+                }, {
+                    name: '订单管理',
+                    list: [{
+                        name: '订单列表',
+                        cont: '订单列表订单列表订单列表订单列表订单列表订单列表订单列表'
+                    }, ]
+                }, {
+                    name: '管理员管理',
+                    list: [{
+                        name: '管理员列表',
+                        cont: '管理员列表管理员列表管理员列表管理员列表管理员列表管理员列表'
+                    }, {
+                        name: '会员删除',
+                        cont: '会员删除角色管理角色管理角色管理角色管理角色管理角色管理'
+                    }, {
+                        name: '权限分类',
+                        cont: '权限分类权限分类权限分类权限分类权限分类权限分类权限分类'
+                    }, {
+                        name: '权限管理',
+                        cont: '权限管理权限管理权限管理权限管理权限管理权限管理权限管理权限管理权限管理'
+                    }, ]
+                }, {
+                    name: '用户管理',
+                    list: [{
+                        name: '会员列表',
+                        cont: '会员列表会员列表会员列表会员列表会员列表会员列表'
+                    }, {
+                        name: '会员删除',
+                        cont: '会员删除会员删除会员删除会员删除会员删除会员删除会员删除'
+                    }, {
+                        name: '会员管理',
+                        cont: '会员管理会员管理会员管理会员管理会员管理会员管理会员管理会员管理会员管理会员管理会员管理会员管理'
+                    }, ]
+                }, {
+                    name: '系统统计',
+                    list: [{
+                        name: '折线图',
+                        cont: '折线图折线图折线图折线图折线图折线图'
+                    }, {
+                        name: '柱状图',
+                        cont: '柱状图柱状图柱状图柱状图柱状图柱状图柱状图'
+                    }, ]
+                }, ]
+            },
+            methods: {
+                name1(i1, idx) {
+                    if (this.k1) {
+                        this.k1 = !this.k1;
+                        $('.name1').eq(idx).children('.name2').css({
+                            height: '60px',
+                        })
+                        $('.name1').css({
+                            color: '#ccc',
+                            background: 'rgb(33,34,35)',
+                            borderLeft: '3px solid rgb(33,34,35)'
+                        })
+                        $('.name1').eq(idx).animate({
+                            height: (60 * i1.list.length + 60) + 'px',
+                        }, 300)
+                        $('.name1').eq(idx).css({
+                            color: '#fff',
+                            background: 'rgb(10,10,10)',
+                            borderLeft: '3px solid #fff'
+                        })
+                        $('.name1').eq(idx).children('.name2').css({
+                            color: '#fff',
+                            background: 'rgb(10,10,10)',
+                        })
+                    } else {
+                        this.k1 = !this.k1;
+                        $('.name1').eq(idx).children('.name2').css({
+                            height: '0px',
+                        })
+                        $('.name1').css({
+                            color: '#ccc',
+                            background: 'rgb(33,34,35)',
+                            borderLeft: '3px solid rgb(33,34,35)'
+                        })
+                        $('.name1').eq(idx).animate({
+                            height: '60px',
+                        }, 300)
+                        $('.name1').eq(idx).css({
+                            color: '#fff',
+                            background: 'rgb(10,10,10)',
+                            borderLeft: '3px solid #fff'
+                        })
+                        $('.name1').eq(idx).children('.name2').css({
+                            color: '#ccc',
+                            background: 'rgb(33,34,35)',
+                        })
+                    }
+                },
+                name2(i2, idx) {
+                    this.kkk = !this.kkk;
+                    if (!this.k1) {
+                        this.k1 = !this.k1;
+                        this.cont = i2.cont
+                        $('.name2').css({
+                            color: '#ccc',
+                            background: 'rgb(33,34,35)',
+                            borderLeft: '3px solid rgb(33,34,35)'
+                        })
+                        // $('.name1').css({
+                        //     height:'60px',
+                        // })
+                        // $('.name1').eq(idx).css({
+                        //     height:(60*i1.list.length+60)+'px',
+                        // })
+                    } else {
+                        this.k1 = !this.k1;
+                        $('.name1').children('.name2').eq(idx).css({
+                            borderLeft: '3px solid #fff'
+                        })
+                        $('.name3').animate({
+                            height: '0px',
+                        }, 300)
+                    }
+                },
+                name3(i3) {},
+            },
+        })
+        var k = true;
+        $(".add_p").click(function () {
+            if (k) {
+                k = !k;
+                $(".add_list").animate({
+                    'height': '150px',
+                }, 300)
+                $('.icon_add').html('&#xe60f;')
+            } else {
+                k = !k;
+                $(".add_list").animate({
+                    'height': '0px',
+                }, 300)
+                $('.icon_add').html('&#xe613;')
+            }
+        })
+
+        $(".add_list li").mouseover(function () {
+            $(this).css({
+                background: 'rgb(200, 200, 200)'
+            })
+        })
+        $(".add_list li").mouseout(function () {
+            $(this).css({
+                background: 'rgb(240, 240, 240)'
+            })
+        })
+        $(".admin_p").click(function () {
+            if (k) {
+                k = !k;
+                $(".admin_list").animate({
+                    'height': '150px',
+                }, 300)
+                $('.icon_admin').html('&#xe60f;')
+            } else {
+                k = !k;
+                $(".admin_list").animate({
+                    'height': '0px',
+                }, 300)
+                $('.icon_admin').html('&#xe613;')
+            }
+        })
+
+        $(".admin_list li").mouseover(function () {
+            $(this).css({
+                background: 'rgb(200, 200, 200)'
+            })
+        })
+        $(".admin_list li").mouseout(function () {
+            $(this).css({
+                background: 'rgb(240, 240, 240)'
+            })
+        })
+        var width = document.documentElement.clientWidth - 220;
+        $(".app_rigth").width(width);
+        $(window).resize(function () {
+            var width = document.documentElement.clientWidth - 220;
+            $(".app_rigth").width(width);
+        })
+        $('.more_btn').mousemove(function () {
+            $('.more_btn').css({
+                background: 'rgba(128, 128, 128, 0.5)'
+            })
+        })
+        $('.more_btn').click(function () {
+            if (k) {
+                $('.app_left').animate({
+                    width: '0px'
+                }, 300)
+                k = !k;
+                var w = document.documentElement.clientWidth;
+                $(".app_rigth").width(w);
+            } else {
+                $('.app_left').animate({
+                    width: '220px'
+                }, 300)
+                k = !k;
+                var width = document.documentElement.clientWidth - 220;
+                $('.app_rigth').animate({
+                    width: width
+                }, 300)
+            }
+
+        })
+        $('.more_btn').mouseout(function () {
+            $('.more_btn').css({
+                background: 'rgba(128, 128, 128, 0.3)'
+            })
+        })
+    </script>
+</body>
+
+</html>

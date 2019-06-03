@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+        
+        ul li {
+            list-style: none;
+        }
+        
+        .clearfix:after,
+        .clearfix:before {
+            content: '';
+            display: table;
+        }
+        
+        .clearfix:after {
+            clear: both;
+        }
+        
+        .clearfix {
+            zoom: 1;
+        }
+        
+        .fl {
+            float: left;
+        }
+        
+        .fr {
+            float: right;
+        }
+        
+        .head {
+            width: 100%;
+            height: 50px;
+            background-color: #111;
+            border-bottom: 1px solid rgba(0, 0, 0, .8);
+        }
+        
+        .logo {
+            color: #fff;
+            font-size: 18px;
+            padding-left: 20px;
+            line-height: 50px;
+            width: 220px;
+            transition: .3s;
+        }
+        
+        .more {
+            background: rgba(255, 255, 255, .1) url() 0 0 no-repeat;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            line-height: 32px;
+            border-radius: 3px;
+            text-align: center;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: ease .3s;
+        }
+        
+        .nav_item {
+            color: #ccc;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 50px;
+            padding: 0 25px;
+            position: relative;
+        }
+        
+        #add,
+        #admin {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 50px;
+            min-width: 100%;
+            line-height: 36px;
+            padding: 5px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+            border: 1px solid #d2d2d2;
+            background-color: #fff;
+            z-index: 100;
+            border-radius: 2px;
+            white-space: nowrap;
+            text-align: center;
+            color: #333;
+        }
+        
+        #add li:hover,
+        #admin li:hover {
+            background-color: #f2f2f2;
+            color: #000;
+        }
+        
+        .lists {
+            padding-top: 10px;
+            background-color: #222324;
+            width: 220px;
+            overflow: hidden;
+            border-right: 1px solid #131e26;
+            position: absolute;
+            top: 50px;
+            left: 0;
+        }
+        
+        .lists ul li {
+            font-size: 14px;
+            padding: 12px 15px 12px 20px;
+            cursor: pointer;
+            color: #8e8e8e;
+            line-height: 30px;
+        }
+        
+        .list_more {
+            padding-right: 10px;
+            font-size: 16px;
+            color: rgb(142, 142, 142);
+            padding-top: 5px;
+        }
+        
+        .list_text {
+            font-size: 14px;
+        }
+        
+        .main {
+            padding: 20px;
+        }
+        
+        .my_tit {
+            height: 35px;
+            background: #efeef0;
+            line-height: 35px;
+            padding: 0 15px;
+            cursor: pointer;
+            transition: all .2s;
+            vertical-align: middle;
+            font-size: 14px;
+        }
+        
+        .tab_cont {
+            position: absolute;
+            top: 50px;
+            bottom: 0;
+            left: 220px;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .my_tit_icon {
+            padding-right: 5px;
+            font-size: 20px;
+        }
+        
+        .lists>ul>li:hover>span {
+            color: #fff;
+        }
+        
+        .lists>ul>li:hover {
+            border-left: 4px solid rgb(66, 184, 241);
+            background: rgb(24, 24, 24);
+        }
+        
+        .open {
+            border-left: 4px solid rgb(66, 184, 241);
+            background: rgb(24, 24, 24);
+        }
+        
+        .lists .options li,
+        .lists .options li span {
+            font-size: 12px;
+        }
+        
+        .options li:hover {
+            background: #282b33;
+        }
+        
+        .lists .options li span {
+            padding-top: 6px;
+        }
+        
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="content">
+            <div class="head clearfix">
+                <div class="fl logo">L-admin v2.0</div>
+                <span class="glyphicon glyphicon-th-list fl more" @click="menu"></span>
+                <div class="fl nav_item" @mouseover="add_over" @mouseout="add_out">+ 新增
+                    <span class="glyphicon glyphicon-triangle-bottom" id="icon_tab_add"></span>
+                    <ul id="add">
+                        <li>资讯</li>
+                        <li>图片</li>
+                        <li>用户</li>
+                    </ul>
+                </div>
+
+                <div class="fr nav_item" @mouseover="admin_over" @mouseout="admin_out">admin
+                    <span class="glyphicon glyphicon-triangle-bottom" id="icon_tab_admin"></span>
+                    <ul id="admin">
+                        <li>个人信息</li>
+                        <li>切换账号</li>
+                        <li>退出</li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="lists" v-show='on'>
+                <ul>
+                    <li v-for="item,index in arr" @click.self="select(item.type,index)" id="li">
+                        <span class="list_text">{{item.type}}</span>
+                        <span class="glyphicon glyphicon-menu-right fr list_more"></span>
+                        <ul v-show="false" class="options">
+                            <li v-for="o in item.datas" @click="option_down(o)"><span class="glyphicon glyphicon-menu-right fl list_more"></span>{{o}}</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="tab_cont" id="tab_cont">
+                <div class="my_tit"><span class="glyphicon glyphicon-home my_tit_icon"></span> 我的桌面</div>
+                <div class="main" id="main">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            on: true,
+            option: false,
+            i: '',
+            arr: [{
+                type: '主页',
+                datas: ['控制台']
+            }, {
+                type: '基本元素',
+                datas: ['图标字体', '表单元素', '表单组合', '按钮', '导航/面包屑', '选项卡', '进度条', '面板', '微章', '时间线', '静态表格', '动画']
+            }, {
+                type: '组件页面',
+                datas: ['文件上传', '分页', '多级分类', '轮播图', '城市三级联动']
+            }, {
+                type: '排版布局',
+                datas: ['栅格', '排版']
+            }, {
+                type: '订单管理',
+                datas: ['订单列表']
+            }, {
+                type: '管理员管理',
+                datas: ['管理员列表', '角色管理', '权限分类', '权限管理']
+            }, {
+                type: '用户管理',
+                datas: ['会员列表', '会员删除']
+            }, {
+                type: '系统统计',
+                datas: ['拆线图', '柱状图', '地图', '饼图', '雷达图', 'k线图', '热力图', '仪表图']
+            }]
+        },
+        methods: {
+            menu() {
+                this.on = !this.on;
+                if (!this.on) {
+                    tab_cont.style.left = '0';
+                } else {
+                    tab_cont.style.left = '220px';
+                }
+            },
+            select(item, index) {
+                if (this.i == index) {
+                    this.option = !this.option;
+                } else {
+                    this.option = true;
+                }
+                for (var i = 0; i < li.length; i++) {
+                    li[i].children[2].style.display = 'none';
+                    li[i].className = '';
+                    if (li[i].children[1].classList[1] == 'glyphicon-menu-down') {
+                        li[i].children[1].classList.replace('glyphicon-menu-down', 'glyphicon-menu-right');
+                    }
+                }
+                if (this.option) {
+                    li[index].children[2].style.display = 'block';
+                    li[index].className = 'open';
+                    li[index].children[1].classList.replace('glyphicon-menu-right', 'glyphicon-menu-down');
+                }
+                this.i = index;
+
+                main.innerHTML = item;
+            },
+            option_down(o) {
+                main.innerHTML = o;
+            },
+            add_over() {
+                add.style.display = 'block';
+                icon_tab_add.classList.replace('glyphicon-triangle-bottom', 'glyphicon-triangle-top');
+
+            },
+            add_out() {
+                add.style.display = 'none';
+                icon_tab_add.classList.replace('glyphicon-triangle-top', 'glyphicon-triangle-bottom');
+            },
+            admin_over() {
+                admin.style.display = 'block';
+                icon_tab_admin.classList.replace('glyphicon-triangle-bottom', 'glyphicon-triangle-top');
+            },
+            admin_out() {
+                admin.style.display = 'none';
+                icon_tab_admin.classList.replace('glyphicon-triangle-top', 'glyphicon-triangle-bottom');
+            }
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <style>
+        * {
+            user-select: none;
+            color:
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        v-model     初始值
+        min         最小值
+        max         最大值
+        step        计数器步长
+        disabled    是否禁用计数器
+        blur        在组件 Input 失去焦点时触发
+        focus       在组件 Input 获得焦点时触发
+        change      绑定值被改变时触发
+     -->
+    <div id="app">
+        {{value}}
+        <el-number v-model="value" :min="1" :max="6" :step="2" :disabled='false'></el-number>
+        {{value1}}
+        <el-number v-model="value1" :min="1" :max="10" :step="3" :disabled='true'></el-number>
+    </div>
+    <template id="input-number">
+        <div>
+            <button @click="jian" :disabled="disabled">-</button>
+            <input type="text" v-model="val" @blur="blur" @focus="focus" :disabled="disabled">
+            <button @click="jia" :disabled="disabled">+</button>
+            {{val}}
+        </div>
+    </template>
+    <script>
+        Vue.component('el-number', {
+            template: "#input-number",
+            props: ['value', 'min', 'max', 'step', 'disabled'],
+            data() {
+                return {
+                    val: this.value || 0,
+                }
+            },
+            watch: {
+                val(v1) {
+                    this.$emit('change', v1);
+                    this.$emit('input', v1);
+                }
+            },
+            methods: {
+                jia() {
+                    this.val += this.step || 1;
+                    if (this.val >= this.max) {
+                        this.val = this.max;
+                        return;
+                    };
+                },
+                jian() {
+                    this.val -= this.step || 1;
+                    if (this.val <= this.min) {
+                        this.val = this.min;
+                        return;
+                    }
+                },
+                blur(ev) {
+                    this.$emit('blur', ev.target)
+                },
+                focus(ev) {
+                    this.$emit('focus', ev.target)
+                }
+            },
+        })
+        new Vue({
+            el: '#app',
+            data: {
+                value: 1,
+                value1: 1,
+            },
+        })
+    </script>
+</body>
+
+</html>

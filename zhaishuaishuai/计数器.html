@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计数器</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <abc :message='msg' :step="1" :max='20' :min='1' :disabled='disabled1'></abc>
+    </div>
+    <template id="bac">
+        <div>
+            步长:<input type="text" v-model="step1" style="width:20px"><br>
+            最大:<input type="text" v-model="max1" style="width:20px"><br>
+            最小:<input type="text" v-model="min1" style="width:20px"><br>
+            禁用:<input type="checkbox"  @change='chang'><br>
+            <button @click='jian':disabled='disabled1'>-</button>
+            <input type="text" v-model='message1' :disabled='disabled1' >
+            <button @click='jia' :disabled='disabled1'>+</button>
+        </div>
+    </template>
+</body>
+<script>
+    Vue.component('abc', {
+        template: '#bac',
+        props: ['message', 'step', 'max', 'min', 'disabled1'],
+        data() {
+            return {
+                message1: this.message,
+                step1: this.step,
+                max1: this.max,
+                min1: this.min,
+                disabled: this.disabled1
+            }
+        },
+        methods: {
+            jian() {
+                if (this.message1 <= this.min1) {
+                    this.message1 = this.min1
+                } else {
+                    this.message1 = this.message1 - parseInt(this.step1)
+                }
+
+            },
+            jia() {
+                if (this.message1 >= this.max1) {
+                    this.message1 = this.max1
+                } else {
+                    this.message1 = this.message1 + parseInt(this.step1)
+                }
+            },
+            chang() {
+                this.disabled = !this.disabled;
+                console.log(this.disabled)
+            }
+        },
+        watch: {
+            message1(value, oldvalue) {
+                this.$emit('input', value)
+            },
+            chang(value, oldvalue) {
+                this.$emit('disabled', value)
+                console.log(value)
+            }
+        },
+    })
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg: 10,
+            disabled1: false
+        },
+        methods: {
+
+        }
+    })
+</script>
+
+</html>

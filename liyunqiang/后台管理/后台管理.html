@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="font/font_c9ayasi32b/iconfont.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        text-decoration: none
+    }
+    
+    .warp {
+        position: relative;
+    }
+    
+    .title {
+        width: 100%;
+        height: 55px;
+        background-color: #111;
+        border-bottom: 1px solid rgba(0, 0, 0, .8);
+    }
+    
+    .title .logo a {
+        float: left;
+        color: #fff;
+        font-size: 18px;
+        padding-left: 20px;
+        line-height: 50px;
+        width: 200px;
+        transition: background-color ease .3s;
+    }
+    
+    .left_open {
+        height: 55px;
+        float: left;
+    }
+    
+    .left_open span {
+        display: block;
+        color: rgb(255, 255, 255);
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        margin-top: 10px;
+        cursor: pointer;
+        background: url(xadmin.css) 0px 0px no-repeat rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        transition: background-color 0.3s ease 0s;
+    }
+    
+    .layui-nav {
+        float: right;
+        line-height: 50px;
+        margin-right: 50px;
+        line-height: 50px
+    }
+    
+    .layui-nav-item a {
+        display: block;
+        padding: 0 25px;
+        color: white
+    }
+    
+    .left {
+        position: absolute;
+        top: 55px;
+        bottom: 0px;
+        left: 0px;
+        z-index: 2;
+        padding-top: 10px;
+        background-color: rgb(34, 35, 36);
+        width: 220px;
+        max-width: 220px;
+        overflow: hidden;
+        border-right: 1px solid rgb(19, 30, 38);
+    }
+    
+    #con {
+        position: absolute;
+        left: 220px;
+        top: 55px;
+        bottom: 0;
+        right: 0;
+    }
+    
+    .black {
+        background: #000;
+    }
+    
+    .black li {
+        border-left: 4px solid #000;
+        height: auto;
+    }
+    
+    #ha {
+        width: 225px;
+        line-height: 53px;
+        padding-left: 20px;
+        color: #ccc;
+        box-sizing: border-box;
+        user-select: none;
+        border-left: 4px solid rgb(34, 35, 36);
+    }
+    
+    #ha:hover {
+        color: white;
+        border-color: blue;
+        background: black;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <div class="warp">
+            <div class="title">
+                <div class="logo">
+                    <a href="">L-admin v2.0</a>
+                </div>
+                <div class="left_open">
+                    <span class="icon iconfont" style="color: white" title="展开左侧栏" @click="showleft">&#xe634;</span>
+
+                </div>
+                <ul class="layui-nav">
+                    <li class="layui-nav-item">
+                        <a href="">admin<span class="icon iconfont">&#xe615;</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="left" v-if="show">
+            <ul>
+                <li v-for="(item,index) in arr" id="ha" @click="showItem(item)" style="transition: all 0.8s">
+                    <span class="icon iconfont" v-html=item.img></span>
+                    <span>{{item.name}}</span>
+                    <span class="icon iconfont" v-html=item.font id="xi"></span>
+                    <ul v-if="isshow" @click="leftCon(index)">
+                        <!-- <span class="icon iconfont" v-html=item.font id="xi"></span> -->
+                        <li v-for="i,index in item.con" id="cont" @click="ccc(index)">{{i.text}}
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="con" v-for="a in ">
+            {{aa}}sssssssssssssssssssssssssssssssssssssssss
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+
+            indexs: 0,
+            isshow: false,
+            show: true,
+            arr: [{
+                img: '&#xe622;',
+                name: '主页',
+                font: '&#xe615;',
+                con: [{
+                    text: '控制台',
+                    lcon: [{
+                        aa: 'aa'
+                    }]
+                }]
+            }]
+        },
+
+        methods: {
+            showItem(item) {
+                this.isshow = !this.isshow;
+                ha.style.borderLeft = "4px solid blue"
+                ha.style.background = "#000"
+            },
+
+            showleft() {
+                this.show = !this.show;
+                if (!this.show) {
+                    con.style.left = "0"
+                    con.style.width = "100%"
+                } else {
+                    con.style.left = "220px"
+                    con.style.width = "0"
+
+                }
+
+            }
+
+        }
+    })
+</script>
+
+</html>

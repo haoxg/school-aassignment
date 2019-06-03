@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style/iconfont.css">
+    <link rel="stylesheet" href="style/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="header">
+                <div class="login fl">
+                    <a href="javascript:;">
+                            L-admin v2.0
+                    </a>
+                </div>
+                <div class="left-open fl" @click="showa">
+                    <i class="tubiao iconfont">&#xe60b;</i>
+                </div>
+                <div class="box fl">+新增
+                    <i class="i iconfont">&#xe615;</i>
+                    <i class="ziti iconfont">&#xe600;</i>
+                    <div class="caidan">
+                        <ul>
+                            <li>资讯</li>
+                            <li>图片</li>
+                            <li>用户</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 右 -->
+                <div class="box2 fr ">admin
+                    <i class="i iconfont">&#xe615;</i>
+                    <i class="ziti2 iconfont">&#xe600;</i>
+                    <div class="caidan2">
+                        <ul>
+                            <li>资讯</li>
+                            <li>图片</li>
+                            <li>用户</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="left-nav" :class='{leftactive:show }'>
+                <ul id="nav">
+                    <li v-for="item,index in arr">
+                        <a href="javascript:;" @click="click(index)">
+                            <i class="iconfont icon" v-html=item.icon></i>{{item.type}}
+                            <span class="span iconfont">&#xe644;</span>
+
+                        </a>
+                        <div class="submenu" :class="{submenu2:current==index}">
+                            <p v-for="i,index in item.lists">
+                                <i class="iconfont">&#xe644;</i> {{i}}
+                            </p>
+                        </div>
+
+                    </li>
+                </ul>
+
+            </div>
+            <div class="right-side" :class="{rightactive:show2}">
+                <div class="right-top">
+                    <a class="iconfont" href="javascript:;">&#xe68b; 我的桌面</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/js.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                arr: data,
+                show: false,
+                show2: false,
+                current: 999999
+            },
+            methods: {
+                showa() {
+                    this.show = !this.show
+                    this.show2 = !this.show2
+                },
+                click(index) {
+                    if (this.current == index) {
+                        this.current = 9999999
+                    } else {
+                        this.current = index
+                    }
+                }
+
+            }
+        })
+    </script>
+
+</html>

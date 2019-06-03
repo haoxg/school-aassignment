@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <title>Document</title>
+    <style>
+        span {
+            display: inline-block;
+            border: 1px #ccc solid;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            user-select: none;
+        }
+        
+        input {
+            height: 28px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        {{a}}
+        <jishuqi :count="a" :min="0" max="100" :step="5" @count-change="a=$event"></jishuqi>
+    </div>
+    <template id="jishuqi">
+        <div>
+            <input type="text" v-model="mystep">
+            <span @click="jian">-</span>
+            <input type="text" v-model="myCount" >
+            <span @click="jia">+</span>
+        </div>
+    </template>
+
+    <script>
+        Vue.component("jishuqi", {
+            template: "#jishuqi",
+            props: ['min', 'max', 'count', 'step'],
+            data() {
+                return {
+                    myCount: this.count,
+                    myMin: this.min,
+                    myMax: this.max,
+                    mystep: this.step
+                }
+            },
+            watch: {
+                myCount(v1, v2) {
+                    this.$emit('count-change', v1)
+                }
+
+            },
+            methods: {
+                jian() {
+                    this.myCount -= Number(this.mystep)
+                    if (this.myCount < this.myMin) {
+                        this.myCount = this.myMin
+                    };
+                },
+                jia() {
+                    this.myCount += Number(this.mystep)
+                    if (this.myCount > this.myMax) {
+                        this.myCount = this.myMax
+                    };
+                },
+
+
+            }
+        })
+
+        new Vue({
+            el: '#app',
+            data: {
+                a: 5
+            },
+            methods: {
+                fatherChange(v1) {
+                    console.log(this.a)
+                    this.a = v1
+                },
+
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+       
+        <my-input-number count="0" min="5" max="10" @count-change="fatherChange"></my-input-number>
+    </div>
+</body>
+
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+
+<script src="./inputNumber-ui.js"></script>
+<script>
+    // 实例化一个app
+    const app = new Vue({
+        el: "#app",
+        data: {
+            count: 0,
+        },
+        methods: {
+            fatherChange(count) {
+                // 监听数字的变化
+                console.log(count)
+            },
+
+        }
+    })
+    Vue.component('my-input-number', {
+        data: function() {
+            return {
+                myCount: 0,
+                // 最小值默认0
+                myMin: 0,
+                // 最大值默认10
+                myMax: 10,
+            }
+        },
+        // 父组件将数据传递给子组件
+        props: ['count', 'min', 'max'],
+        // 模板导入
+        template: `<div class="my-input-number" style="width:180px;height:40px;display:flex;border:1px solid #ccc;x">
+                   <input type="button"  value="-" style="width:50px;font-size:25px" @click="reduce" >
+                   <input type="text" v-model="myCount" style="outline:none;width:80px;font-size:25px;text-align:center" @click="Change">
+                   <input type="button" value="+" style="width:50px;font-size:25px" @click="add"> 
+                   </div>`,
+        //生命周期函数 实例创建后自动调用赋值
+        created() {
+            this.myCount = this.count;
+            this.myMin = this.min || 0;
+            this.myMax = this.max || 10;
+        },
+        methods: {
+            // 增加
+            add() {
+                this.myCount++;
+                if (this.myCount > this.myMax) {
+                    this.myCount = this.myMax
+                };
+                // 子组件把值传递给父组件
+                this.$emit('count-change', this.myCount)
+            },
+            // 减少
+            reduce() {
+                this.myCount--;
+                if (this.myCount < this.myMin) {
+                    this.myCount = this.myMin
+                };
+                // 子组件把值传递给父组件
+                this.$emit('count-change', this.myCount)
+            },
+            // 个数改变 做数据类型转换
+            Change() {
+                // 解析字符串返回整数
+                this.myCount = parseInt(this.myCount);
+                if (this.myCount > this.myMax) this.myCount = this.myMax
+                else if (this.myCount < this.myMin) this.myCount = this.myMin
+                    // 传值
+                this.$emit('count-change', this.myCount)
+            }
+
+        }
+    }, )
+</script> -->

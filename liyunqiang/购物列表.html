@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <link rel="stylesheet" href="font/font_qort9ra9nzk/iconfont.css">
+    <link rel="stylesheet" href="font/font_c9l0c2l38gn/iconfont.css">
 </head>
 <style>
     * {
@@ -33,28 +33,27 @@
     
     #left {
         width: 90px;
-        height: 560px;
-        border-right: 1px solid #ccc
+        height: 490px;
     }
     
     #left li {
         width: 100%;
         height: 40px;
         border-bottom: 1px solid #ccc;
+        border-right: 1px solid #ccc;
         text-align: center;
         line-height: 40px
     }
     
     #right {
         width: 270px;
-        height: 560px;
-        /* border: 1px solid #ccc; */
+        height: 490px;
         float: right;
         box-sizing: border-box
     }
     
     #r-title {
-        border-bottom: 1px solid #ccc
+        border-bottom: 1px solid #ccc;
     }
     
     #r-title li {
@@ -104,11 +103,32 @@
     button {
         width: 15px;
         outline: none;
+        border-radius: 50%;
+        border: none
+    }
+    
+    #values {
+        margin: 0 5px;
+        font-size: 10px;
     }
     
     #ss {
         float: right;
-        margin: 25px
+        margin-right: 15px;
+        margin-top: 35px;
+    }
+    
+    #footer {
+        width: 100%;
+        height: 50px;
+        border-top: 1px solid #ccc
+    }
+    
+    dl {
+        width: 23%;
+        display: inline-block;
+        text-align: center;
+        font-size: 16px
     }
 </style>
 
@@ -134,7 +154,7 @@
                         <div id="list2">
                             <div>
                                 <span id="text">{{a.text}}</span>
-                                <!-- <span id="ss"><button>-</button><b>0</b><button>+</button></span> -->
+                                <span id="ss"><button @click="jian()">-</button><a id="values">0</a><button @click="jia(i)">+</button></span>
 
                                 <p id="pirce">{{a.pirce}}</p>
                             </div>
@@ -146,13 +166,30 @@
                 </div>
                 <div id="left">
                     <ul>
-                        <li v-for="i,index in arr" @click="aa(index)" id="oli" :class="{active:istrue==index}">
+                        <li v-for="i,index in arr" @click="aa(index)" id="oli" :class="{active:indexl==index}">
                             {{i.name}}
-
                         </li>
-
                     </ul>
                 </div>
+            </div>
+            <div id="footer">
+                <dl>
+                    <dt><span class="icon iconfont">&#xe616;</span></dt>
+                    <dd>首页</dd>
+                </dl>
+                <dl>
+                    <dt><span class="icon iconfont">&#xe61f;</span></dt>
+                    <dd>搜索</dd>
+                </dl>
+                <dl>
+                    <dt><span class="icon iconfont">&#xe600;</span></dt>
+                    <dd>购物车</dd>
+                </dl>
+                <dl>
+                    <dt><span class="icon iconfont">&#xe636;</span></dt>
+                    <dd>我的</dd>
+                </dl>
+
             </div>
 
         </div>
@@ -163,7 +200,6 @@
         el: '#app',
         data: {
             indexl: 0,
-            istrue: 0,
             arr: [{
                 name: '热销新品',
                 con: [{
@@ -259,7 +295,14 @@
         methods: {
             aa(index) {
                 this.indexl = index;
-                this.istrue = index;
+            },
+            jia(i) {
+                console.log(i)
+                values.innerHTML += 1;
+
+            },
+            jian() {
+                values.innerHTML -= 1
             }
         },
     })

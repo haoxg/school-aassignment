@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <script src="vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="logo"><a href='#'>L-admin v2.0</a></div>
+            <div class="left_open">
+                <i title="展开左侧栏" class="iconfont">&#xe670;</i>
+            </div>
+            <ul class="layui-nav left fast-add" lay-filter="">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">+新增<i class="iconfont">&#xe652;</i></a>
+                </li>
+            </ul>
+            <ul class="layui-nav right" lay-filter="">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">admin<i class="iconfont">&#xe652;</i></a>
+                </li>
+                <li class="layui-nav-item to-index"><a href="#">前台首页</a></li>
+            </ul>
+        </div>
+        <!--  adwiehfaosfnoawfmwqopejgjwegoajwegih-->
+
+        <div class="left-nav">
+            <div id="side-nav">
+                <ul id="nav">
+                    <li v-for="(i, index) in arr" :key="index" class="lis" @click="lis(index)">
+                        <a href="javascript:;">
+                            <i class="iconfont">&#xe61e;</i>
+                            <cite>{{i.name}}</cite>
+                            <i class="iconfont nav_right">&#xe61f;</i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li v-for="(o, index) in i.list" :key="index"><a _href="#"><i
+                                        class="iconfont">&#xe61f;</i><cite>{{o.name}}</cite></a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                lie1: 0,
+                arr: [{
+                    name: '主页',
+                    list: [{
+                        name: '控制台',
+                        cont: '控制台控制台控制台控制台控制台控制台控制台控制台控制台控制台'
+                    }, ]
+                }, {
+                    name: '基本元素',
+                    list: [{
+                        name: '字体图标',
+                        cont: '字体图标字体图标字体图标字体图标字体图标字体图标'
+                    }, {
+                        name: '表单元素',
+                        cont: '表单元素表单元素表单元素表单元素表单元素'
+                    }, {
+                        name: '表单组合',
+                        cont: '表单组合表单组合表单组合表单组合'
+                    }, {
+                        name: '按钮',
+                        cont: '按钮按钮按钮按钮按钮按钮'
+                    }, {
+                        name: '选项卡',
+                        cont: '选项卡选项卡选项卡'
+                    }, {
+                        name: '进度条',
+                        cont: '进度条进度条进度条'
+                    }, ]
+                }, {
+                    name: '组件页面',
+                    list: [{
+                        name: '文件上传',
+                        cont: '文件上传文件上传文件上传'
+                    }, {
+                        name: '分页',
+                        cont: '分页分页分页分页'
+                    }, {
+                        name: '多级分类',
+                        cont: '多级分类多级分类多级分类'
+                    }, ]
+                }, {
+                    name: '排版布局',
+                    list: [{
+                        name: '栅格',
+                        cont: '栅格栅格栅格栅格栅格栅格栅格栅格栅格栅格栅格'
+                    }, {
+                        name: '排版',
+                        cont: '排版排版排版排版排版排版排版排版排版排版'
+                    }, {
+                        name: '多级分类',
+                        cont: '多级分类多级分类多级分类'
+                    }, ]
+                }, {
+                    name: '订单管理',
+                    list: [{
+                        name: '订单列表',
+                        cont: '订单列表订单列表订单列表订单列表订单列表订单列表订单列表'
+                    }, ]
+                }, {
+                    name: '管理员管理',
+                    list: [{
+                        name: '管理员列表',
+                        cont: '管理员列表管理员列表管理员列表管理员列表管理员列表管理员列表'
+                    }, {
+                        name: '会员删除',
+                        cont: '会员删除角色管理角色管理角色管理角色管理角色管理角色管理'
+                    }, {
+                        name: '权限分类',
+                        cont: '权限分类权限分类权限分类权限分类权限分类权限分类权限分类'
+                    }, {
+                        name: '权限管理',
+                        cont: '权限管理权限管理权限管理权限管理权限管理权限管理权限管理权限管理权限管理'
+                    }, ]
+                }, {
+                    name: '用户管理',
+                    list: [{
+                        name: '会员列表',
+                        cont: '会员列表会员列表会员列表会员列表会员列表会员列表'
+                    }, {
+                        name: '会员删除',
+                        cont: '会员删除会员删除会员删除会员删除会员删除会员删除会员删除'
+                    }, {
+                        name: '会员管理',
+                        cont: '会员管理会员管理会员管理会员管理会员管理会员管理会员管理会员管理会员管理会员管理会员管理会员管理'
+                    }, ]
+                }, {
+                    name: '系统统计',
+                    list: [{
+                        name: '折线图',
+                        cont: '折线图折线图折线图折线图折线图折线图'
+                    }, {
+                        name: '柱状图',
+                        cont: '柱状图柱状图柱状图柱状图柱状图柱状图柱状图'
+                    }, ]
+                }, ]
+            },
+            methods: {
+                lis(idx) {
+                    if ($('.lis').eq(idx).children('.sub-menu').length) {
+                        if ($('.lis').eq(idx).hasClass('open')) {
+                            $('.lis').eq(idx).removeClass('open');
+                            $('.lis').eq(idx).find('.nav_right').html('&#xe61f;');
+                            $('.lis').eq(idx).children('.sub-menu').stop().slideUp();
+                            $('.lis').eq(idx).siblings().children('.sub-menu').slideUp();
+                        } else {
+                            $('.lis').eq(idx).addClass('open');
+                            $('.lis').eq(idx).children('a').find('.nav_right').html('&#xe628;');
+                            $('.lis').eq(idx).children('.sub-menu').stop().slideDown();
+                            $('.lis').eq(idx).siblings().children('.sub-menu').stop().slideUp();
+                            $('.lis').eq(idx).siblings().find('.nav_right').html('&#xe61f;');
+                            $('.lis').eq(idx).siblings().removeClass('open');
+                        }
+                    } else {
+                        var url = $('.lis').eq(idx).children('a').attr('_href');
+                        var title = $('.lis').eq(idx).find('cite').html();
+                        var index = $('.left-nav #nav li').index($('.lis').eq(idx));
+                        for (var i = 0; i < $('.x-iframe').length; i++) {
+                            if ($('.x-iframe').eq(i).attr('tab-id') == index + 1) {
+                                tab.tabChange(index + 1);
+                                return;
+                            }
+                        };
+                        tab.tabAdd(title, url, index + 1);
+                        tab.tabChange(index + 1);
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -112,7 +112,6 @@
 			</div>
 			<div class="tab">
 				<a href="#" @click="tabId=index"v-for="(i,index) in arr" class="{tabId=0}">{{i.type}}</a>
-
 			</div>
 			<div class="box">
 				<div v-if="tabId == index" v-for="(o,index) in arr" :key="index">

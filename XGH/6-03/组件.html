@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #app {
+            width: 600px;
+            height: 360px;
+            margin: 100px auto;
+            border: 1px solid #50bfff;
+        }
+        
+        .a {
+            float: left;
+            margin: 60px;
+        }
+        
+        .b {
+            float: left;
+            margin: 60px;
+        }
+        
+        .c {
+            float: left;
+            margin: 60px;
+        }
+        
+        .d {
+            float: left;
+            margin: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <sss class="a"></sss>
+        <ccc class="b"></ccc>
+        <aaa class="c"></aaa>
+        <bbb class="d"></bbb>
+    </div>
+    <template id="asd">
+        <div>
+            <el-input-number v-model="num" @change="handleChange" :min="1" :max="100" label="描述文字"></el-input-number>
+        </div>
+    </template>
+    <template id="abc">
+            <el-input-number v-model="num" :disabled="true"></el-input-number>
+    </template>
+    <template id="efj">
+            <el-input-number v-model="num" :step="2"></el-input-number>
+    </template>
+    <template id="hig">
+            <el-input-number v-model="num" :precision="2" :step="0.1" :max="10"></el-input-number>
+    </template>
+    <script src="..//vue/dist/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+        Vue.component('ccc', {
+            template: '#abc',
+            data() {
+                return {
+                    num: 1
+                }
+            }
+        })
+    </script>
+    <script>
+        Vue.component('bbb', {
+            template: '#hig',
+            data() {
+                return {
+                    num: 1
+                }
+            }
+        })
+    </script>
+    <script>
+        Vue.component('aaa', {
+            template: '#efj',
+            data() {
+                return {
+                    num: 5
+                }
+            }
+        })
+    </script>
+    <script>
+        Vue.component('sss', {
+            template: '#asd',
+            data() {
+                return {
+                    num: 1
+                };
+            },
+            methods: {
+                handleChange(value) {
+                    console.log(value);
+                }
+            }
+        })
+
+        var vm = new Vue({
+            el: '#app',
+
+        })
+    </script>
+
+</body>
+
+</html>

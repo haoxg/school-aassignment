@@ -1,0 +1,37 @@
+/* 重置样式表 */
+*{margin: 0;padding: 0;}
+ul,ol{list-style: none;}
+em,i{font-style: normal;}
+a{text-decoration: none; color: rgb(204, 204, 204);;}
+/* a:hover{text-decoration: underline;} */
+input{border:none; outline: none; background-color: transparent;}
+body,html,#app{height: 100%;}
+body{position: relative; overflow-x: hidden;color: rgb(204, 204, 204);background-color: rgb(17, 17, 17);}
+/*公用*/
+.clearfix:after,.clearfix:before{content: '';display: table;}.clearfix:after{clear: both;}
+.hide{display: none;}
+.show{display: block}
+.fl{float: left;}
+.fr{float: right;}
+
+.style{color:black;position: absolute;top:55px;z-index: 6666;border: 1px solid;line-height: 36px;width:60px;text-align: center}
+a:hover{color: white;}
+.col-md-2{width: 200px;padding-left: 20px;line-height: 55px;}
+.container {height: 55px;border-bottom: 1px solid rgba(0, 0, 0, 0.8);width: 100%;min-width: 700px;}
+.color{margin: 10px;line-height: 55px;}
+.color1{color: white};
+.right{background: white}
+main{height: 100%;}
+.left{line-height: 55px;background-color: rgb(17, 17, 17);max-width:220px ;min-width: 220px;width: 220px;transition:.3s;position: absolute;top: 55px;bottom: 0px;left: 0;}
+.isShow{transform: translate(-220px);}
+.right{background: white;height: 100%;transition:.3s;position: absolute;top: 55px;bottom: 0px;left:220px;width: 100%;}
+.style a{color: black}
+.style li:hover{background: #ccc}
+.br{border-left: aquamarine 2px solid;}
+.style a:hover{color: black}
+.left li{padding-left: 20px}
+.left>ul>a>li:hover{border-left: aquamarine 2px solid;}
+.isblok:hover>ol{display: block}
+.isblok ol{display: none}
+/* .left li i{padding: 5px;} */
+                             

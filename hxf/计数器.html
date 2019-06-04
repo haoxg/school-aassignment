@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<title></title>
+		<script src="vue.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<inputnumber :step="5" @count-change="num=$event"></inputnumber>
+		</div>
+		<template id="text">
+			<div>
+				<button @click="jian">-</button>
+				<input type="text" v-model="nums">
+				<button @click="jia">+</button><br />
+				步数:{{step}}
+			</div>
+		</template>
+		<script>
+			Vue.component('inputnumber', {
+				template: '#text',
+				props: ['num', 'step'],
+				data() {
+					return {
+						nums: this.num || 1,
+						mins: this.min,
+						maxs: this.max,
+						steps: this.step,
+					};
+				},
+				watch: {
+					nums(v1, v2) {
+						this.$emit('count-change', v1)
+					}
+				},
+				methods: {
+					handleChange(value) {
+						console.log(value);
+					},
+					jia() {
+						if(this.nums >= this.maxs) {
+							this.disabled = !this.disabled
+							return
+						}
+						this.nums += this.steps;
+					},
+					jian() {
+						if(this.nums <= this.mins) {
+							this.disabled = !this.disabled
+							return
+						}
+						this.nums -= this.steps;
+					}
+				}
+			})
+			new Vue({
+				el: '#app',
+				data: {
+					num: 1,
+				}
+			})
+		</script>
+	</body>
+
+</html>

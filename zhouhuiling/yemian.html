@@ -15,8 +15,7 @@
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <link rel="stylesheet" href="../zhouhuiling/font_qort9ra9nzk/iconfont.css">
-    <link rel="stylesheet" href="../zhouhuiling/font_qort9ra9nzk/demo_index.html">
+    <link rel="stylesheet" href="../zhouhuiling/font_c9l0c2l38gn/iconfont.css">
     <style>
         * {
             margin: 0;
@@ -28,7 +27,6 @@
         #box {
             width: 100%;
             min-height: 12.5rem;
-            border: 1px solid #ccc;
             margin: 0 auto;
         }
         
@@ -98,6 +96,53 @@
         #jia {
             color: orange;
             margin-top: 5%;
+            width: 3.5rem;
+        }
+        
+        #anniu {
+            float: right;
+            margin-right: 10%;
+        }
+        
+        #anniu button {
+            width: .3rem;
+            height: .3rem;
+            border-radius: 50%;
+            outline-style: none;
+            border: none;
+            margin-right: .05rem;
+        }
+        
+        #con {
+            width: 100%;
+            height: auto
+        }
+        
+        #text {
+            width: 3rem;
+        }
+        
+        #footer {
+            width: 100%;
+            height: 1.25rem;
+            background: #ccc;
+            float: left;
+        }
+        
+        #footer dl {
+            width: 20%;
+            height: 1.25rem;
+            display: inline-block;
+        }
+        
+        #footer dl dt {
+            width: .5rem;
+            height: .5rem;
+            margin: 0 auto;
+        }
+        
+        #footer dd {
+            font-size: 18px;
         }
     </style>
 </head>
@@ -108,7 +153,7 @@
             <div id="header">
                 <p id="ziti">派送至:北京石景山
                     <span class="icon iconfont">&#xe615;</span>
-                    <span class="icon iconfont" id="sousuo">&#xe61f;</span>
+                    <span class="icon iconfont">&#xe61f;</span>
                 </p>
             </div>
             <div id="nav">
@@ -119,17 +164,44 @@
                     <li>分类</li>
                 </ul>
             </div>
-            <div id="right">
-                <div id="first " v-for="b,index in arr[indexl].con ">
-                    <img :src="b.img" style="width: 20%;height: 100%">
-                    <p style="font-size:8px;margin-left: 20%;margin-top: -20%">{{b.text}}</p>
-                    <p style="font-size:12px;margin-left: 20%;" id="jia">价格:{{b.jiage}}</p>
+            <div id="con">
+                <div id="right">
+                    <div id="first " v-for="b,index in arr[indexl].con ">
+                        <img :src="b.img" style="width: 20%;height: 100%">
+                        <p style="font-size:8px;margin-left: 20%;margin-top: -20%;" id="text">{{b.text}}</p>
+                        <p style="font-size:12px;margin-left: 20%;" id="jia">价格:{{b.jiage}}
+                            <span id="anniu">
+                        <button @click="reduce(index)">-</button>
+                        <a>{{pr}}</a>
+                        <button @click="plus(index)">+</button>
+                        </span>
+                        </p>
+
+                    </div>
+                </div>
+                <div id="left">
+                    <ul>
+                        <li v-for="a,index in arr" style="font-size: 18px;width: 100%;height: 40px;border-bottom: 1px solid #ccc;text-align: center;line-height: 40px" @click="showItem(index)">{{a.name}}</li>
+                    </ul>
                 </div>
             </div>
-            <div id="left">
-                <ul>
-                    <li v-for="a,index in arr" style="font-size: 18px;width: 100%;height: 40px;border-bottom: 1px solid #ccc;text-align: center;line-height: 40px" @click="showItem(index)">{{a.name}}</li>
-                </ul>
+            <div id="footer">
+                <dl>
+                    <dt><span class="icon iconfont">&#xe616;</span></dt>
+                    <dd>首页</dd>
+                </dl>
+                <dl>
+                    <dt><span class="icon iconfont">&#xe61f;</span></dt>
+                    <dd>分类</dd>
+                </dl>
+                <dl>
+                    <dt><span class="icon iconfont">&#xe600;</span></dt>
+                    <dd>购物车</dd>
+                </dl>
+                <dl>
+                    <dt><span class="icon iconfont">&#xe636;</span></dt>
+                    <dd>我的</dd>
+                </dl>
             </div>
         </div>
     </div>
@@ -138,6 +210,7 @@
     new Vue({
         el: '#app',
         data: {
+            pr: 0,
             indexl: 0, //左导航下标
             arr: [{
                 name: '优选水果',
@@ -151,10 +224,6 @@
                     jiage: '12元'
                 }, {
                     img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559228286003&di=6fd9a87b478eb48f1ccd1c8f592ad615&imgtype=0&src=http%3A%2F%2Fimgsa.baidu.com%2Fexp%2Fw%3D500%2Fsign%3Dc98e89da5282b2b7a79f39c401afcb0a%2F95eef01f3a292df58834bdcbb7315c6035a8737c.jpg ",
-                    text: '新鲜青柠500g/盒新鲜特价盒新鲜新鲜特价',
-                    jiage: '12元'
-                }, {
-                    img: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559237502588&di=c2594a837a0dbf1b29ad7937e768782e&imgtype=0&src=http%3A%2F%2Fimg.xinxic.com%2Fimg%2Ff2f584ba5b333f4c.jpg ",
                     text: '新鲜青柠500g/盒新鲜特价盒新鲜新鲜特价',
                     jiage: '12元'
                 }, {
@@ -407,7 +476,16 @@
                 this.indexl = index;
                 console.log(index)
             },
-
+            plus: function(pr) {
+                this.pr++;
+            },
+            reduce: function(pr) {
+                if (this.pr <= 0) {
+                    alert('再减就没了')
+                } else {
+                    this.pr -= 1
+                }
+            }
         }
     })
 </script>

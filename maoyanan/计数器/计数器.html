@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+     
+        input {
+            cursor: pointer;
+        }
+        .inpnt{
+            position: relative;
+    display: inline-block;
+    width: 180px;
+    line-height: 38px;
+
+        }
+        .el-input-number__decrease.is-disabled, .el-input-number__increase.is-disabled {
+    color: #c0c4cc;
+    cursor: not-allowed;
+}
+.el-input-number__decrease {
+    left: 1px;
+    border-radius: 4px 0 0 4px;
+    border-right: 1px solid #dcdfe6;
+}
+.el-input-number__decrease {
+    position: absolute;
+    z-index: 1;
+    top: 1px;
+    width: 40px;
+    height: auto;
+    text-align: center;
+    background: #f5f7fa;
+    color: #606266;
+    cursor: pointer;
+    font-size: 13px;
+}
+.el-input-number__increase {
+    right: 1px;
+    border-radius: 0 4px 4px 0;
+    border-left: 1px solid #dcdfe6;
+}
+.el-input-number__increase {
+    position: absolute;
+    z-index: 1;
+    top: 1px;
+
+    width: 40px;
+    height: auto;
+    text-align: center;
+    background: #f5f7fa;
+    color: #606266;
+    cursor: pointer;
+    font-size: 13px;
+}
+.el-input {
+    position: relative;
+    font-size: 14px;
+    display: inline-block;
+    width: 100%;
+}
+.el-input__inner {
+    background-color: #fff;
+    background-image: none;
+    border-radius: 4px;
+    border: 1px solid #dcdfe6;
+    box-sizing: border-box;
+    color: #606266;
+    display: inline-block;
+    font-size: inherit;
+    height: 40px;
+    line-height: 40px;
+    outline: none;
+    padding: 0 15px;
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    width: 100%;
+    text-align: center;
+}
+    </style>
+</head>
+
+<body>
+        <div id="app">
+                {{value}}
+                <el-number v-model="value" :min="1" :max="5" :step="2" :disabled="false"></el-number>
+                {{value1}}
+                <el-number v-model="value1" :min="1" :max="10" :step="3" :disabled="false"></el-number>
+            </div>
+            <template id="input-number">
+                <div class="inpnt">
+                    <span class="el-input-number__decrease">
+                    <button @click="minus" id="el-input">-</button>
+                </span>
+                <div class="">
+                    <input   class="el-input__inner" type="text" v-model="price" @blur="blur" @focus="focus">
+                </div>
+                    <span class="el-input-number__increase">
+                    <button @click="plus" :disabled ='disabled'>+</button>
+                </span>
+                </div>
+            </template>
+
+    <script>
+    Vue.component('el-number', {
+            template: "#input-number",
+            props: ['value', 'min', 'max', 'step', 'disabled'],
+            data() {
+                return {
+                    price : this.value,
+                }
+            },
+            watch: {
+                price(v1) {
+                    this.$emit('change', v1);
+                    this.$emit('input', v1);
+                }
+            },
+            methods: {
+                plus() {
+                    this.price += this.step || 1;
+                    if (this.price >= this.max) {
+                        this.price = this.max;
+                        return;
+                    };
+                },
+                minus() {
+                    this.price-= this.step || 1;
+                    if (this.price <= this.min || 0) {
+                        this.price= this.min || 0;
+                        return;
+                    }
+                },
+                blur(ev) {
+                    this.$emit('blur', ev.target)
+                },
+                focus(ev) {
+                    this.$emit('focus', ev.target)
+                }
+            },
+        })
+        new Vue({
+            el: '#app',
+            data: {
+                value: 1,
+                value1: 1,
+            },
+        })
+    </script>
+</body>
+
+</html>

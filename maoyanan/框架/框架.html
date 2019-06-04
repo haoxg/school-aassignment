@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="icons/iconfont.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <div id="container">
+
+          
+            <div id="header" class="clearfix">
+                <div class="logo">
+                    <a href="index.html">L-admin</a>
+                </div>
+                <div class="left_open">
+                    <span @click="shrink" class=" open_left icon iconfont" title="展开左侧栏">&#xe614;</span>
+                    <!-- <span class=""></span> -->
+                </div>
+                <div class="layui_nav right clearfix">
+                        <div class="layui_nav_item">
+                            <a href="#">
+                                admin
+                            </a>
+                            <span class="  glyphicon glyphicon-triangle-bottom more"></span>
+                        </div>
+    
+                    </div>
+                </div>
+             
+                <div id="content" class="clearfix">
+                
+                    <div id="main_left">
+                        <div id="side_nav">
+                            <ul id="nav">
+                                <li ref="li" v-for="item,index in list" @click.self="choosed(index)" :class="{'active':hoverIndex==index}">
+                                    <a href="#">{{item.main_nav}}</a>
+                                    <span class=" glyphicon-menu-right"></span>
+                                    <ul class="sencond_nav">
+                                        <li @click="menu(o,i)" v-for="o,i in item.second_nav">
+                                            <span class="glyphicon glyphicon-menu-right s-right"></span>
+                                            <a href="#">{{o}}</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                   
+                    <div id="main_right">
+                        <div id="head_nav" class="clearfix">
+                            <div class="my">
+                                <span class=" glyphicon-home"></span> 我的桌面
+                            </div>
+                            <ul class="menu_list clearfix">
+                                <li v-for="o,i in menuList">
+                                    <span>{{o}}</span>
+                                    <span class=" glyphicon-remove"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+          
+                </div>
+        
+            </div>
+        </div>
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+            hoverIndex: '',
+            on: false,
+            isShrink: false,
+            list: [{
+                main_nav: '主页',
+                second_nav: [
+                    '控制台'
+                ]
+            }, {
+                main_nav: '基本元素',
+                second_nav: [
+                    '图标字体',
+                    '表单元素',
+                    '表单组合',
+                    '按钮',
+                    '导航/面包屑',
+                    '选项卡',
+                    '进度条',
+                    '面板',
+                    '微章',
+                    '时间线'
+                ]
+            }, {
+                main_nav: '组件页面',
+                second_nav: [
+                    '文件上传',
+                    '分页',
+                    '多级分类',
+                    '轮播图',
+                    '城市三级联动'
+                ]
+            }, {
+                main_nav: '排版布局',
+                second_nav: [
+                    '栅格',
+                    '排版'
+                ]
+            }, {
+                main_nav: '订单管理',
+                second_nav: [
+                    '订单列表'
+                ]
+            }, {
+                main_nav: '管理员管理',
+                second_nav: [
+                    '管理员列表'
+                ]
+            }, {
+                main_nav: '用户管理',
+                second_nav: [
+                    '会员列表',
+                    '会员删除',
+                    '会员管理'
+                ]
+            }, {
+                main_nav: '系统统计',
+                second_nav: [
+                    '拆线图',
+                    '柱状图'
+                ]
+            }],
+            menuList: []
+        },
+        methods: {
+            choosed(index) {
+                if (index == this.hoverIndex) {
+                    this.on = !this.on;
+                } else {
+                    this.on = true;
+                }
+                this.hoverIndex = index;
+                console.log();
+                if (this.on) {
+                    for (var i = 0; i < this.$refs.li.length; i++) {
+                        this.$refs.li[i].children[2].style.display = "none";
+                    }
+                    this.$refs.li[index].children[2].style.display = "block";
+                    this.$refs.li[index].children[1].className = "glyphicon glyphicon-menu-down";
+                } else {
+                    for (var i = 0; i < this.$refs.li.length; i++) {
+                        this.$refs.li[i].children[2].style.display = "none";
+                    }
+                    this.$refs.li[index].children[1].className = "glyphicon glyphicon-menu-right";
+                }
+            },
+            shrink() {
+                this.isShrink = !this.isShrink;
+                main_left.style.transform = this.isShrink ? "translateX(-220px)" : 'translateX(0)';
+               if (this.isShrink) {
+                    main_left.style.transform = "translateX(-220px)";
+                    main_right.style.left = "0";
+                } else {
+                    main_left.style.transform = 'translateX(0)';
+                    main_right.style.left = "220px";
+                }
+            },
+            menu(o, i) {
+                if (this.menuList.indexOf(o) == -1) {
+                    this.menuList.push(o);
+                }
+            }
+
+        }
+    })
+</script>
+
+</body>
+
+</html>

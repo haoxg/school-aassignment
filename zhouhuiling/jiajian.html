@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}
+        <el-input-number v-model="msg" @event-a="msg=$event"></el-input-number>
+    </div>
+</body>
+<script>
+    Vue.component('el-input-number', {
+        props: ['value', 'max', 'min', 'step'],
+        data() {
+            return {
+                msg: 10,
+                value1: this.value,
+                num: 5,
+                ma: 50,
+                mi: 0
+            }
+        },
+        watch: {
+            value1(value, oldvalue) {
+                this.$emit('event-a', value)
+            }
+        },
+        methods: {
+            jia() {
+                this.value1++
+                    this.value1 += this.step || 4;
+                if (this.value1 >= this.ma) {
+                    this.value1 = this.ma;
+                    return;
+                };
+
+            },
+            jian() {
+                this.value1--
+                    this.value1 -= this.step || 4;
+                if (this.value1 <= this.mi || 0) {
+                    this.value1 = this.mi || 0;
+                    return;
+                }
+            },
+            focus(event) {
+                this.$emit('focus', event.target)
+            }
+        },
+        template: `
+        <div id="box">
+        最大值<input type="text" :max="50" v-model="ma"><br>
+        最小值<input type="text" :min="0" v-model="mi"><br>
+        步长<input type="text" :step="5" v-model="num"><br>
+            <button @click="jian">-</button>
+            <input type="text" v-model="value1" @focus="focus">
+            <button @click="jia">+</button>
+        </div>
+        `
+    })
+    new Vue({
+        data: {
+            msg: 10
+        },
+    }).$mount('#app')
+</script>
+
+</html>

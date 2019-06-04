@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			{{msg}}
+			<ss  :value="msg" @event-a="msg=$event"></ss>
+		</div>
+		<template id="ss">
+			<div>
+			<button @click="jian">-</button>
+			<input type="number" v-model="value1"/>
+			<button @click="jia">+</button>
+			</div>
+		</template>
+	</body>
+	<script src="../vue.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		Vue.component('ss',{
+			template:'#ss',
+			props:['value'],
+			data(){
+				return{
+					value1:this.value
+				}
+			},
+			watch:{
+				value1(value,oldvalue){
+					this.$emit('event-a',value)
+				}
+			},
+			methods:{
+				jia(){
+					this.value1++
+				},
+				jian(){
+					this.value1--
+				}
+			}
+		})
+		new Vue({
+			el:'#app',
+			data:{
+				msg:'2'
+			}
+			
+		})
+	</script>
+</html>

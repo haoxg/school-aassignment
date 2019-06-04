@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">   
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <title>计数器</title>
+    <style>
+        
+
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        {{value}}
+        <el-input-number v-model="value" :min="1" :max="6" :step="2" :disabled="false"></el-input-number>     
+    </div>
+    <template id="input-number">
+        <div>
+            <button @click='jian'>-</button>
+            <input type="text" v-model="val" @blur="blur" @focus="focus">
+            <button @click='jia'>+</button> 
+        </div>              
+    </template>   
+    <script>
+       Vue.component('el-input-number', {
+            template: "#input-number",
+            props: ['value', 'min', 'max', 'step', 'disabled'],
+            data() {
+                return {
+                    val: this.value,
+                }
+            },
+            watch: {
+                val(v1) {
+                    this.$emit('change', v1);
+                    this.$emit('input', v1);
+                }
+            },
+            methods: {
+                jia() {
+                    this.val += this.step || 1;
+                    if (this.val >= this.max) {
+                        this.val = this.max;
+                        return;
+                    };
+                },
+                jian() {
+                    this.val -= this.step || 1;
+                    if (this.val <= this.min || 0) {
+                        this.val = this.min || 0;
+                        return;
+                    }
+                },
+                blur(ev) {
+                    this.$emit('blur', ev.target)
+                },
+                focus(ev) {
+                    this.$emit('focus', ev.target)
+                }
+            },
+        })
+        new Vue({
+            el: '#app',
+            data: {
+                value: 1,
+            },
+        })
+    </script>
+</body>
+
+</html>

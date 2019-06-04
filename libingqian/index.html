@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<style>
+		span {
+			display: inline-block;
+			border: 1px #ccc solid;
+			width: 30px;
+			height: 30px;
+			text-align: center;
+			line-height: 30px;
+			user-select: none;
+		}
+
+		input {
+			height: 28px;
+		}
+</style>
+</head>
+<body>
+	 <div id="app">
+        {{a}}
+        <jishuqi :count="a" :min="0" max="100" :step="5" @count-change="a=$event"></jishuqi>
+    </div>
+    <template id="jishuqi">
+        <div>
+            步数：<input type="text" v-model="mystep"><br>
+            最小：<input type="text" v-model="min"><br>
+            最大：<input type="text" v-model="max"><br>
+            <span @click="jian">-</span>
+            <input type="text" v-model="myCount" >
+            <span @click="jia">+</span>
+        </div>
+    </template>
+
+    <script>
+        Vue.component("jishuqi", {
+            template: "#jishuqi",
+            props: ['min', 'max', 'count', 'step'],
+            data() {
+                return {
+                    myCount: this.count,
+                    myMin: this.min,
+                    myMax: this.max,
+                    mystep: this.step
+                }
+            },
+            watch: {
+                myCount(v1, v2) {
+                    this.$emit('count-change', v1)
+                }
+
+            },
+            methods: {
+                jian() {
+                    this.myCount -= Number(this.mystep)
+                    if (this.myCount < this.myMin) {
+                        this.myCount = this.myMin
+                    };
+                },
+                jia() {
+                    this.myCount += Number(this.mystep)
+                    if (this.myCount > this.myMax) {
+                        this.myCount = this.myMax
+                    };
+                },
+
+
+            }
+        })
+
+        new Vue({
+            el: '#app',
+            data: {
+                a: 5
+            },
+            methods: {
+                fatherChange(v1) {
+                    console.log(this.a)
+                    this.a = v1
+                },
+
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<style>
+    .jia,
+    .jian {
+        width: 20px;
+        height: 22px;
+        text-align: center;
+        line-height: 22px;
+        display: block;
+        float: left;
+        background: #ccc;
+        border-radius: 5px 0 0px 5px;
+        outline: none;
+        border: none
+    }
+    
+    input {
+        float: left;
+    }
+    
+    .jia {
+        border-radius: 0px 5px 5px 0px;
+        margin-left: px
+    }
+</style>
+
+<body>
+    <div id="app">
+        <abc :value="1" @event-a="msg=$event"></abc>
+
+    </div>
+    <template>
+        <button @click="jian" class="jian" >-</button>
+        <input type="text" v-model="value1" >
+        <button @click="jia" class="jia">+</button>
+   </template>
+</body>
+<script>
+    Vue.component('abc', {
+        template: '#abc',
+        props: ["value"],
+        data() {
+            return {
+                msg: 1,
+                value1: this.value
+            }
+        },
+        watch: {
+            value1(newValue, oldValue) {
+                this.$emit('event-a', value)
+            }
+        },
+        methods: {
+            jia() {
+                this.value1++;
+            },
+            jian() {
+                this.value1--;
+            },
+        },
+    })
+    var vm = new Vue({
+        data: {
+            msg: 10,
+
+        },
+    }).$mount('#app')
+</script>
+
+</html>

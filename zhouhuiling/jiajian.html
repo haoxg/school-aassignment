@@ -7,17 +7,47 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        #cc {
+            width: 40px;
+            height: 46px;
+            background: #e5e9f2;
+            float: left;
+            border: none;
+            border-radius: 10px 0 0 10px
+        }
+        
+        #cc1 {
+            width: 40px;
+            height: 46px;
+            background: #e5e9f2;
+            float: left;
+            border: none;
+            border-radius: 0px 10px 10px 0px
+        }
+        
+        input {
+            width: 60px;
+            height: 42px;
+            text-align: center;
+            line-height: 41px;
+            float: left;
+            outline-style: none;
+            border: 1px solid #e5e9f2
+        }
+    </style>
 </head>
 
 <body>
     <div id="app">
         {{msg}}
-        <el-input-number v-model="msg" @event-a="msg=$event"></el-input-number>
+        <el-input-number v-model="msg" @event-a="msg=$event" :disabled="false"></el-input-number>
+        <el-input-number v-model="msg" @event-a="msg=$event" :disabled="true"></el-input-number>
     </div>
 </body>
 <script>
     Vue.component('el-input-number', {
-        props: ['value', 'max', 'min', 'step'],
+        props: ['value', 'max', 'min', 'step', 'disabled'],
         data() {
             return {
                 msg: 10,
@@ -27,6 +57,9 @@
                 mi: 0
             }
         },
+
+
+
         watch: {
             value1(value, oldvalue) {
                 this.$emit('event-a', value)
@@ -50,18 +83,12 @@
                     return;
                 }
             },
-            focus(event) {
-                this.$emit('focus', event.target)
-            }
         },
         template: `
         <div id="box">
-        最大值<input type="text" :max="50" v-model="ma"><br>
-        最小值<input type="text" :min="0" v-model="mi"><br>
-        步长<input type="text" :step="5" v-model="num"><br>
-            <button @click="jian">-</button>
-            <input type="text" v-model="value1" @focus="focus">
-            <button @click="jia">+</button>
+            <button @click="jian" id="cc" :disabled="disabled">-</button>
+            <input type="text" v-model="value1" :disabled="disabled">
+            <button @click="jia" id="cc1" :disabled="disabled">+</button>
         </div>
         `
     })

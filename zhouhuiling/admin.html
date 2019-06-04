@@ -53,30 +53,25 @@
         }
         
         #nav-logo {
-            width: 150px;
-            float: left;
             height: 55px;
             line-height: 55px;
             color: #ccc;
         }
         
         #nav-zimu {
+            width: 170px;
             height: 55px;
             line-height: 55px;
             color: #ccc;
             float: right;
             margin-top: -55px;
-            margin-right: 20px;
+            margin-right: 40px;
         }
         
         #home-page {
             float: right;
             margin-left: 20px;
             color: #ccc;
-        }
-        
-        #cc {
-            display: none;
         }
         
         #nav-logo:hover {
@@ -99,7 +94,6 @@
         
         #ha {
             width: 200px;
-            /* height: auto; */
             line-height: 53px;
             padding-left: 20px;
             color: #ccc;
@@ -143,10 +137,32 @@
         }
         
         #cc {
-            /* display: none; */
-            width: 55px;
+            width: 70px;
             height: 155px;
-            border: 1px solid red;
+            z-index: 99;
+            background: #ccc;
+            color: white;
+            text-align: center;
+            margin-left: 290px;
+            display: none;
+        }
+        
+        #aa {
+            width: 70px;
+            height: 155px;
+            z-index: 99;
+            background: #ccc;
+            color: white;
+            text-align: center;
+            display: none;
+        }
+        
+        #nav-logo:hover>#cc {
+            display: block;
+        }
+        
+        #nav-zimu:hover>#aa {
+            display: block;
         }
     </style>
 </head>
@@ -170,6 +186,7 @@
                             <li>用户</li>
                         </ul>
                     </div>
+
                 </ul>
                 <ul id="nav-zimu">
                     <li>
@@ -177,7 +194,7 @@
                         <span class="icon iconfont">&#xe615;</span>
                         <a href="" id="home-page">前台首页</a>
                     </li>
-                    <div id="cc">
+                    <div id="aa">
                         <ul id="a">
                             <li>个人信息</li>
                             <li>切换账号</li>
@@ -186,20 +203,10 @@
                     </div>
                 </ul>
             </div>
-            <div id="left" v-if="msg">
-                <ul>
-                    <li v-for="(item,index) in arr" id="ha" @click="showItem(item)" style="transition: all 0.8s">
-                        <span class="icon iconfont" v-html=item.img></span>
-                        <span>{{item.name}}</span>
-                        <span class="icon iconfont" v-html=item.font id="xi"></span>
-                        <ul v-if="item.isShow">
-                            <span class="icon iconfont" v-html=item.font id="xi"></span>
-                            <li v-for="i,index in item.con" id="cont" @click="leftCon(index)">{{i.text}}
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+            <template>
+                <left></left>
+            </template>
+
             <div id="right">
                 <div v-for="j,index in arr[lo].con[lo].lcon" id="first">{{j.lcon}}</div>
             </div>
@@ -208,105 +215,128 @@
 </body>
 
 <script>
+    //全局注册
+    Vue.component('left', {
+        data() {
+            return {
+                arr: [{
+                    img: '&#xe622;',
+                    name: '主页',
+                    font: '&#xe615;',
+                    isShow: false,
+                    con: [{
+                        text: '控制台',
+                        font: '&#xe615;',
+                        lcon: []
+                    }]
+                }, {
+                    img: '&#xe669;',
+                    name: '基本元素',
+                    font: '&#xe615;',
+                    isShow: false,
+                    con: [{
+                        text: '图标字体',
+                    }, {
+                        text: '表单元素',
+                    }, {
+                        text: '表单组合',
+                    }, {
+                        text: '按钮',
+                    }, {
+                        text: '导航/面包屑',
+                    }, {
+                        text: '选项卡',
+                    }, {
+                        text: '进度条',
+                    }, {
+                        text: '面板',
+                    }]
+                }, {
+                    img: '&#xe60c;',
+                    name: '组件页面',
+                    font: '&#xe615;',
+                    isShow: false,
+                    con: [{
+                        text: '图标字体',
+                    }, {
+                        text: '表单元素',
+                    }]
+                }, {
+                    img: '&#xe608;',
+                    name: '排版布局',
+                    font: '&#xe615;',
+                    isShow: false,
+                    con: [{
+                        text: '图标字体',
+                    }, {
+                        text: '表单元素',
+                    }]
+                }, {
+                    img: '&#xe61f;',
+                    name: '订单管理',
+                    font: '&#xe615;',
+                    isShow: false,
+                    con: [{
+                        text: '图标字体',
+                    }, {
+                        text: '表单元素',
+                    }]
+                }, {
+                    img: '&#xe696;',
+                    name: '管理员管理',
+                    font: '&#xe615;',
+                    isShow: false,
+                    con: [{
+                        text: '图标字体',
+                    }, {
+                        text: '表单元素',
+                    }]
+                }, {
+                    img: '&#xe656;',
+                    name: '用户管理',
+                    font: '&#xe615;',
+                    isShow: false,
+                    con: [{
+                        text: '图标字体',
+                    }, {
+                        text: '表单元素',
+                    }]
+                }, {
+                    img: '&#xe608;',
+                    name: '系统统计',
+                    font: '&#xe615;',
+                    isShow: false,
+                    con: [{
+                        text: '图标字体',
+                    }, {
+                        text: '表单元素',
+                    }]
+                }]
+            }
+        },
+        template: `
+        <div id="left" v-if="msg">
+                    <ul>
+                        <li v-for="(item,index) in arr" id="ha" @click="showItem(item)" style="transition: all 0.8s">
+                            <span class="icon iconfont" v-html=item.img></span>
+                            <span>{{item.name}}</span>
+                            <span class="icon iconfont" v-html=item.font id="xi"></span>
+                            <ul v-if="item.isShow">
+                                <span class="icon iconfont" v-html=item.font id="xi"></span>
+                                <li v-for="i,index in item.con" id="cont" @click="leftCon(index)">{{i.text}}
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+        `
+    })
+
     new Vue({
-        el: '#app',
         data: {
             msg: true,
-            indexl: '0',
+            indexl: 0,
             lo: 0,
-            arr: [{
-                img: '&#xe622;',
-                name: '主页',
-                font: '&#xe615;',
-                isShow: false,
-                con: [{
-                    text: '控制台',
-                    font: '&#xe615;',
-                    lcon: []
-                }]
-            }, {
-                img: '&#xe669;',
-                name: '基本元素',
-                font: '&#xe615;',
-                isShow: false,
-                con: [{
-                    text: '图标字体',
-                }, {
-                    text: '表单元素',
-                }, {
-                    text: '表单组合',
-                }, {
-                    text: '按钮',
-                }, {
-                    text: '导航/面包屑',
-                }, {
-                    text: '选项卡',
-                }, {
-                    text: '进度条',
-                }, {
-                    text: '面板',
-                }]
-            }, {
-                img: '&#xe60c;',
-                name: '组件页面',
-                font: '&#xe615;',
-                isShow: false,
-                con: [{
-                    text: '图标字体',
-                }, {
-                    text: '表单元素',
-                }]
-            }, {
-                img: '&#xe608;',
-                name: '排版布局',
-                font: '&#xe615;',
-                isShow: false,
-                con: [{
-                    text: '图标字体',
-                }, {
-                    text: '表单元素',
-                }]
-            }, {
-                img: '&#xe61f;',
-                name: '订单管理',
-                font: '&#xe615;',
-                isShow: false,
-                con: [{
-                    text: '图标字体',
-                }, {
-                    text: '表单元素',
-                }]
-            }, {
-                img: '&#xe696;',
-                name: '管理员管理',
-                font: '&#xe615;',
-                isShow: false,
-                con: [{
-                    text: '图标字体',
-                }, {
-                    text: '表单元素',
-                }]
-            }, {
-                img: '&#xe656;',
-                name: '用户管理',
-                font: '&#xe615;',
-                isShow: false,
-                con: [{
-                    text: '图标字体',
-                }, {
-                    text: '表单元素',
-                }]
-            }, {
-                img: '&#xe608;',
-                name: '系统统计',
-                font: '&#xe615;',
-                isShow: false,
-                con: [{
-                    text: '图标字体',
-                }, {
-                    text: '表单元素',
-                }]
-            }]
         },
         methods: {
             showItem(item) {
@@ -321,7 +351,7 @@
                 this.lo = index;
             }
         }
-    })
+    }).$mount('#app')
 </script>
 
 </html>

@@ -135,91 +135,23 @@
 
 <body>
     <div id="app">
-        <div class="warp">
-            <div class="title">
-                <div class="logo">
-                    <a href="">L-admin v2.0</a>
-                </div>
-                <div class="left_open">
-                    <span class="icon iconfont" style="color: white" title="展开左侧栏" @click="showleft">&#xe634;</span>
+        <left-nav>
 
-                </div>
-                <ul class="layui-nav">
-                    <li class="layui-nav-item">
-                        <a>admin<span class="icon iconfont">&#xe615;</span></a>
-
-                    </li>
-                    <div class="login">
-                        <li>个人信息</li>
-                        <li>切换账号</li>
-                        <li>退出</li>
-                    </div>
-                </ul>
-            </div>
-        </div>
-
-        <div class="left" v-if="show">
-            <ul>
-                <li v-for="(item,index) in arr" id="ha" @click="showItem(item)" style="transition: all 0.8s">
-                    <span class="icon iconfont" v-html=item.img></span>
-                    <span>{{item.name}}</span>
-                    <span class="icon iconfont" v-html=item.font id="xi"></span>
-                    <ul v-if="isshow" @click="leftCon(index)">
-                        <!-- <span class="icon iconfont" v-html=item.font id="xi"></span> -->
-                        <li v-for="i,index in item.con" id="cont" @click="ccc(index)">{{i.text}}
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div id="con" v-for="a in ">
-            {{aa}}sssssssssssssssssssssssssssssssssssssssss
-        </div>
+        </left-nav>
     </div>
 </body>
 <script>
-    new Vue({
-        el: '#app',
-        data: {
-
-            indexs: 0,
-            isshow: false,
-            show: true,
-            arr: [{
-                img: '&#xe622;',
-                name: '主页',
-                font: '&#xe615;',
-                con: [{
-                    text: '控制台',
-                    lcon: [{
-                        aa: 'aa'
-                    }]
-                }]
-            }]
-        },
-
-        methods: {
-            showItem(item) {
-                this.isshow = !this.isshow;
-                ha.style.borderLeft = "4px solid blue"
-                ha.style.background = "#000"
-            },
-
-            showleft() {
-                this.show = !this.show;
-                if (!this.show) {
-                    con.style.left = "0"
-                    con.style.width = "100%"
-                } else {
-                    con.style.left = "220px"
-                    con.style.width = "0"
-
-                }
-
+    Vue.component('left-nav', {
+        data() {
+            return {
+                arr: [1, 2, 3, 4, 5, 5]
             }
-
-        }
+        },
+        template: '<div v-for="i in arr">{{i}}</div>'
     })
+    new Vue({
+
+    }).$mount('#app')
 </script>
 
 </html>

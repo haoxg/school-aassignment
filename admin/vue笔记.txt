@@ -114,6 +114,19 @@ Activated/deactivated   组件激活、停用
 3、非prop类型的属性/覆盖非prop类型的属性，class、style除外。禁用特性inheritAttrs: false
 
 
+---过渡、动画---
+1、单元素、动态组件过渡 <transition>
+2、过渡类名（过渡、动画）
+3、钩子函数（参数）
+4、appear属性
+5、多个元素过渡必须要绑定key，过渡模式（mode out-in in-out）
+
+6、列表过渡<transition-group> 、 key（必须） tag属性（默认span）
+7、动态过渡 :name
+8、v-move
+
+
+
 
 
 

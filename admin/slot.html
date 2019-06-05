@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>slot</title>
+    <script src="../assets/js/vue.js"></script>
+
+</head>
+<body>
+
+
+        <el-container>
+            <el-header>
+                logo,navbar,switchbtn
+            </el-header>
+            <el-aside width="200px">
+                menulist
+            </el-aside>
+            <el-main>
+                main
+            </el-main>
+        </el-container>
+    <!-- 
+
+        :slot="插槽名字"
+        :slot-scope =" 插槽作用"
+        ----vue.2.6.0
+        v-slot:"插槽名字" = " 插槽作用"
+
+        默认slot名字：default
+        
+        slot的后备内容 默认内容
+
+
+        动态缓存组件 可以缓存实例所有数据，但不会对浏览器滚动条位置生效
+     -->
+    <div id="app">
+        <abc :a='1'>
+            <div :slot="'default'" slot-scope="slotProps">
+                {{slotProps}}
+            </div>
+        </abc>
+
+
+        <!-- 
+            abc
+            el-col
+        -->
+        <!-- <button @click="componentName='abc'">1</button>
+        <button @click="componentName='el-col'">2</button>
+        <button @click="componentName='el-row'">3</button> -->
+
+        <!-- <div style="border:1px solid;">
+            <component is="abc" v-show="componentName == 'abc'" ref="aaa"></component>
+            <component is="el-col" v-show="componentName == 'el-col'" ref="aaa"></component>
+            <component is="el-row" v-show="componentName == 'el-row'" ref="aaa"></component>
+            <keep-alive>
+                <component :is="componentName" ref="aaa"></component>
+            </keep-alive>
+        </div> -->
+            
+
+    </div>
+    <script>
+        Vue.component('el-col',{
+            template: `
+                <div class="el-col" :class="'el-col-'+span">
+                    选项1
+                    <slot></slot>
+                </div>
+            `,
+            props:['span'],
+        });
+        Vue.component('el-row',{
+            template:`
+                <div class="el-row">
+                        选项2
+
+                    <slot></slot>
+                </div>
+            `
+        });
+
+        Vue.component('abc',{
+            template:`
+                <div>
+                    <slot v-bind:user="123"></slot>
+                </div>
+            `,
+            props:['a'],
+            data() {
+                return {
+                    abc:123,
+                }
+            },
+        })
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            componentName:'abc'
+        }
+    })
+    </script>
+</body>
+</html>

@@ -126,6 +126,11 @@ Activated/deactivated   组件激活、停用
 8、v-move
 
 
+--组件插槽--
+1、定义：<slot name="插槽名" v-bind:插槽属性="子组件数据">后备内容（默认）</slot> 
+2、插入内容：<template v-slot:插槽名="插槽属性值">插入内容</template>
+
+
 
 
 

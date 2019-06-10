@@ -1,0 +1,40 @@
+/* 分页 */
+
+.pagingDevice ul {
+    float: left;
+}
+
+.pagingDevice ul>li {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border: 1px #000 solid;
+    float: left;
+    list-style: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+.pagingDevice span {
+    float: left;
+    line-height: 30px;
+    border: 1px #000 solid;
+    height: 30px;
+    user-select: none;
+    cursor: pointer;
+    padding: 0 5px;
+}
+
+.pagingDevice .active {
+    background: red;
+}
+
+.pagingDevice>div {
+    color: #ccc;
+}
+
+.pagingDevice .c {
+    border: 1px #ccc solid;
+    color: #ccc;
+}

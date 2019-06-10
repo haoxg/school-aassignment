@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后台管理系统</title>
+    <!--  -->
+    <link rel="stylesheet" href="font_13s9dhreitta/iconfont.css">
+    <link rel="icon" type="image/x-icon" href="img/4358_03.png" />
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css//horologe.css">
+    <link rel="stylesheet" href="css/pagingDevice.css">
+    <!--  -->
+    <script src="vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="container">
+            <div class="head">
+                <div class="logo">
+                    <img src="" alt="">
+                </div>
+                <div class="list">
+                    <i class="iconfont icon-liebiao" @click="scalelist"></i>
+                </div>
+                <div class="increase">
+                    <span>+新增<i class="iconfont icon-xiala-tianchong"></i></span>
+                    <ul class="popup">
+                        <li><i class="iconfont">&#xe605;</i>资讯</li>
+                        <li><i class="iconfont">&#xe63e;</i>图片</li>
+                        <li><i class="iconfont">&#xe619;</i>用户</li>
+                    </ul>
+                </div>
+                <div class="user">
+                    <div>
+                        <span>admin <i class="iconfont icon-xiala-tianchong"></i></span>
+                        <ul class="popup">
+                            <li>个人信息</li>
+                            <li>切换账号</li>
+                            <li>退出登录</li>
+                        </ul>
+                    </div>
+                    <div>前台首页</div>
+                </div>
+            </div>
+            <div class="content-box">
+                <left-nav :datatype="scalelistType" @add-label="addlabel"></left-nav>
+                <div class="content" :style="{'margin-left':scalelistType?'220px':'0'}">
+                    <ul class="content-head">
+                        <router-link to="/">
+                            <li>
+                                <i class="iconfont icon-zhuye"></i> &nbsp;主页
+                            </li>
+                        </router-link>
+                        <router-link v-for="item,index in labelArr" :to="item.router" :key="index">
+                            <li>
+                                {{item.title}}&nbsp;&nbsp;<span @click.prevent="rmlabel(index)">&times;</span>
+                            </li>
+                        </router-link>
+                    </ul>
+                    <div class="content-main">
+                        <router-view></router-view>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/leftnav.js"></script>
+    <script src="js/horologe.js"></script>
+    <script src="js/pagingDevice.js"></script>
+    <script>
+        Vue.component('left-nav', leftNav)
+        const router = new VueRouter({
+            routes: [{
+                name: 'horologe',
+                path: '/',
+                component: horologe,
+            }, {
+                name: 'pagingDevice',
+                path: '/pagingDevice',
+                component: pagingDevice,
+            }, {
+                name: 'pagingDevice1',
+                path: '/pagingDevice1',
+                component: pagingDevice,
+            }, {
+                name: 'pagingDevice2',
+                path: '/pagingDevice2',
+                component: pagingDevice,
+            }, ]
+        })
+        console.log(router)
+        new Vue({
+            el: '#app',
+            router,
+            methods: {
+                scalelist() {
+                    if (this.scalelistType) {
+                        this.scalelistType = !this.scalelistType;
+                    } else {
+                        this.scalelistType = !this.scalelistType;
+                    }
+                },
+                addlabel(item) {
+                    var addtype = true;
+                    this.labelArr.forEach(element => {
+                        if (element.title == item.title) {
+                            addtype = false;
+                        }
+                    });
+                    if (addtype) {
+                        this.labelArr.push(item);
+                    }
+                },
+                rmlabel(index) {
+                    if (index == this.labelArr.length - 1) {
+                        if (index == 0) {
+                            this.labelArr.splice(index, 1);
+                            this.$router.push('/')
+                        } else {
+                            this.labelArr.splice(index, 1);
+                            this.$router.push(this.labelArr[index - 1].router)
+                        }
+                    } else {
+                        this.labelArr.splice(index, 1);
+                        router.push(this.labelArr[index].router)
+                    }
+                },
+                a() {
+                    this.$router.push('/')
+                    console.log(1111)
+                }
+            },
+            Mounted() {
+                window.onbeforeunload = function() {
+                    this.a();
+                };
+
+            },
+            data: {
+                scalelistType: true,
+                labelArr: [],
+            },
+        })
+    </script>
+</body>
+
+</html>

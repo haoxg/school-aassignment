@@ -197,12 +197,22 @@
                 console.log(this.$router);
             },
             rmtab(index) {
-                if (index <= this.tabs.length && index != 0) {
+                if (this.tabs.length == 1) {
                     this.tabs.splice(index, 1);
-                    this.$router.push(this.tabs[index - 1].url);
+                    setTimeout(() => {
+                        this.$router.push('/');
+                    }, 0)
+                } else if (index == this.tabs.length - 1) {
+                    this.tabs.splice(index, 1);
+                    setTimeout(() => {
+                        this.$router.push(this.tabs[index - 1].url);
+                    }, 0)
+
                 } else {
                     this.tabs.splice(index, 1);
-                    this.$router.push(this.tabs[index].url)
+                    setTimeout(() => {
+                        this.$router.push(this.tabs[index].url);
+                    }, 0)
                 }
 
             }

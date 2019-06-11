@@ -111,6 +111,44 @@
 <body>
     <div id="app">
         <layout>
+            <!-- 头部 -->
+            <template slot="page-header">
+                <div id="header" class="clearfix">
+                        <div class="logo">
+                            <a href="index.html">L-admin v2.0</a>
+                        </div>
+                        <div class="left_open">
+                            <span @click="shrink" class="glyphicon glyphicon-th-list open_left" title="展开左侧栏"></span>
+                        </div>
+                        <div @mouseover="tanchu2" @mouseout="tanchuout" class="layui_nav left clearfix">
+                            <div class="layui_nav_item">
+                                <a href="javascript:;">
+                                            + 新增
+                                        </a>
+                                <span class="glyphicon glyphicon-triangle-bottom more"></span>
+                            </div>
+                            <ul class="new" id="newMenu">
+                                <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> 资讯</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-picture"></span> 图片</a></li>
+                                <li><a href="#"><span class="glyphicon glyphicon-user"></span> 用户</a></li>
+                            </ul>
+                    
+                        </div>
+                        <div @mouseover="tanchu1" @mouseout="tanchuout" class="layui_nav right clearfix">
+                            <div class="layui_nav_item">
+                                <a href="javascript:;"> admin</a>
+                                <span class="glyphicon glyphicon-triangle-bottom more"></span>
+                            </div>
+                            <ul class="new" id="act">
+                                <li><a href="#">个人信息</a></li>
+                                <li><a href="#">切换账号</a></li>
+                                <li><a href="#">退出</a></li>
+                            </ul>
+                        </div>
+                    </div>
+            </template>
+
+            <!-- 头部 over -->
             <template slot="page-nav">
                 <left-nav  @tab-event="addTab"></left-nav>
             </template>
@@ -127,6 +165,9 @@
         </layout>
     </div>
 </body>
+
+
+
 
 <!-- 评分 -->
 <template id="mygrade">
@@ -187,16 +228,17 @@
         data: {
             curIndex: '0',
             tabs: [],
+            isShrink: false
         },
         methods: {
             addTab(item) {
                 if (this.tabs.indexOf(item) == -1) {
                     this.tabs.push(item);
                 }
-                console.log(this.tabs);
-                console.log(this.$router);
             },
             rmtab(index) {
+                console.log(index)
+                this.curIndex = index;
                 if (this.tabs.length == 1) {
                     this.tabs.splice(index, 1);
                     setTimeout(() => {
@@ -215,6 +257,30 @@
                     }, 0)
                 }
 
+            },
+            shrink() {
+                this.isShrink = !this.isShrink;
+                if (this.isShrink) {
+                    main_right.style.left = "0";
+                    main_left.style.left = "-221px";
+
+                } else {
+                    main_right.style.left = "221px";
+                    main_left.style.left = '0';
+
+                }
+
+            },
+            tanchu1() {
+                act.style.display = "block";
+            },
+            tanchu2() {
+                newMenu.style.display = "block";
+
+            },
+            tanchuout() {
+                act.style.display = "none";
+                newMenu.style.display = "none";
             }
         },
         components: {

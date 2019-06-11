@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue路由</title>
+    <script src="../assets/js/vue.js"></script>
+    <script src="../assets/js/vue-router.js"></script>
+    <style>
+    .router-link-active{
+        color:red;
+    }
+    </style>
+</head>
+<body>
+    <!-- 
+
+        1/var router = new VueRouter({构建选项}) //创建路由实例
+        2/构建选项:routes,mode
+        3/New Vue({router:router}) 
+        4/定义下router-view
+
+
+        路由的跳转
+        1、router-link + to     “/” 根路径
+        2、vm.$router.push  || replace
+        3、参数： string  object
+
+
+        命名路由
+        1、定义一个名字name，通过name 跳转
+        2、传参params需要name跳转
+
+        重定向、别名
+        1、redirect / alias
+
+        通配符 *  pathMatch
+     -->
+    <div id="app">
+        <button @click="tiaozhuan">home</button>
+        <router-link :to="{path:'/home'}">home</router-link>
+        <router-link :to="{path:'/list'}">list</router-link>
+        <br>
+        <router-view></router-view>
+    </div>
+    <script>
+        var Home = Vue.extend({
+            template:`
+                <div>
+                    home == {{$route.params.a}}
+                    <router-view></router-view>   
+                </div>
+            `
+        })
+        var User = Vue.extend({
+            template: '<div>user</div>'
+        });
+        var _404 =  Vue.extend({
+            template: '<div>404,找不到页面</div>'
+        });
+        var List = Vue.extend({
+            template:'<a href="#">List</a>',
+            beforeCreate() {
+                console.log('beforeCreate');
+            },
+            mounted(){
+                console.log('mounted');
+            }
+        })
+
+        var routes = [{
+            path: '/',
+            component: Home,
+        },{
+            name: 'home',
+            path: '/home',
+            component: Home,
+            children:[{
+                path: 'user',
+                component: User,
+            }]
+        },{
+            path: '/list',
+            alias: '/aaa',
+            component: List,
+        },{
+            path: '/404',
+            component: _404,
+        },{
+            path:'/4*',
+            redirect:'/404',            
+        }]
+
+        var router = new VueRouter({
+            routes,
+        });
+
+        
+        var vm = new Vue({
+            el:'#app',
+            router,
+            mounted() {
+                console.log(this.$router);
+                console.log(this.$route);
+            },
+            methods:{
+                tiaozhuan(){
+                    this.$router.push({
+                        name:'home',
+                        params:{
+                            a:1,
+                        }
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>

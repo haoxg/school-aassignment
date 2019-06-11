@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>component</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <style>
+        .red{
+            color: red;
+        }
+        .b{
+            font-size: 3em;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+
+        <a class="red" :class="{b:true}">1</a>
+
+
+        {{obj}}
+        <my-component :title="10" class="b" data-a="1"></my-component>
+    </div>
+    <!-- 组件模板 -->
+    <template id="myComponent">
+        <div class="a">{{title}}===={{title1}}
+            <button @click="change">change</button>
+        </div>
+    </template>
+    <script>
+        var Person = function(sex){
+            this.sex = sex;
+        }
+
+
+       Vue.component('myComponent',{
+            inheritAttrs: false,
+            template: '#myComponent',
+            data(){
+                return {
+                    value: 100,
+                    title1: this.title, 
+                    // title2: Object.assign({},this.title), 
+                }
+            },
+            props:{
+                title:{
+                    type:Number,
+                    // required: true,
+                    default: this.value,
+                    validator: function(val){
+                       return val>this.value
+                    }
+                }
+            },
+            methods: {
+                change(){
+                    console.log(this.title);
+                    // console.log(this.title2);
+                    // this.title2.a = '123';
+                }
+            },
+       })
+        var vm = new Vue({
+            data:{
+                obj: new Person('men'),
+            },
+        }).$mount('#app');
+
+    </script>
+</body>
+</html>

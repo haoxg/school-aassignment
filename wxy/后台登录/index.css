@@ -50,7 +50,6 @@
 }
 
 
-
 .layui-nav-item {
     line-height: 50px;
 }
@@ -134,14 +133,16 @@
     width: 220px;
     max-width: 220px;
     overflow: hidden;
-    color:#fff; 
+    color: #fff;
     border-right: 1px solid #131e26;
 }
+
 #nav>li {
     line-height: 30px;
     border-left: 4px solid #222324;
     transition: background-color ease .3s;
 }
+
 #nav li a {
     font-size: 14px;
     padding: 12px 15px 12px 20px;
@@ -149,6 +150,7 @@
     color: #8e8e8e;
     transition: background-color ease .3s;
 }
+
 .sub-menu {
     display: none;
 }

@@ -20,8 +20,7 @@
         <div class="container">
             <div class="head">
                 <div class="logo">
-                    <!-- <img src="" alt=""> -->
-                   
+                    <!-- <img src="" alt=""> -->   
                 </div>
                 <div class="list">
                     <i class="iconfont icon-liebiao" @click="scalelist"></i>
@@ -49,9 +48,9 @@
             <div class="content-box">
                 <left-nav :datatype="scalelistType" @addtab-event="addTab"></left-nav>
                 <div class="content" :style="{'margin-left':scalelistType?'220px':'0'}">
-                    <ol>
-                        <li><i class="iconfont icon-zhuye"></i>&nbsp;桌面&nbsp;</li>
-                        <li v-for="item,index in tabarr">
+                    <ol style='background: #ccc;height:30px;line-height: 30px'>
+                        <li style='float:left'><i class="iconfont icon-zhuye"></i>&nbsp;桌面&nbsp;</li>
+                        <li v-for="item,index in tabarr" style='float:left;margin:0 5px;'>
                             <router-link :to="item.router">{{item.title}}&nbsp;
                                 <span @click.prevent="rmTab(index)" >&times;</span>
                             </router-link>
@@ -68,7 +67,7 @@
         var router = new VueRouter({
             routes:[{
                 name:'colokhtml',//自己自定义的
-                path:'/',//自己自定义
+                path:'/',//默认的
                 component:clockhtml,//组件名
             },{
                 name:'pagination',

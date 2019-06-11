@@ -3,17 +3,16 @@ var leftNav=Vue.extend({
     <div class="classifylist" :style="{'transform':datatype?'translateX(0)':'translateX(-220px)'}">
         <ul>
             <li v-for="item,index in classifylist" :class="{'active':activeIndex==index,active1:activeIndexClick==index}">
-                <div @mouseover="activeIndex=index" @click="listclick(index)">
+                <div @mouseover="activeIndex=index" @mouseout="activeIndex='-1'" @click="listclick(index)">
                     <i class="iconfont left" :class="item.icon"></i>
                     {{item.title}}
                     <i class="iconfont right" :class="{'rotateActive':activeIndexClick==index}">&#xe688;</i>
                 </div>
-                <ol  @mouseover="activeIndex=index"  @mouseout="activeIndex='-1'" :style="{height:activeIndexClick==index?item.arr.length*50+'px':'0',opacity:activeIndexClick==index?'1':'0'}" v-if="item.arr&&item.arr.length>0">
-                    <router-link :to='item1.router' v-for='item1,i in item.arr>
-                        <li @click='addTab(item1)'><i class="iconfont">&#xe688;</i>{{item1.title}}</li>
+                <ol :style="{height:activeIndexClick==index?item.arr.length*50+'px':'0',opacity:activeIndexClick==index?'1':'0'}" v-if="item.arr&&item.arr.length>0">
+                    <router-link :to="item1.router" v-for="item1,i in item.arr">
+                        <li @click="addTab(item1)"><i class="iconfont">&#xe688;</i>{{item1.title}}</li>
                     </router-link>
                 </ol>
-
             </li>
         </ul>
     </div>
@@ -28,17 +27,16 @@ var leftNav=Vue.extend({
             default:function(){
                 return [
                     {
-                        icon: 'icon-zhuye',
-                        title: '主页',
-                        arr: [{
-                            title:'分页器',
-                            router:'pagination',
-                        }
-                    ,{
-                        title:'时钟',
-                        router:'/'
+                    icon: 'icon-zhuye',
+                    title: '组件',
+                    arr: [{
+                        title:'分页器',
+                        router:'pagination'
+                    },{
+                        title:'钟表',
+                        router:'/' 
                     }]
-                    }
+                },
                    // {
                 //     icon: 'icon-zhuye',
                 //     title: '主页',

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/iconfont.css">
+    <script src="../5.24/vue.js"></script>
+    <script src="./node_modules/vue-router/dist/vue-router.js"></script>
+    <script src="./js/header.js"></script>
+    <script src="./js/left.js"></script>
+    <script src="./js/mygrade.js"></script>
+    <script src="./js/clock.js"></script>
+    <script src="./js/fenyeqi.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <con-top @is-show='show'></con-top>
+        <!-- <transition name='fade'>
+            <left-nav v-show='s'></left-nav>
+        </transition> -->
+        <left-nav :style='{left:!s?"-221px":"0"}' @addtab-event='addTab'></left-nav>
+        <right-side :style='{left:!s?"0px":"221px"}'></right-side>
+
+    </div>
+
+    <!-- 右侧内容 -->
+    <template id="rightSide">
+        <div class="right-side">
+            <div class="right-top"> 
+                <a class="iconfont fl"  href="javascript:;">&#xe68b;我的桌面 </a>
+                    <ul class="fl right-nav" >
+
+                        <li v-for='item,index in arr11'>
+                            <router-link :to="item.url11">{{item.ti}}<i @click="rmtab(index)">x</i></router-link>
+                        </li>
+                    </ul>
+            </div>
+            <div class="bottom">
+                <router-link :to="{path:'/'}"></router-link>
+                <router-view></router-view>
+            </div>
+        </div>
+        </template>
+    <!-- 时钟 -->
+    <template id="clock">
+        <div class="clock">
+            <div class="radio"></div>
+            <div class="hour" :style="{transform:'rotate(' +hour+ 'deg)'}"></div>
+            <div class="minute" :style="{transform:'rotate(' +minute+ 'deg)'}"></div>
+            <div class="second" :style="{transform:'rotate(' +second+ 'deg)'}"></div>
+            <ul>
+                <li v-for='i in 12' :style="{transform:'rotate('+i*30+'deg)'}">{{i}}</li>
+            </ul>
+        </div>
+    </template>
+    <template id="fenyeqi">
+            <ul class="fenyeqi">
+                <li @click="fliert">首页</li>
+                <li @click="prev">上一页</li>
+                <li v-show="qqq">{{1}}</li>
+                <li v-show="qqq">...</li>
+                <li v-for="item,index in maxSize" :class="{bg :firetPage+index==cur}" @click="curr(firetPage+index)">{{firetPage+index}}</li>
+                <li v-show="aaa">...</li>
+                <li v-show="aaa">{{pageAll}}</li>
+                <li @click="next">下一页</li>
+                <li @click="list">尾页</li><span>总页数：{{pageAll}}页</span> <span>当前页{{cur}}页</span>
+             </ul>
+    </template>
+    <script src="./js/arr.js"></script>
+    <script>
+        var arr = [];
+        // 头部
+        Vue.component('conTop', header)
+
+        // 导航
+        Vue.component('leftNav', left)
+
+
+        // 右
+        Vue.component('rightSide', {
+                template: '#rightSide',
+                data() {
+                    return {
+                        arr11: arr
+                    }
+                },
+                methods: {
+                    rmtab(index) {
+                        console.log(this.arr11);
+                        if (index == this.arr11.length - 1) {
+                            this.arr11.splice(index, 1)
+                            this.$router.push(this.arr11[index - 1].url)
+                        } else {
+                            this.arr11.splice(index, 1)
+                            this.$router.push(this.arr11[index].url)
+                        }
+                    },
+                }
+            })
+            // 分页器
+        Vue.component('fenyeqi', fenyeqi)
+        var router = new VueRouter({
+            routes: [{
+                path: '/',
+                component: clock
+            }, {
+                path: '/console',
+                component: fenyeqi
+            }, ]
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            router,
+            data: {
+                s: true,
+                tabs: []
+            },
+            methods: {
+                show(data) {
+                    this.s = data
+                },
+                addTab(data) {
+                    var idAdd = true;
+                    for (let i = 0; i < arr.length; i++) {
+                        if (data.title == i.title) {
+                            idAdd = false;
+                        }
+
+                    }
+                    if (idAdd) {
+                        arr.push({
+                            ti: data.title,
+                            url11: data.url
+                        })
+
+                    }
+                },
+            },
+
+        })
+    </script>
+
+</html>

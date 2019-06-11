@@ -209,14 +209,13 @@ ul li {
 .my_tit ul li {
     display: inline-block;
     list-style: none;
-    background: #fff;
     line-height: 35px;
     color: #000;
     font-size: 14px;
     min-width: 65px;
-    padding: 0 15px;
     text-align: center;
     cursor: pointer;
+    border-left: 1px solid #ddd;
 }
 
 .my_tit ul li i {
@@ -237,9 +236,15 @@ ul li {
 .my_tit ul li a {
     color: #000;
     text-decoration: none;
+    display: inline-block;
+    padding: 0 15px;
 }
 
 .my_tit ul li i:hover {
     background: #f00;
     color: #fff;
+}
+
+.my_tit .router-link-active {
+    background: #fff;
 }

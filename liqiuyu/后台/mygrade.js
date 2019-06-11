@@ -22,7 +22,6 @@ var Mygrade = {
     watch: {
         ActiveIndex(v1) {
             this.$emit('input', v1);
-            console.log(v1);
         }
     },
     data() {

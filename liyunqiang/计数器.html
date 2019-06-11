@@ -39,7 +39,7 @@
         <abc :value="1" @event-a="msg=$event"></abc>
 
     </div>
-    <template>
+    <template id="abc">
         <button @click="jian" class="jian" >-</button>
         <input type="text" v-model="value1" >
         <button @click="jia" class="jia">+</button>
@@ -57,7 +57,7 @@
         },
         watch: {
             value1(newValue, oldValue) {
-                this.$emit('event-a', value)
+                this.$emit('event-a', newValue)
             }
         },
         methods: {

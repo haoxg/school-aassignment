@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>轮播图</title>
+    <script src="../assets/js/vue.js"></script>
+    <style>
+        .carousel{
+            border:1px solid #ccc;  
+            position: relative;
+            width: 450px;
+            overflow: hidden;
+
+        }
+        .carousel-container{
+            position: relative;
+            height: 300px;
+            text-align: center;
+        }
+        .carousel-indicators{
+            list-style: none;
+            text-align: center;
+            padding: 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        .carousel-indicators>li{
+            display: inline-block;
+            background-color: #ccc;
+            margin: 12px 4px;
+            cursor: pointer;
+            width: 30px;
+            height: 4px;
+        }
+        .arrow{
+            position:absolute;
+            z-index: 1;
+            top:50%;
+            background-color: #000;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            width: 30px;
+            height: 30px;
+            opacity: .5;
+            outline: none;
+            cursor: pointer;
+        }
+        .arrow-left{
+            left: 10px;
+        }
+        .arrow-right{
+            right: 10px;
+        }
+        .carousel-container img{
+            position: absolute;
+            top:0;
+            left: 0;
+        }
+        .carousel-indicators>li.active{
+            background-color: red;
+        }
+        /* 过渡 */
+        .fade-enter-active,.fade-leave-active ,
+        .refade-enter-active,.refade-leave-active {
+            transition: all .5s;
+        }
+        .fade-enter {
+            transform: translateX(100%);
+        }
+        .fade-leave-to {
+            transform: translateX(-100%);
+        }
+        .fade-enter-to,.fade-leave{
+            transform: translateX(0%);
+        }
+
+        .refade-enter {
+            transform: translateX(-100%);
+        }
+        .refade-leave-to {
+            transform: translateX(100%);
+        }
+        .refade-enter-to,.refade-leave{
+            transform: translateX(0%);
+        }
+
+        .come1-enter-active,.come1-leave-active{
+            transition: all 1s;
+        }
+        .come1-enter,.come1-leave-to{
+            transform: translateX(-30px)
+        }
+        .come1-enter-to,.come1-leave{
+            transform: translateX(0);
+        }
+        .come2-enter-active,.come2-leave-active{
+            transition: all 1s;
+        }
+        .come2-enter,.come2-leave-to{
+            transform: translateX(30px)
+        }
+        .come2-enter-to,.come2-leave{
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="carousel" @mouseover="showBtn=true" @mouseout="showBtn=false">
+            <transition name="come1">
+                <button v-show="showBtn" class="arrow arrow-left" @click="prev"><</button>
+            </transition>
+            <transition name="come2">
+                <button v-show="showBtn" class="arrow arrow-right" @click="next">></button>
+            </transition>
+            
+            <div class="carousel-container">
+                <transition-group :name="tr">
+                    <img v-for="img,index in imgs" :src="img" alt="" v-show="index==currentImg" :key="index+'1'">
+                </transition-group>
+            </div>
+
+            <ul class="carousel-indicators">
+                <li v-for="i in imgs.length" :class="{active:(currentImg==i-1)}"></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data:{
+                imgs:['1.jpg','2.jpg','3.jpg'],
+                currentImg:0,
+                tr: 'fade',
+                showBtn: false,
+            },
+            methods: {
+                prev(){
+                    this.tr = 'refade';
+                    if(this.currentImg==0){
+                        this.currentImg = this.imgs.length-1
+                    }else{
+                        this.currentImg--
+
+                    }
+                },
+                next(){
+                    this.tr = 'fade';
+                    if(this.currentImg==this.imgs.length-1){
+                        this.currentImg = 0;
+                    }else{
+                        this.currentImg++;
+
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+</html>

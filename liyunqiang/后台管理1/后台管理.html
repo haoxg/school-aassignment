@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="font/font_c9ayasi32b/iconfont.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="style/钟表.css">
 
     <title>Document</title>
 </head>
@@ -16,6 +17,63 @@
         padding: 0;
         text-decoration: none;
         list-style: none;
+    }
+    
+    .box {
+        width: 300px;
+        height: 300px;
+        /* border: 10px solid; */
+        border-radius: 50%;
+        margin: 100px auto;
+        position: relative;
+        background: url(http://img1.imgtn.bdimg.com/it/u=4060837773,2546275730&fm=26&gp=0.jpg);
+        background-size: 400px 400px;
+        background-position: -50px -50px;
+    }
+    
+    .box::before {
+        content: '';
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+        background: black;
+        position: absolute;
+        border-radius: 50%;
+        left: 50%;
+        top: 50%;
+        margin-left: -10px;
+        margin-top: -10px;
+        z-index: 2;
+    }
+    
+    .clock {
+        position: absolute;
+        left: 50%;
+        transform-origin: center bottom;
+    }
+    
+    .hour {
+        width: 10px;
+        height: 70px;
+        background: black;
+        margin-left: -5px;
+        top: 80px
+    }
+    
+    .miute {
+        width: 8px;
+        height: 90px;
+        background: blue;
+        margin-left: -4px;
+        top: 60px
+    }
+    
+    .second {
+        width: 6px;
+        height: 110px;
+        background: red;
+        margin-left: -3px;
+        top: 40px
     }
     
     .warp {
@@ -77,7 +135,7 @@
         background: red;
         position: relative;
         top: 5px;
-        /* display: none; */
+        display: none;
     }
     
     .layui-nav-item a:hover .login {
@@ -135,23 +193,163 @@
 
 <body>
     <div id="app">
-        <left-nav>
+        <title1></title1>
+        <leftnav></leftnav>
+        <main1></main1>
 
-        </left-nav>
     </div>
+    <template id="title">
+            <div class="warp">
+                    <div class="title">
+                        <div class="logo">
+                            <a href="">L-admin v2.0</a>
+                        </div>
+                        <div class="left_open">
+                            <span class="icon iconfont" style="color: white" title="展开左侧栏" @click="showleft">&#xe634;</span>
+                        </div>
+                        <ul class="layui-nav">
+                            <li class="layui-nav-item">
+                                <a>admin<span class="icon iconfont">&#xe615;</span></a>
+        
+                            </li>
+                            <div class="login">
+                                <li>个人信息</li>
+                                <li>切换账号</li>
+                                <li>退出</li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+    </template>
+    <template id="leftnav">
+            <div class="left" v-if="show">
+                    <ul>
+                        <li v-for="(item,index) in arr" id="ha" @click="showItem(item)" style="transition: all 0.8s">
+                            <span class="icon iconfont" v-html=item.img></span>
+                            <span>{{item.name}}</span>
+                            <span class="icon iconfont" v-html=item.font id="xi"></span>
+                            <ul v-if="isshow" @click="leftCon(index)">
+                                <!-- <span class="icon iconfont" v-html=item.font id="xi"></span> -->
+                                <li v-for="i,index in item.con" id="cont" @click.stop="ccc(index)">{{i.text}}
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+    </template>
+    <template id="main">
+            <div id="con">
+            </div>
+    </template>
+    <template id="zb1">
+        <div id="zb">
+            <div class="box">
+                <div class="clock hour" :style="{transform:'rotate('+hour+'deg)'}"></div>
+                <div class="clock miute" :style="{transform:'rotate('+miute+'deg)'}"></div>
+                <div class="clock second" :style="{transform:'rotate('+second+'deg)'}"></div>
+            </div>
+        </div>
+    </template>
 </body>
+<script src="js/钟表.js"></script>
 <script>
-    Vue.component('left-nav', {
+    Vue.component('main1', {
+        template: '#main'
+    })
+    Vue.component('leftnav', {
+        template: '#leftnav',
         data() {
             return {
-                arr: [1, 2, 3, 4, 5, 5]
+                show: true,
+                isshow: false,
+
+                arr: [{
+                    img: '&#xe622;',
+                    name: '主页',
+                    font: '&#xe615;',
+                    con: [{
+                        text: '控制台',
+                        lcon: [{
+                            aa: 'aa'
+                        }]
+                    }]
+                }]
             }
         },
-        template: '<div v-for="i in arr">{{i}}</div>'
+        methods: {
+            showItem(item) {
+                this.isshow = !this.isshow;
+                ha.style.borderLeft = "4px solid blue"
+                ha.style.background = "#000"
+            },
+        },
+
+    })
+    Vue.component('title1', {
+        template: '#title',
+        methods: {
+            showleft() {
+                this.show = !this.show;
+                if (!this.show) {
+                    con.style.left = "0"
+                    con.style.width = "100%"
+                } else {
+                    con.style.left = "220px"
+                    con.style.width = "0"
+
+                }
+
+            },
+        },
     })
     new Vue({
+        el: '#app',
 
-    }).$mount('#app')
+        data: {
+            indexs: 0,
+            isshow: false,
+            // show: true,
+            // arr: [{
+            //     img: '&#xe622;',
+            //     name: '主页',
+            //     font: '&#xe615;',
+            //     con: [{
+            //         text: '控制台',
+            //         lcon: [{
+            //             aa: 'aa'
+            //         }]
+            //     }]
+            // }]
+
+        },
+
+        methods: {
+            // showItem(item) {
+            //     this.isshow = !this.isshow;
+            //     ha.style.borderLeft = "4px solid blue"
+            //     ha.style.background = "#000"
+            // },
+
+            // showleft() {
+            //     this.show = !this.show;
+            //     if (!this.show) {
+            //         con.style.left = "0"
+            //         con.style.width = "100%"
+            //     } else {
+            //         con.style.left = "220px"
+            //         con.style.width = "0"
+
+            //     }
+
+            // },
+            ccc(index) {
+
+            }
+
+        },
+
+
+    })
 </script>
 
 </html>

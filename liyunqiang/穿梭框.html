@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/home">新闻</router-link>
+        <router-link to="/news">新闻3</router-link>
+        <router-link to="/gems">新闻4</router-link>
+
+        <router-view></router-view>
+    </div>
+</body>
+<script>
+    // 创建模板
+    var home = {
+        template: '<h1>我是新闻</h1>'
+    }
+    var news = {
+        template: '<h1>我是新闻3</h1>'
+    }
+    var gems = {
+        template: '<h1>我是新闻5</h1>'
+    }
+
+    // 配置路由
+    var routes = [{
+        path: '/home',
+        component: home
+    }, {
+        path: '/news',
+        component: news
+    }, {
+        path: '/gems',
+        component: gems
+    }];
+    // 生成路由
+    var router = new VueRouter({
+        routes
+    })
+    var vm = new Vue({
+        el: '#app',
+        router
+
+    })
+</script>
+
+</html>

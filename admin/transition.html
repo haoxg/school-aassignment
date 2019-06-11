@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../assets/js/vue.js"></script>
+    <link rel="stylesheet" href="../assets/css/animate.css">
+    <style>
+        ul>li{
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+        }
+        .v-enter{   
+            /* opacity: 0; */
+        }
+        .v-enter-active{
+            animation: bounceIn 1s;
+        }
+        .v-enter-to{
+            /* opacity: 1; */
+        }
+
+        .v-leave{
+            /* transform: scale(0,0); */
+        }
+        .v-leave-active{
+            animation-duration: 1s;
+            animation-name: bounceIn;
+            animation-direction:reverse;
+            position: absolute;
+        }
+        .v-leave-to{
+            /* transform: scale(2,2); */
+        }
+        .v-move{
+            transition: 10s;
+        }
+        @keyframes bounceIn{
+            0%{
+                /* height: 0px; */
+                /* margin-left:-30px; */
+                opacity: 0;
+            }
+            100%{
+                /* height: 100px; */
+                /* margin-left:0px; */
+                opacity: 1;
+            }
+        }
+        @keyframes bbb{
+            0%{
+                transform: scale(0,0)
+            }
+            100%{
+                transform: scale(1,1);
+            }
+        }
+
+        .b-enter-active{
+            animation: bbb 1s;
+        }
+
+        .b-leave-active{
+            animation-duration: 1s;
+            animation-name: bbb;
+            animation-direction:reverse;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button @click="ishow = !ishow">aaa</button>
+        <!-- enter-active-class="animated bounceIn" leave-active-class="animated bounceOut" -->
+        <transition name="v" appear>
+            <!-- <span v-if='ishow'>abc</span> -->
+            <component :is="name" ref></component>
+
+            <!-- <div v-if='ishow' key="'a'">1111</div>
+            <div v-else key="'b'">2222</div> -->
+        </transition>
+
+        <button @click="add">add</button>
+        <button @click="remove">remove</button>
+
+        <transition-group :name="'v'" tag="ul">
+            <li v-for="item in arr" :key="item">
+                {{item}}
+            </li>
+        </transition-group>
+            
+        
+
+
+        
+        
+    </div>
+    <script>
+        Vue.component('aaa',{
+            template:'<div>aaaaaa</div>'
+        });
+        Vue.component('bbb',{
+            template:'<div>bbbbbb</div>'
+        });
+        var vm = new Vue({
+            el:"#app",
+            data:{
+                ishow:true,
+                name:'aaa',
+                arr:[1,2,3],
+                transitionName:'b',
+            },
+            methods: {
+               
+                add(){
+                    if(this.arr.length%2==0){
+                        this.transitionName = 'v'
+                    }else{
+                        this.transitionName = 'b'
+                    }
+                    this.arr.push(this.arr.length+1);
+                },
+                remove(){
+                    this.arr.shift(1);
+                }
+            },
+        })
+    </script>
+</body>
+</html>

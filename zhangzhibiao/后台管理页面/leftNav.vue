@@ -1,0 +1,102 @@
+<style>
+* {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .box {
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            border: 10px solid;
+            margin: 100px auto;
+            position: relative;
+        }
+        
+        .box::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #000;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            z-index: 1;
+        }
+        
+        .hour {
+            position: absolute;
+            width: 10px;
+            height: 180px;
+            background-color: #000;
+            left: 50%;
+            margin-left: -5px;
+            top: 70px;
+            transform-origin: center bottom;
+        }
+        
+        .minute {
+            position: absolute;
+            width: 6px;
+            height: 200px;
+            background-color: blue;
+            left: 50%;
+            margin-left: -3px;
+            top: 50px;
+            transform-origin: center bottom;
+        }
+        
+        .second {
+            position: absolute;
+            width: 4px;
+            height: 220px;
+            background-color: red;
+            left: 50%;
+            margin-left: -2px;
+            top: 30px;
+            transform-origin: center bottom;
+        }
+        
+        ul li {
+            width: 30px;
+            height: 100%;
+            padding-top: 20px;
+            box-sizing: border-box;
+            position: absolute;
+            left: 50%;
+            margin-left: -15px;
+            top: 0;
+            text-align: center;
+        }
+        
+        ol li {
+            width: 4px;
+            height: 100%;
+            position: absolute;
+            margin-bottom: 240px;
+            left: 50%;
+            margin-left: -2px;
+            top: 0;
+        }
+        
+        ol li i {
+            float: left;
+            height: 10px;
+            width: 100%;
+            background: #000;
+        }
+        
+        ol li:nth-of-type(5n-5) i {
+            height: 20px;
+        }
+</style>
+<template>
+</template>
+<script>
+
+</script>

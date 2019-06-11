@@ -5,16 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
     <title>Document</title>
 </head>
+<style>
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity .5s;
+    }
+    
+    .fade-enter,
+    .fade-leave-to {
+        opacity: 0;
+    }
+</style>
 
 <body>
+    <div id="demo">
+        <button v-on:click="show = !show">
+                  Toggle
+                </button>
+        <transition name="fade">
+            <p v-if="show">hello</p>
+        </transition>
+    </div>
     <script>
-        var arr = [1, 2, 3, 4, 5]
-        arr.sort(function() {
-            return Math.random() > 0.5 ? 1 : -1
+        new Vue({
+            el: '#demo',
+            data: {
+                show: true
+            }
         })
-        console.log(arr)
     </script>
 </body>
 

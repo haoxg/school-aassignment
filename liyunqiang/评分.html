@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        ul li {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ccc;
+            list-style: none;
+            display: inline-block;
+            margin-left: 5px;
+            transition: .5s
+        }
+        
+        .active {
+            background: red;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        禁用
+        <count :max="5" :disabled='true'></count>
+        可用
+        <count :max="5" :disabled="false"></count>
+
+
+
+    </div>
+    <template id="count">
+    <ul>
+        {{activeindex}}
+        {{currentindex}}
+        <li v-for="i in max" @mouseover="yiru(i)" :class="{active:currentindex>=i||activeindex>=i}" @mouseout="yichu" @click="dian(i)"   ></li>
+        {{text}}
+    </ul>
+</template>
+</body>
+<script>
+    Vue.component('count', {
+        template: '#count',
+        props: {
+            max: {
+                type: Number,
+                default: 5
+            },
+            disabled: {
+                type: Boolean,
+                default: false
+            },
+            texts: {
+                type: Array,
+                default: function() {
+                    return ['极差', '失望', '一般', '满意', '惊喜']
+                }
+            }
+
+        },
+        data() {
+            return {
+                currentindex: 0,
+                activeindex: 0
+            }
+
+        },
+        computed: {
+            text() {
+                return this.texts[this.activeindex - 1]
+            }
+        },
+        methods: {
+            yiru(i) {
+                if (this.disabled) {
+                    return
+                }
+                this.currentindex = i;
+            },
+            yichu() {
+                if (this.disabled) {
+                    return
+                }
+                this.currentindex = 0;
+            },
+            dian(i) {
+                if (this.disabled) {
+                    return
+                }
+                this.activeindex = this.currentindex;
+            }
+        },
+    }), new Vue({
+        data: {
+
+        }
+
+    }).$mount('#app')
+</script>
+
+</html>

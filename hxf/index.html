@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../vue.js"></script>
+		<script src="../VueRouter.js"></script>
+		<script src="../jquery.js"></script>
+		<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+		<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/time.css" />
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				text-decoration: none;
+			}
+			
+			body,
+			html {
+				height: 100%;
+			}
+			
+			#box {
+				overflow: hidden;
+				height: 100%;
+				color: #ccc;
+			}
+			
+			.left {
+				width: 220px;
+				height: 100%;
+				float: left;
+				background: #ccc;
+			}
+			
+			.lcontent {
+				height: 700px;
+				overflow: hidden;
+			}
+			
+			.right {
+				padding: 20px;
+				width: 1106px;
+				height: 700px;
+				background-color: #121212;
+				float: left;
+			}
+			
+			.item {
+				width: 100%;
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+				transition: all .5s;
+				overflow: hidden;
+				background-color: #111111;
+			}
+			
+			.item div {
+				width: 100%;
+				height: 50px;
+				line-height: 50px;
+				background-color: #222324;
+			}
+			
+			header {
+				width: 100%;
+				height: 60px;
+				background: black;
+			}
+			
+			.logo {
+				line-height: 60px;
+				float: left;
+				font-size: 30px;
+				padding-left: 50px;
+			}
+			
+			#link {
+				width: 100%;
+				display: inline-block;
+			}
+			
+			.fyq_button {
+				float: left;
+				line-height: 50px;
+				height: 50px;
+				margin-left: 5px;
+				border: none;
+			}
+			
+			.fyq_ul {
+				float: left;
+				overflow: hidden;
+				height: 50px;
+			}
+			
+			.fyq_ul_li {
+				float: left;
+				height: 50px;
+				border: 1px solid #000;
+				padding: 15px;
+				-webkit-user-select: none;
+				box-sizing: border-box;
+			}
+			
+			.fyq_ul_li.active {
+				height: 50px;
+				background: blue;
+			}
+			
+			#nicai {
+				margin: 0 auto;
+				border: 1px solid red;
+			}
+			
+			#nicai div {
+				width: 100px;
+				height: 100px;
+				float: left;
+				text-align: center;
+				line-height: 100px;
+				border: red solid 1px;
+				box-sizing: border-box;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<server></server>
+		</div>
+		<template id="no1">
+			<div>
+				<header>
+					<div class="logo">L-admin v2.0</div>
+				</header>
+				<div class="left">
+					<div class="lcontent">
+						<div v-for="(i,$index) in arr" class="item">
+							<p @click.stop='btn($event,$index)'>{{i.title}}</p>
+							<router-link :to="j.urls" v-for="j,index in i.arr" id="link" @click="btn2(j)" :key="index">{{j.title}}
+							</router-link>
+						</div>
+					</div>
+				</div>
+				<div class="right">
+					<div>
+						<router-view></router-view>
+					</div>
+				</div>
+			</div>
+		</template>
+
+		<template id="times">
+			<div class="box">
+				<div class="miao" :style="{transform:'rotate('+s+'deg)'}"></div>
+				<div class="fen" :style="{transform:'rotate('+m+'deg)'}"></div>
+				<div class="shi" :style="{transform:'rotate('+h+'deg)'}"></div>
+				<div class="sssss"></div>
+				<ul class="time-ul">
+					<li class="time_ul_li" v-for="i in 12" :style="{transform:'rotate('+i*30+'deg)'}">
+						{{i}}
+					</li>
+				</ul>
+			</div>
+		</template>
+		<template id="fyq">
+			<div>
+				<button class="fyq_button" @click="sy">首页</button>
+				<button class="fyq_button" @click="syy">上一页</button>
+				<ul class="fyq_ul">
+					<li class="fyq_ul_li" v-show="left">...</li>
+					<li class="fyq_ul_li" v-for="i,index in maxPageSize" @click="dq(first+index)" :class="{active:first+index==n}">{{first+index}}</li>
+					<li class="fyq_ul_li" v-show="right">...</li>
+					<li class="fyq_ul_li">共{{ages}}页</li>
+				</ul>
+				<button class="fyq_button" @click="xy">下一页</button>
+				<button class="fyq_button" @click="wy">尾页</button>
+			</div>
+		</template>
+		<template id="hrd">
+			<div>
+				<h1>{{bushu}}</h1>
+				<button @click="two()">2*2</button>
+				<button @click="three()">3*3</button>
+				<button @click="four()">4*4</button>
+				<button @click="five()">5*5</button>
+				<div id="nicai" :style="{width:100*n+'px',height:100*n+'px'}">
+					<div v-for="item,index in arr" @click="move(item,index)">{{item}}</div>
+				</div>
+			</div>
+		</template>
+	</body>
+	<script type="text/javascript">
+		var fen = Vue.component('fyq', {
+			template: '#fyq',
+			data() {
+				return {
+					agesize: 9,
+					n: 1,
+					ages: 50,
+					left: false,
+					right: false,
+				}
+			},
+			computed: {
+				maxPageSize() {
+					return this.ages < this.agesize ? this.ages : this.agesize
+				},
+				first() {
+					if(this.n >= Math.floor(this.agesize / 2)) {
+						this.right = false
+					} else {
+						this.right = true
+					}
+					if(this.n >= Math.floor(this.agesize / 2 + 2)) {
+						this.left = true
+					} else {
+						this.left = false
+					}
+					if(this.n <= Math.floor(this.agesize / 2)) {
+						return 1;
+					} else if(this.n >= this.ages - Math.floor(this.agesize / 2)) {
+						return this.ages - this.agesize + 1
+					} else {
+						return this.n - Math.floor(this.agesize / 2)
+					}
+				}
+			},
+			methods: {
+				sy() {
+					this.n = 1
+				},
+				syy() {
+					if(this.n <= 1) return
+					this.n--
+				},
+				dq(age) {
+					this.n = age
+				},
+				xy() {
+					if(this.n >= this.ages) return
+					this.n++
+				},
+				wy() {
+					this.n = this.ages
+
+				}
+
+			}
+		})
+		var time = Vue.component('times', {
+			template: '#times',
+			data() {
+				return {
+					s: new Date().getSeconds() * 6,
+					m: new Date().getMinutes() * 6,
+					h: new Date().getHours() * 30,
+				}
+			},
+			created() {
+				this.time()
+			},
+			methods: {
+				time() {
+					setInterval(() => {
+						this.s = new Date().getSeconds() * 6;
+						this.m = new Date().getMinutes() * 6;
+						this.h = new Date().getHours() * 30;
+					}, 1000)
+				}
+			}
+		})
+		var hrd = Vue.component("hrd", {
+			template: "#hrd",
+			data(){
+				return {
+					arr: [1, 2, 3, 4, 5, 6, 7, 8, ''],
+					n: 3,
+					bushu: 0
+				}
+			},
+			methods: {
+				two() {
+					this.n = 2
+					this.arr = []
+					for(var i = 1; i < 2 * 2; i++) {
+						this.arr.push(i)
+					}
+					this.arr.splice(this.arr.length, 1, '')
+					this.arr.sort(() => Math.random() - 0.5);
+
+				},
+				three() {
+					this.n = 3
+					this.arr = []
+					for(var i = 1; i < 3 * 3; i++) {
+						this.arr.push(i)
+					}
+					this.arr.splice(this.arr.length, 1, '')
+					this.arr.sort(() => Math.random() - 0.5);
+				},
+				four() {
+					this.n = 4
+					this.arr = []
+					for(var i = 1; i < 4 * 4; i++) {
+						this.arr.push(i)
+					}
+					this.arr.splice(this.arr.length, 1, '')
+					this.arr.sort(() => Math.random() - 0.5);
+				},
+				five() {
+					this.n = 5
+					this.arr = []
+					for(var i = 1; i < 5 * 5; i++) {
+						this.arr.push(i)
+					}
+					this.arr.splice(this.arr.length, 1, '')
+					this.arr.sort(() => Math.random() - 0.5);
+				},
+				move(item, index) {
+					this.bushu++
+						var currentIndex = index
+					var kongge;
+					this.arr.forEach((element, ppp) => {
+						if(element == '') {
+							kongge = ppp
+						}
+					})
+					if(this.isCanMove(currentIndex, kongge)) {
+						Vue.set(this.arr, index, '')
+						Vue.set(this.arr, kongge, item)
+					}
+				},
+				isCanMove(currentIndex, kongge) {
+					if(currentIndex % this.n == 0) {
+						return(currentIndex + 1 == kongge || currentIndex + this.n == kongge || currentIndex - this.n == kongge)
+					} else if((currentIndex + 1) % this.n == 0) {
+						return(currentIndex - 1 == kongge || currentIndex + this.n == kongge || currentIndex - this.n == kongge)
+					} else {
+						return(currentIndex - 1 == kongge || currentIndex + 1 == kongge || currentIndex + this.n == kongge || currentIndex - this.n == kongge)
+					}
+				}
+			}
+		})	
+		var routes = [{
+				path: '/',
+				component: time
+			},
+			{
+				path: '/fyq',
+				component: fen
+			},{
+				path:"/hrd",
+				component:hrd
+			}
+		]
+		Vue.component('server', {
+			template: '#no1',
+			data() {
+				return {
+					cc: '',
+					types: true,
+					arr: [{
+						title: 'VUE',
+						arr: [{
+							title: '钟表',
+							urls: '/'
+						}, {
+							title: '分页器',
+							urls: '/fyq'
+						},{
+							title:"数字华容道",
+							urls:"/hrd"
+						}]
+					}],
+				}
+			},
+			methods: {
+				btn(e, a) {
+					this.types = !this.types;
+					if(this.types == true) {
+						e.srcElement.parentElement.style.height = '50px';
+					} else {
+						e.srcElement.parentElement.style.height = (this.arr[a].arr.length + 1) * 50 + 'px'
+					}
+				},
+				btn2(a) {
+					this.cc = a.urls
+				}
+			}
+		})
+		var router = new VueRouter({
+			routes:routes
+		})
+		var vm = new Vue({
+			el: '#box',
+			router,
+			data: {
+				s: new Date().getSeconds() * 6,
+				m: new Date().getMinutes() * 6,
+				h: new Date().getHours() * 30,
+			}
+		})
+	</script>
+</html>

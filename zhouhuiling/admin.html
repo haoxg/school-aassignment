@@ -203,119 +203,10 @@
                     </div>
                 </ul>
             </div>
-            <template>
-                <left></left>
-            </template>
-
-            <div id="right">
-                <div v-for="j,index in arr[lo].con[lo].lcon" id="first">{{j.lcon}}</div>
-            </div>
-        </div>
-    </div>
-</body>
-
-<script>
-    //全局注册
-    Vue.component('left', {
-        data() {
-            return {
-                arr: [{
-                    img: '&#xe622;',
-                    name: '主页',
-                    font: '&#xe615;',
-                    isShow: false,
-                    con: [{
-                        text: '控制台',
-                        font: '&#xe615;',
-                        lcon: []
-                    }]
-                }, {
-                    img: '&#xe669;',
-                    name: '基本元素',
-                    font: '&#xe615;',
-                    isShow: false,
-                    con: [{
-                        text: '图标字体',
-                    }, {
-                        text: '表单元素',
-                    }, {
-                        text: '表单组合',
-                    }, {
-                        text: '按钮',
-                    }, {
-                        text: '导航/面包屑',
-                    }, {
-                        text: '选项卡',
-                    }, {
-                        text: '进度条',
-                    }, {
-                        text: '面板',
-                    }]
-                }, {
-                    img: '&#xe60c;',
-                    name: '组件页面',
-                    font: '&#xe615;',
-                    isShow: false,
-                    con: [{
-                        text: '图标字体',
-                    }, {
-                        text: '表单元素',
-                    }]
-                }, {
-                    img: '&#xe608;',
-                    name: '排版布局',
-                    font: '&#xe615;',
-                    isShow: false,
-                    con: [{
-                        text: '图标字体',
-                    }, {
-                        text: '表单元素',
-                    }]
-                }, {
-                    img: '&#xe61f;',
-                    name: '订单管理',
-                    font: '&#xe615;',
-                    isShow: false,
-                    con: [{
-                        text: '图标字体',
-                    }, {
-                        text: '表单元素',
-                    }]
-                }, {
-                    img: '&#xe696;',
-                    name: '管理员管理',
-                    font: '&#xe615;',
-                    isShow: false,
-                    con: [{
-                        text: '图标字体',
-                    }, {
-                        text: '表单元素',
-                    }]
-                }, {
-                    img: '&#xe656;',
-                    name: '用户管理',
-                    font: '&#xe615;',
-                    isShow: false,
-                    con: [{
-                        text: '图标字体',
-                    }, {
-                        text: '表单元素',
-                    }]
-                }, {
-                    img: '&#xe608;',
-                    name: '系统统计',
-                    font: '&#xe615;',
-                    isShow: false,
-                    con: [{
-                        text: '图标字体',
-                    }, {
-                        text: '表单元素',
-                    }]
-                }]
-            }
-        },
-        template: `
-        <div id="left" v-if="msg">
+            <left></left>
+            <template id="ecl">
+                <div id="left" v-if="msg">
+                    {{arr[0].name}}
                     <ul>
                         <li v-for="(item,index) in arr" id="ha" @click="showItem(item)" style="transition: all 0.8s">
                             <span class="icon iconfont" v-html=item.img></span>
@@ -329,29 +220,64 @@
                         </li>
                     </ul>
                 </div>
-        `
-    })
+            </template>
+            <div id="right">
+                <div v-for="j,index in arr[lo].con[lo].lcon" id="first">{{j.lcon}}</div>
+            </div>
+        </div>
+    </div>
+</body>
 
-    new Vue({
-        data: {
-            msg: true,
-            indexl: 0,
-            lo: 0,
-        },
-        methods: {
-            showItem(item) {
-                item.isShow = !item.isShow;
-                // console.log(this.indexl)
+<script>
+    //全局注册
+    Vue.component('left', {
+            template: "#ecl",
+            props: {
+                value: {
+                    type: Array,
+                    default: {
+
+                    }
+                }
             },
-            hide() {
-                right.style.width = "100%"
-                this.msg = !this.msg
-            },
-            leftCon(index) {
-                this.lo = index;
+            data() {
+                return {
+                    arr: [{
+                        img: '&#xe622;',
+                        name: '主页',
+                        font: '&#xe615;',
+                        isShow: false,
+                        con: [{
+                            text: '控制台',
+                            font: '&#xe615;',
+                            lcon: []
+                        }]
+                    }]
+                }
             }
-        }
-    }).$mount('#app')
+        }),
+
+
+        new Vue({
+            data: {
+                msg: true,
+                indexl: 0,
+                lo: 0,
+            },
+            methods: {
+                showItem(item) {
+                    item.isShow = !item.isShow;
+                    // console.log(this.indexl)
+                },
+                hide() {
+                    right.style.width = "100%"
+                    this.msg = !this.msg
+                },
+                // leftCon(index) {
+                //     this.lo = index;
+                // }
+            }
+        }).$mount('#app')
 </script>
 
 </html>

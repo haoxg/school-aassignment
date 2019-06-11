@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="font_13s9dhreitta/iconfont.css">
+    <link rel="stylesheet" href="./css/zonghe.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script src="./js/leftNav.js"></script>
+    <script src='./js/clock.js'></script>
+    <script src='./js/pagination.js'></script>   
+</head>
+
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="head">
+                <div class="logo">
+                    <!-- <img src="" alt=""> -->   
+                </div>
+                <div class="list">
+                    <i class="iconfont icon-liebiao" @click="scalelist"></i>
+                </div>
+                <div class="increase">
+                    <span>+新增<i class="iconfont icon-xiala-tianchong"></i></span>
+                    <ul class="popup">
+                        <li><i class="iconfont">&#xe605;</i>资讯</li>
+                        <li><i class="iconfont">&#xe63e;</i>图片</li>
+                        <li><i class="iconfont">&#xe619;</i>用户</li>
+                    </ul>
+                </div>
+                <div class="user">
+                    <div>
+                        <span>admin<i class="iconfont icon-xiala-tianchong"></i></span>
+                        <ul class="popup">
+                            <li>个人信息</li>
+                            <li>切换账号</li>
+                            <li>退出登录</li>
+                        </ul>
+                    </div>
+                    <div>前台首页</div>
+                </div>
+            </div>
+            <div class="content-box">
+                <left-nav :datatype="scalelistType" @addtab-event="addTab"></left-nav>
+                <div class="content" :style="{'margin-left':scalelistType?'220px':'0'}">
+                    <ol style='background: #ccc;height:30px;line-height: 30px'>
+                        <li style='float:left'><i class="iconfont icon-zhuye"></i>&nbsp;桌面&nbsp;</li>
+                        <li v-for="item,index in tabarr" style='float:left;margin:0 5px;'>
+                            <router-link :to="item.router">{{item.title}}&nbsp;
+                                <span @click.prevent="rmTab(index)" >&times;</span>
+                            </router-link>
+                        </li>
+                    </ol>
+                    <div class="content-main">
+                        <router-view></router-view>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var router = new VueRouter({
+            routes:[{
+                name:'colokhtml',//自己自定义的
+                path:'/',//默认的
+                component:clockhtml,//组件名
+            },{
+                name:'pagination',
+                path:'/pagination',
+                component:paginationBox,
+            }]
+        })
+        Vue.component('left-nav', leftNav);
+        new Vue({
+            el: '#app',
+            router,
+            methods: {
+                scalelist() {
+                    if (this.scalelistType) {
+                        this.scalelistType = !this.scalelistType;
+                    } else {
+                        this.scalelistType = !this.scalelistType;
+                    }
+                },
+                rmTab(index){
+                    if (index == this.tabarr.length - 1) {
+                        if (index == 0) {
+                            this.tabarr.splice(index, 1);
+                            this.$router.push('/')
+                        } else {
+                            this.tabarr.splice(index, 1);
+                            this.$router.push(this.tabarr[index - 1].router)
+                        }
+                    } else {
+                        this.tabarr.splice(index, 1);
+                        router.push(this.tabarr[index].router)
+                    }
+                },
+                addTab(item){
+                    console.log(item)
+                    var isAdd=true;
+                    this.tabarr.forEach(element => {
+                        if(item.title==element.title){
+                            isAdd=false;
+                        }
+                    });
+                    if(isAdd){
+                        this.tabarr.push(item)
+                    }
+                    console.log(this.tabarr)
+                }
+            },
+            
+            data: {
+                scalelistType: true,
+                tabarr:[],
+            },
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>后台管理-L-admin</title>
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <link rel="stylesheet" href="./style/style.css">
+    <script src="./js/arr.js"></script>
+    <link rel="stylesheet" href="./font_1222882_reaajjoamln/iconfont.css">
+    <style>
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity .5s;
+        }
+        
+        .fade-enter,
+        .fade-leave-to
+        /* .fade-leave-active below version 2.1.8 */
+        
+        {
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <header-top @is-show='isShow'></header-top>
+        <transition name='fade' v-if="isShow1">
+            <list-li></list-li>
+        </transition>
+        <transition>
+            <right-li></right-li>
+        </transition>
+
+    </div>
+    <template id="header">
+        <header class=" container color1">
+            <div class="col-md-2 fl">L-admin V2.0</div>
+            <ul class="clearfix">
+                <li class="fl" @click='hide' style="cursor:pointer"><span class="iconfont color">&#xe60b;</span></li>
+                <li class="fl hover" style="position:relative;" >
+                    <a href="javascript:;" class="color"> +新增 <i class="iconfont logo1">&#xe600;</i><i class="iconfont logo">&#xe615;</i></a>
+                    <ol class="style">
+                        <li><a href="javascript:;">咨询</a> </li>
+                        <li><a href="javascript:;">图片</a></li>
+                        <li><a href="javascript:;">用户</a></li>
+                    </ol>
+                </li>
+                <li class="fr">
+                    <a href="javascript:;" class="color">前台首页</a>
+                </li>
+                <li class="fr hover">
+                    <a href="javascript:;" class="color"> admin <i class="iconfont logo1">&#xe600;</i><i class="iconfont logo">&#xe615;</i></a>
+                    <ol class="style">
+                        <li><a href="javascript:;">咨询</a></li>
+                        <li><a href="javascript:;">图片</a></li>
+                        <li><a href="javascript:;">用户</a></li>
+                    </ol>
+                </li>
+            </ul>
+
+        </header>
+    </template>
+    <template id='left'>
+        <ul class="left" style="width:200px">  
+            <li :class='{br:o==index}' v-for='i,o in arr'> 
+                <div @click='lie(o)'><i class="iconfont" v-html=i.icon></i>{{i.type}}<i class="iconfont fr">&#xe644;</i></div>
+                <ol class="hide" :class='{"show":o==index}'>
+                    <li v-for='i in arr[o].lists'> <i class="iconfont">&#xe644;</i>{{i}}</li>
+                </ol>
+            </li>
+        </ul>
+    </template>
+    <template id="right">
+        <div class="right">
+                <ul class="layui-tab-title">
+                    <li class="home layui-this"><i class="layui-icon"></i>我的桌面<i class="layui-icon layui-unselect layui-tab-close">&times;</i></li>
+                    <li lay-id="17" class="layui-this">
+                        文件上传
+                        <i class="layui-icon layui-unselect layui-tab-close">&times;</i>
+                    </li> 
+                </ul> 
+                <router-link :to="'/'">home</router-link>
+                <router-link :to="'/peg'">list</router-link>
+                <router-view></router-view>  
+        </div>
+    </template>
+</body>
+<script>
+    var Home = Vue.extend({
+        template: `
+            <div class="time">
+                <div class="commonality hours" :style="{transform: 'rotateZ('+hours+'deg)'}"></div>
+                <div class="commonality minutes" :style="{transform: 'rotateZ('+minutes+'deg)'}"></div>
+                <div class="commonality seconds" :style="{transform: 'rotateZ('+seconds+'deg)'}"></div>
+                <ul>
+                    <li v-for='i in 12' :style="{transform: 'rotateZ('+i*30+'deg)'}">{{i}}</li>
+                </ul>
+            </div>
+            `,
+        data() {
+            return {
+                hours: new Date().getHours() * 30,
+                minutes: new Date().getMinutes() * 6,
+                seconds: new Date().getSeconds() * 6
+            }
+        },
+        created() {
+            this.set()
+        },
+        methods: {
+            set() {
+                setInterval(() => {
+                    this.hours = new Date().getHours() * 30
+                    this.minutes = new Date().getMinutes() * 6
+                    this.seconds = new Date().getSeconds() * 6
+                }, 1000)
+            }
+        }
+    })
+    var peg = Vue.extend({
+        template: `
+        <div class="fl">
+            <span @click='btn1'>首页</span>
+            <span @click='inup'>上一页</span>
+        </div>
+        <div class="fl">
+            <span v-show='qqq'>1</span>
+            <span v-show='qqq'>...</span>
+            <span v-for='i,o in maxSize' @click='color(abc+o)' :class='{bg:abc+o==bgclass}'>{{abc+o}}</span>
+            <span v-show='aaa'>...</span>
+            <span v-show='aaa'>{{list}}</span>  
+        </div>
+        <div class="fl">
+            <span @click='up'>下一页</span>
+            <span @click='btn10'>尾页</span>
+        </div>`,
+        data() {
+            return {
+                lee: 9,
+                list: 100,
+                bgclass: 55,
+            }
+        },
+        computed: {
+            qqq() {
+                if (this.bgclass - Math.floor(this.lee / 2) > 1) {
+                    return true
+                }
+            },
+            aaa() {
+                if (this.bgclass - Math.floor(this.lee / 2) < this.list - this.lee) {
+                    return true
+                }
+            },
+            maxSize() {
+                return this.list > this.lee ? this.lee : this.list
+            },
+            abc() {
+                if (this.bgclass <= Math.floor(this.lee / 2)) {
+                    return 1
+                } else if (this.bgclass >= this.list - Math.floor(this.lee / 2)) {
+                    return this.list - this.lee + 1
+                } else {
+                    return this.bgclass - Math.floor(this.lee / 2)
+                }
+
+            }
+
+        },
+        methods: {
+            up() {
+                this.bgclass = this.bgclass < this.list ? ++this.bgclass : this.list;
+            },
+            inup() {
+                this.bgclass = this.bgclass > 1 ? --this.bgclass : 1;
+            },
+            btn1() {
+                this.bgclass = 1;
+            },
+            btn10() {
+                this.bgclass = this.list;
+            },
+            color(i) {
+                this.bgclass = i;
+            },
+        }
+    })
+    var routes = [{
+        path: '/',
+        component: Home,
+    }, {
+        path: '/peg',
+        component: peg,
+    }]
+
+    var router = new VueRouter({
+        routes,
+    });
+    Vue.component('header-top', {
+        template: '#header',
+        data() {
+            return {
+                isShow: true,
+            }
+        },
+        methods: {
+            hide() {
+                this.isShow = !this.isShow
+                this.$emit('is-show', this.isShow)
+            }
+        },
+    })
+    Vue.component('list-li', {
+        template: '#left',
+        data() {
+            return {
+                arr: data,
+                index: 9
+            }
+        },
+        methods: {
+            lie(i) {
+                if (this.index == i) {
+                    this.index = 9999999
+                } else {
+                    this.index = i
+                }
+            },
+        },
+
+    })
+    Vue.component('right-li', {
+        template: '#right',
+        router,
+
+
+    })
+    var vm = new Vue({
+        data: {
+            isShow1: true,
+        },
+        methods: {
+            isShow(data) {
+                this.isShow1 = data
+            }
+        }
+    }).$mount('#app')
+</script>
+
+</html>

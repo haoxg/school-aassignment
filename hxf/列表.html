@@ -1,241 +1,182 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-		<script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+		<script src="vue.js"></script>
+		<script src="VueRouter.js"></script>
 		<style type="text/css">
-			*{margin:0;padding: 0;text-decoration: none;list-style: none;}
-			.item{
+			* {
+				margin: 0;
+				padding: 0;
+				text-decoration: none;
+				list-style: none;
+			}
+			
+			.item {
 				overflow: hidden;
 				margin: 20px 0;
 			}
 		</style>
 	</head>
+
 	<body>
 		<div id="box" style="width: 500px;height: 500px;margin:0 auto;">
-			<ul  style="float: left;margin-right: 50px;">
-				<li @click="tab(i)" v-for="(i,$index) in titarr" style="line-height: 100px;border-bottom: #000000 solid 1px">{{i}}</li>
-			</ul>
-			<div style="float: left;" id="right">
-				<div class="item" v-for="(i,$index) in itemarr" style="border: solid 1px black;">
-					<img :src="i.imgsrc" style="width: 100px;height: 100px;float: left;margin-right:20px ;"/>
-					<p id="msg" style="margin-bottom: 20px;">{{i.msg}}</p>
-					<p id="jiage">{{i.price}}</p>
-					<button style="width: 30px;height: 30px;float: left;">+</button>
-					<h5 style="float: left;line-height: 30px;">{{i.haha}}</h5>
-					<button style="width: 30px;height: 30px;">-</button>
-				</div>
-			</div>
+			<router-view></router-view>
 		</div>
+		<template id="selectGoods">
+			<div>
+				<ul style="float: left;margin-right: 50px;">
+					<li @click="tab(i)" v-for="(i,$index) in titarr" style="line-height: 100px;border-bottom: #000000 solid 1px">{{i}}</li>
+					<span></span>
+				</ul>
+				<div style="float: left;" id="right">
+					<div class="item" v-for="(i,$index) in itemarr" style="border: solid 1px black;">
+						<img :src="i.imgsrc" style="width: 100px;height: 100px;float: left;margin-right:20px ;" />
+						<p id="msg" style="margin-bottom: 20px;">{{i.msg}}</p>
+						<p id="jiage">{{i.price}}</p>
+						<button style="width: 30px;height: 30px;float: left;" @click="jian(i.uid)">-</button>
+						<h5 style="float: left;line-height: 30px;">{{i.haha||0}}</h5>
+						<button style="width: 30px;height: 30px;" @click="btn(i.uid)">+</button>
+					</div>
+				</div>
+				<footer>
+					总计:{{zong}}
+					<router-link to="/shoppingCart">去结算</router-link>
+				</footer>
+			</div>
+		</template>
 	</body>
 	<script type="text/javascript">
-		new Vue({
-			el:"#box",
-			methods:{
-				tab(a){
+		var selectGoods = {
+			template: "#selectGoods",
+			data() {
+				return {
+					itemarr: '',
+					titarr: '',
+					arr: [{
+						title: '热销新品',
+						imgsrc: 'img/4.jpg',
+						msg: '新鲜柠檬500g/盒新鲜特价新鲜特价',
+						price: 10,
+						uid:0,
+						haha: 0
+					}, {
+						title: '热销新品',
+						imgsrc: 'img/5.jpg',
+						msg: '新鲜柠檬500g/盒新鲜特价新鲜特价',
+						price: 10,
+						uid:1,
+						haha: 0
+					},{
+						title: '优选水果',
+						imgsrc: 'img/3.jpg',
+						msg: '新鲜柠檬500g/盒新鲜特价新鲜特价',
+						price: 10,
+						uid:2,
+						haha: 0
+					},{
+						title: '优选水果',
+						imgsrc: 'img/4.jpg',
+						msg: '新鲜柠檬500g/盒新鲜特价新鲜特价',
+						price: 10,
+						uid:3,
+						haha: 0
+					},{
+						title: '卤味熟食',
+						imgsrc: 'img/1.jpg',
+						msg: '新鲜柠檬500g/盒新鲜特价新鲜特价',
+						price: 10,
+						uid:4,
+						haha: 0
+					}, {
+						title: '卤味熟食',
+						imgsrc: 'img/6.jpg',
+						msg: '新鲜柠檬500g/盒新鲜特价新鲜特价',
+						price: 10,
+						uid:5,
+						haha: 0
+					}, {
+						title: '卤味熟食',
+						imgsrc: 'img/5.jpg',
+						msg: '新鲜柠檬500g/盒新鲜特价新鲜特价',
+						price: 10,
+						uid:6,
+						haha: 0
+					}],
+					inde:'',
+					zong:0,
+					dian:0,
+					yuan:0
+				}
+			},
+			methods: {
+				btn(a){
+					this.inde = a
+					if (this.arr[a].uid == this.inde) {
+						this.arr[a].haha++
+					}
+					this.dian++
+					console.log(this.dian)
+					this.zong = parseFloat((this.dian * (this.arr[a].price)))
+				},
+				jian(a){
+					this.inde = a
+					if (this.arr[a].uid == this.inde) {
+						if (this.arr[a].haha == 0) {
+							this.arr[a].haha = 0
+						}
+						
+						this.arr[a].haha--
+					}
+					if (this.dian == 0) {
+						this.dian = 0
+					}else{
+						this.dian--
+					}
+					console.log(this.dian)
+					this.zong = parseFloat((this.dian * (this.arr[a].price)))
+				},
+				tab(a) {
 					console.log(a)
-					var itemarr=[]
-					for (var i=0;i<this.arr.length;i++) {
-						if(this.arr[i].title==a){
+					var itemarr = []
+					for(var i = 0; i < this.arr.length; i++) {
+						if(this.arr[i].title == a) {
 							itemarr.push(this.arr[i])
 						}
 					}
-					this.itemarr=itemarr;
+					this.itemarr = itemarr;
 				}
 			},
-			methods:{
-				tab(a){
-					this.itemarr=[];
-					console.log(a)
-					var itemarr=[]
-					for (var i=0;i<this.arr.length;i++) {
-						if(this.arr[i].title==a){
-							itemarr.push(this.arr[i])
-						}
+			mounted() {
+				var titarr = [];
+				for(var i = 0; i < this.arr.length; i++) {
+					if(titarr.indexOf(this.arr[i].title) == -1) {
+						titarr.push(this.arr[i].title)
 					}
-					this.itemarr=itemarr;
 				}
-			},
-			mounted(){
-					var titarr=[];
-					for (var i=0;i<this.arr.length;i++) {
-						if(titarr.indexOf(this.arr[i].title)==-1){
-							titarr.push(this.arr[i].title)
-						}
-					}
-					this.titarr=titarr;
-			},
-			created(){
-				this.itemarr=this.arr
-			},
-			data:{
-				itemarr:'',
-				titarr:'',
-				arr:[{
-					title:'热销新品',
-					imgsrc:'img/1.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:0
+				this.titarr = titarr;
+			}
+		}
+		var shoppingCart = {
+			template:"<div>shoppingCart</div>"
+		}
+		const router = new VueRouter({
+			routes:[
+				{
+					path:"/goodsList",
+					component:selectGoods
 				},{
-					title:'热销新品',
-					imgsrc:'img/3.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'热销新品',
-					imgsrc:'img/2.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'热销新品',
-					imgsrc:'img/4.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'热销新品',
-					imgsrc:'img/5.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'优选水果',
-					imgsrc:'img/2.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'优选水果',
-					imgsrc:'img/5.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'优选水果',
-					imgsrc:'img/3.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'优选水果',
-					imgsrc:'img/6.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'优选水果',
-					imgsrc:'img/4.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'卤味熟食',
-					imgsrc:'img/3.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'卤味熟食',
-					imgsrc:'img/2.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'卤味熟食',
-					imgsrc:'img/1.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'卤味熟食',
-					imgsrc:'img/6.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'卤味熟食',
-					imgsrc:'img/5.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'牛奶面包',
-					imgsrc:'img/4.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'牛奶面包',
-					imgsrc:'img/2.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'牛奶面包',
-					imgsrc:'img/3.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'牛奶面包',
-					imgsrc:'img/5	.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'热饮',
-					imgsrc:'img/1.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'热饮',
-					imgsrc:'img/4.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'热饮',
-					imgsrc:'img/3.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'热饮',
-					imgsrc:'img/5.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'冰激凌',
-					imgsrc:'img/1.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'冰激凌',
-					imgsrc:'img/2.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'冰激凌',
-					imgsrc:'img/3.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},{
-					title:'冰激凌',
-					imgsrc:'img/6.jpg',
-					msg:'新鲜柠檬500g/盒新鲜特价新鲜特价',
-					price:'10.8',
-					haha:'0'
-				},]
-			},
+					path:"/shoppingCart",
+					component:shoppingCart
+				}
+			]
+		})
+		var vm = new Vue({
+			el: "#box",
+			router
 		})
 	</script>
+
 </html>

@@ -1,4 +1,5 @@
-*{padding: 0; margin: 0; list-style: none;}
+*{padding: 0; margin: 0; list-style: none; text-decoration: none;}
+
 .admin_container{width: 100%; height: auto;}
 .admin_header{
 	width: 100%;
@@ -19,14 +20,15 @@
 	top: 0;
 	
 }
+
 .admin_header-right{
-	width: 80%;
+	width: 83%;
     height: 45px;
     line-height: 45px;
     color: rgb(204, 204, 204);
     position: absolute;
     top: 0;
-    left: 260px;
+    left: 17%;
 	
 }
 .admin_header-right i {
@@ -56,8 +58,10 @@
 	width: 100%;height: 750px; 
 	position: absolute; top: 45px;
 }
+
+
 .admin_menu-nav{
-	width: 260px;
+	width: 17%;
 	height: 750px; 
 	position: fixed;
 	top: 45px;
@@ -69,7 +73,7 @@
 
 
 .admin_menu-nav li{
-    width: 257px;
+    width: 100%;
     height: 65px;
     line-height: 65px;
     text-indent: 36px;
@@ -86,18 +90,16 @@
 
 
 .admin_menu-content{
-	width: 80.5%;
+	width: 83%;
 	height: 750px;
 	
 	position: absolute;
-	left: 260px;
+	left: 17%;
 	float: left;
 }
 .admin_menu-content-header{
-	width: 100%; height: 45px; background: rgb(239,238,230);
-	line-height: 45px;
-	text-indent: 10px;
-	font-size: 18px;
+	width: 100%; height: 35px; background: rgb(239,238,230);
+	line-height: 35px;
 	position: fixed;
 	top: 45px;
 	z-index: 9;
@@ -167,3 +169,152 @@
 [v-cloak] {
 	display: none;
 }
+
+
+
+
+
+		
+			
+			.clocks_container {
+				width: 300px;
+				height: 300px;
+				background: url(https://i01piccdn.sogoucdn.com/75d5d8ee7cafaed8);
+				background-size: 330px 330px;
+				background-repeat: no-repeat;
+				background-position: -10px -18px ;
+				border-radius: 50%;
+				position: relative;
+				left: 100px;
+			}
+			
+			.clocks_container .hour {
+				width: 10px;
+				height: 100px;
+				background: #000;
+				margin-left: -5px;
+			}
+			
+			.clocks_container .minute {
+				width: 8px;
+				height: 120px;
+				background: #000;
+				margin-left: -4px;
+			}
+			
+			.clocks_container .second {
+				width: 6px;
+				height: 140px;
+				background: #000;
+				margin-left: -3px;
+			}
+			
+			.clocks_container .hand {
+				position: absolute;
+				left: 50%;
+				bottom: 50%;
+				transform-origin: center bottom;
+			}
+			
+			.clocks_container .yi {
+				width: 20px;
+				height: 20px;
+				background: black;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				z-index: 11;
+				margin-left: -10px;
+				margin-top: -10px;
+				border-radius: 50%;
+			}
+			
+			.left {
+				width: 20%;
+				height: 1000px;
+				background: thistle;
+				float: left;
+			}
+			
+			.right {
+				width: 80%;
+				height: 1000px;
+				float: left;
+				background: turquoise;
+			}
+			/*分页器*/
+			
+			.fen li {
+				width: 60px;
+				height: 40px;
+				border: 1px solid;
+				float: left;
+				user-select: none;
+				text-align: center;
+				line-height: 40px;
+			}
+			
+			.fen .ac {
+				background: tan;
+			}
+			
+			.fen .ww {
+				border: solid #c9c9c9 1px;
+				color: #C9C9C9;
+			}
+			
+			.fen .ellipsis-right {
+				position: absolute;
+				left: 636px;
+				background: thistle;
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			/*星星*/
+			.xx .box{
+				width: 500px; height: 300px; background: tan;
+				margin: 20px auto;
+			}
+			.xx li{
+				width: 30px; height: 30px; background: teal;
+				float: left;
+				margin: 6px;
+			}
+			
+			.xx .active{
+				background: tomato;
+			}
+			
+			[v-cloak] {
+				display: none;
+			}
+			
+
+.son_li a{
+	color: white;
+	display: block;
+}
+
+
+.admin_menu-content-header li{
+	width: 90px;
+	float: left;
+	font-size: 13px;
+	text-align: center;
+	line-height: 35px;
+	background: white;
+}
+
+
+a{
+	display: block;
+}
+.router-link-active {
+				background: rgb(40,43,51);
+			}

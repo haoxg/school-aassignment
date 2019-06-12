@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <script src="./vue-router.js"></script>
+    <script>
+        window.onload = function() {
+            document.documentElement.style.fontSize = document.documentElement.clientWidth / 300 * 100 + 'px';
+
+            window.onresize = function() {
+
+                document.documentElement.style.fontSize = document.documentElement.clientWidth / 300 * 100 + 'px';
+            }
+        }
+    </script>
+    <title>Document</title>
+    <style>
+        /* 重置样式表 */
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        ul,
+        ol {
+            list-style: none;
+        }
+        
+        em,
+        i {
+            font-style: normal;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+        /* a:hover{text-decoration: underline;} */
+        
+        input {
+            border: none;
+            outline: none;
+            background-color: transparent;
+        }
+        
+        body,
+        html {
+            height: 100%;
+            font-size: 26px
+        }
+        
+        body {
+            position: relative;
+            overflow-x: hidden;
+        }
+        /*公用*/
+        
+        .clearfix:after,
+        .clearfix:before {
+            content: '';
+            display: table;
+        }
+        
+        .clearfix:after {
+            clear: both;
+        }
+        
+        .hide {
+            display: none;
+        }
+        
+        .fl {
+            float: left;
+        }
+        
+        .fr {
+            float: right;
+        }
+        
+        .content {
+            width: 3rem;
+            height: auto;
+            border: 1px #ccc solid
+        }
+        
+        .header {
+            width: 3rem;
+            height: 0.4rem;
+            border-bottom: 1px #ccc solid;
+            text-align: center;
+            line-height: 0.4rem;
+            font-size: 0.14rem
+        }
+        
+        .con {
+            width: 3rem;
+            height: 4.6rem;
+            border-bottom: 1px #ccc solid;
+            border-right: 1px #ccc solid;
+            /* box-sizing: border-box; */
+        }
+        
+        .list-left {
+            width: 0.9rem;
+            /* background: #000; */
+            height: auto;
+            float: left;
+        }
+        
+        .list-left li {
+            height: 0.4rem;
+            border: 1px #ccc solid;
+            border-top: none;
+            text-align: center;
+            line-height: 0.4rem;
+            box-sizing: border-box;
+            font-size: 0.12rem
+        }
+        
+        .list-left li:hover {
+            border-left: 2px orange solid;
+        }
+        
+        .list-right {
+            width: 2.1rem;
+            height: auto;
+            float: left;
+            overflow: hidden;
+        }
+        
+        .list-right ol li {
+            float: left;
+            height: 0.4rem;
+            width: 0.7rem;
+            line-height: 0.4rem;
+            font-size: 0.12rem;
+            box-sizing: border-box;
+            text-align: center;
+            border-bottom: 1px #ccc solid;
+        }
+        
+        .list-right ul li {
+            width: 100%;
+            height: 0.7rem;
+            border-bottom: 1px #ccc solid;
+            box-sizing: border-box;
+            padding: 0.05rem;
+        }
+        
+        .img {
+            width: 0.5rem;
+            height: 0.5rem;
+            float: left;
+            margin-right: 0.1rem;
+        }
+        
+        .span {
+            color: orangered;
+            font-size: 0.12rem;
+        }
+        
+        .p {
+            font-size: 0.12rem;
+            /* line-height: 0.2rem; */
+        }
+        
+        .span2 {
+            width: 0.15rem;
+            height: 0.15rem;
+            border: 0.01rem #ccc solid;
+            display: inline-block;
+            text-align: center;
+            line-height: 0.15rem;
+            margin-right: 0.05rem;
+            border-radius: 50%;
+            font-size: 0.12rem;
+            user-select: none;
+        }
+        
+        .footer {
+            width: 100%;
+            height: 0.4rem;
+            border: 1px #ccc solid;
+            border-top: none;
+            margin-top: 0.01rem;
+        }
+        
+        i {
+            font-size: 0.12rem;
+        }
+        
+        .footer ul li {
+            width: 1.5rem;
+            float: left;
+            text-align: center;
+            line-height: 0.4rem;
+            font-size: 0.12rem
+        }
+        
+        .footer ul a {
+            line-height: 0.4rem;
+            margin-right: 0.2rem;
+        }
+        
+        .main {
+            padding: 0.1rem
+        }
+        
+        .main li {
+            height: 0.7rem;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border-bottom: 0.01rem #ccc dashed;
+            position: relative;
+        }
+        
+        .main li img {
+            width: 0.5rem;
+            height: 0.5rem;
+        }
+        
+        .img2 {
+            float: left;
+            margin-right: 0.1rem
+        }
+        
+        .p1 {
+            font-size: 0.12rem;
+            width: 2rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .span1 {
+            font-size: 0.12rem;
+            float: left;
+            /* margin-left: 0.5rem */
+        }
+        
+        .span3 {
+            font-size: 0.14rem;
+            color: orange;
+            float: right;
+            position: absolute;
+            bottom: 0.1rem;
+        }
+        
+        .footer2 {
+            position: absolute;
+            bottom: 0;
+            height: 0.4rem;
+        }
+        
+        .footer2 li {
+            width: 1.5rem;
+        }
+        
+        .btn {
+            width: 1rem;
+            float: right;
+            display: block;
+            height: 0.4rem;
+        }
+        
+        .xiaoji {
+            float: right;
+            font-size: 0.14rem
+        }
+        
+        .odiv {
+            width: 1rem;
+            float: left;
+        }
+        
+        .indent_head {
+            border-bottom: 0.01rem #000 solid;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <router-view></router-view>
+        <!-- <aa></aa> -->
+    </div>
+    <template id="select">
+            <div class="content">
+                    <div class="header">派送至：北京石景山</div>
+                    <div class="con">
+                        <div class="list-left">
+                            <ul>
+                                <li v-for="item,index in list" @click="btn(index)"  >{{item.type}}</li>
+                            </ul>
+                        </div>
+                        <div class="list-right ">
+                            <ol class="clearfix">
+                                <li>综合排序</li>
+                                <li>
+                                    <select name="selectAge" id="selectAge">   
+                                                <option value="1">18-21</option>   
+                                                <option value="2">22-25</option>   
+                                                <option value="3">26-29</option>   
+                                                <option value="4">30-35</option>   
+                                                <option value="5">Over35</option>   
+                                            </select>
+                                </li>
+                                <li>分类</li>
+                            </ol>
+                            <ul>
+                                <li v-for="i,index in arr2.code">
+                                    <img class="img" :src="i.img" alt="">
+                                    <p class="p">{{i.brief}}</p>
+                                    <span class="span">{{i.Price}}</span>
+                                    <span class="span2" @click="jian(i)">-</span>
+                                    <i>{{i.num||0}}</i>
+        
+                                    <span class="span2" @click="jia(i)">+</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer clearfix">
+                        <ul>
+                            <li class="fl">总价:
+                                <span>{{total}}</span>
+                            </li>
+                            <router-link :to='{name:"shopping",params:{selectList,total}}'>去结算</router-link>
+                           
+                        </ul>
+                    </div>
+                </div>
+    </template>
+    <template id="params">
+        <div>
+                <div class="indent_head">
+                        <p><router-link to="/selectG"><span class="arrow"><</span>确认订单</router-link></p>
+                    </div>
+        
+            <ul class="main">
+                <li v-for='item in $route.params.selectList'>
+                    <div class="img2">
+                        <img :src="item.img" >
+                    </div>
+                    <p class="p1">{{item.brief}}</p>
+                    <div class="odiv">
+                        <span class="span1">商品个数:×{{item.num}}</span>
+                        <span class="span1">单价：{{ item.Price}}</span>
+                    </div>
+                   
+                    <span class="span3">总价：{{item.num *item.Price}}</span>
+                   
+                </li>
+                <p class="xiaoji">小计￥<span>{{$route.params.total}}</span></p>
+            </ul>
+            <div class="footer2 clearfix">
+                    <ul>
+                        <li class="fl">总价:
+                            <span>{{$route.params.total}}</span>
+                        </li>
+                        <li class="fr"> <button class="btn">去支付</button></li>
+                        
+                       
+                    </ul>
+                </div>
+            </div>
+    </template>
+    <script src="./arr.js"></script>
+    <script>
+        var arr1 = []
+        var selectG = {
+            template: '#select',
+            data() {
+                return {
+                    list: arr,
+                    arr2: [],
+                }
+            },
+            methods: {
+                btn(index) {
+                    this.arr2 = this.list[index]
+                },
+                jia(index) {
+                    if (index.num) {
+                        index.num++
+                    } else {
+                        this.$set(index, 'num', 1)
+                    }
+                },
+                jian(index) {
+                    if (index.num == 0) return
+                    index.num--
+                },
+            },
+            computed: {
+                selectList() {
+                    var arr = []
+                    this.list.forEach(element => {
+                        if (element.code && element.code.length > 0) {
+                            element.code.forEach(el => {
+                                if (el.num) {
+                                    arr.push(el)
+                                }
+                            })
+                        }
+                    });
+                    return arr
+                },
+                total() {
+                    var n = 0
+                    this.selectList.forEach(el => {
+                        // var p = el.Price.split('￥')[1]
+                        n += el.Price * el.num
+                    })
+                    return n.toFixed(2)
+                }
+            },
+
+        };
+        var shopping = {
+            template: '#params',
+
+            // computed: {
+            //     total2() {
+            //         var num1 = 0;
+            //         this.$route.params.selectList.forEach(el => {
+            //             num1 += el.Price * el.num
+            //         })
+            //         return num1.toFixed(2);
+            //     }
+            // },
+        }
+        const router = new VueRouter({
+            routes: [{
+                path: '/',
+                component: selectG
+            }, {
+                path: '/shopping',
+                name: 'shopping',
+                component: shopping
+            }]
+        })
+        console.log(arr)
+        new Vue({
+            el: "#app",
+            router,
+
+        })
+    </script>
+</body>
+
+</html>

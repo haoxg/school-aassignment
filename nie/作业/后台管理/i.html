@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./style/iconfont.css">
+    <script src="../5.24/vue.js"></script>
+    <title>Document</title>
+    <style>
+        .box {
+            width: 50px;
+            height: 50px;
+            border: 1px #ccc solid;
+        }
+        
+        .i {
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+            transition: .5s;
+            text-align: center;
+            line-height: 30px;
+            /* transform-origin: center; */
+        }
+        
+        .box:hover>.i {
+            transform: rotate(90deg)
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <myapp :message="message"></myapp>
+    </div>
+    <template id="myapp">
+        <div>
+            {{message}}--------------
+        </div>
+       
+    </template>
+    <!-- <div class="box">
+
+
+        <i class="i iconfont">&#xe615;</i>
+    </div> -->
+
+
+
+    <script>
+        Vue.component('myapp', {
+            template: '#myapp',
+            props: ['message']
+        })
+
+
+
+        new Vue({
+            el: '#app',
+            data: {
+                message: 100,
+            }
+        })
+    </script>
+</body>
+
+</html>

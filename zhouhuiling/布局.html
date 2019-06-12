@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="./font_c9ayasi32b/iconfont.css">
+    <style>
+        #box {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #ccc;
+        }
+        
+        .el-header {
+            width: 100%;
+            height: 50px;
+            background: black;
+        }
+        
+        .el-aside {
+            width: 220px;
+            height: 450px;
+            background: #ccc;
+            float: left;
+        }
+        
+        .el-main {
+            width: 85.3%;
+            height: 450px;
+            background: pink;
+            float: right;
+        }
+        
+        #logo {
+            width: 220px;
+            height: 55px;
+            color: white;
+            line-height: 55px;
+            font-size: 18px;
+            float: left;
+            padding-left: 20px;
+        }
+        
+        #classification {
+            width: 55px;
+            height: 55px;
+            color: white;
+            font-size: 30px;
+            float: left;
+        }
+        
+        #classification span {
+            font-size: 20px;
+        }
+        
+        #nav-logo {
+            height: 55px;
+            line-height: 55px;
+            color: #ccc;
+        }
+        
+        #nav-zimu {
+            width: 170px;
+            height: 55px;
+            line-height: 55px;
+            color: #ccc;
+            float: right;
+            margin-top: -55px;
+            margin-right: 40px;
+        }
+        
+        #home-page {
+            float: right;
+            margin-left: 20px;
+            color: #ccc;
+        }
+        
+        #nav-logo:hover {
+            color: white;
+        }
+        
+        #nav-zimu:hover {
+            color: white;
+        }
+        
+        #aa {
+            width: 70px;
+            height: 155px;
+            z-index: 99;
+            background: #ccc;
+            color: white;
+            text-align: center;
+            display: none;
+        }
+        
+        #nav-logo:hover>#cc {
+            display: block;
+        }
+        
+        #nav-zimu:hover>#aa {
+            display: block;
+        }
+        
+        #cc {
+            width: 70px;
+            height: 155px;
+            z-index: 99;
+            background: #ccc;
+            color: white;
+            text-align: center;
+            margin-left: 290px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="box">
+            <el-header></el-header>
+            <el-aside></el-aside>
+            <el-main></el-main>
+        </div>
+    </div>
+</body>
+<script>
+    Vue.component('elHeader', {
+            template: `
+        <div class="el-header">
+                <div id="logo">L -admin v2.0</div>
+                <div id="classification" @click="hide()">
+                    <span class="icon iconfont">&#xe634;</span>
+                </div>
+                <ul id="nav-logo">
+                    <li>+新增
+                        <span class="icon iconfont" id="dc">&#xe615;</span>
+                    </li>
+                    <div id="cc">
+                        <ul>
+                            <li>咨询</li>
+                            <li>图片</li>
+                            <li>用户</li>
+                        </ul>
+                    </div>
+
+                </ul>
+                <ul id="nav-zimu">
+                    <li>
+                        admin
+                        <span class="icon iconfont">&#xe615;</span>
+                        <a href="" id="home-page">前台首页</a>
+                    </li>
+                    <div id="aa">
+                        <ul id="a">
+                            <li>个人信息</li>
+                            <li>切换账号</li>
+                            <li>退出</li>
+                        </ul>
+                    </div>
+                </ul>
+            <slot></slot>
+        </div>
+        `,
+        })
+        // Vue.component('elAside', {
+        //     template: `
+        //     <div class="el-aside">
+        //         <slot></slot>
+        //     </div>
+        //     `,
+        // })
+        // Vue.component('elMain', {
+        //     template: `
+        //     <div class="el-main">
+        //         <slot></slot>
+        //     </div>
+        //     `,
+        // })
+    new Vue({
+
+    }).$mount('#app')
+</script>
+
+</html>

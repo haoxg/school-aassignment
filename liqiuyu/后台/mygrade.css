@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.grade ul>li {
+    list-style: none;
+    display: inline-block;
+}
+
+.grade ul>li.star {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+.grade ul>li.active {
+    background: orange;
+    border: 1px solid orange;
+}

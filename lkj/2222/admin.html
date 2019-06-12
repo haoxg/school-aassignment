@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>admin</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+		<script src="js/vue.js"></script>
+		<script src="js/vue-router.js"></script>
+		<script src="js/jquery.js"></script>
+		<script src="js/set.js"></script>
+	</head>
+
+	<body>
+		<div class="admin_container" id="app">
+			<!--头部-->
+			<div class="admin_header">
+				<div class="admin_header-z">
+					<div class="admin_header-left">
+						<span>L-admin v2.0</span>
+					</div>
+					<div class="admin_header-right">
+						<i class="iconfont click_nav" style="font-size: 26px;z-index: 333;line-height: 32px;margin-left: 5px;">&#xe663;</i>
+						<span>前台首页</span>
+					</div>
+				</div>
+			</div>
+			<div class="admin_menu">
+				<div class="admin_menu-nav">
+
+					<ul v-for="(item,index) in nav" v-cloak>
+						<li class="one_li" @click="Switch(index)" style="position: relative;">
+							<i class="iconfont" style="font-size: 20px; position: absolute; left: -10px;" v-html="item.nav_iconFont"></i>
+							<span style="position: absolute; left: 40px;">{{item.nav_listName}}</span>
+
+							<i class="iconfont ooff" v-html="item.nav_off" style="position: absolute; right: 16px;"></i>
+							<i class="iconfont oopp" v-html="item.nav_open" style="position: absolute; display: none; right: 16px;"></i>
+						</li>
+						<div class="son_li">
+							<li v-for="tent,index in item.nav_listContent" @click="aaa(index)">
+								<router-link :to='tent.ourl'>
+									{{tent.nav_functon}}
+								</router-link>
+							</li>
+						</div>
+
+					</ul>
+
+				</div>
+				<div class="admin_menu-content">
+					<div class="admin_menu-content-header">
+						<i class="iconfont" style="text-indent: 15px;margin-right: 20px; float: left; font-size: 18px;">&#xe61d;  <span style="font-size: 16px;">我的桌面</span></i>
+						<div class="fa">
+							<div v-for="(item,index) in nav" class="qwer">
+								<li v-for="(o,i) in arrs">
+									<router-link :to='o.ourl'>
+										{{o.nav_functon}}
+										<span @click.stop="xxx(i)">
+											{{o.nav_icon_x}}
+										</span>
+									</router-link>
+								</li>
+								<!--<li>欢迎  </li>-->
+							</div>
+						</div>
+						
+						
+						
+					</div>
+
+					<div class="admin_menu-content-bottom">
+						<div class="admin_menu-ple">
+							欢迎管理员：
+						</div>
+						<div class="admin_menu-name" style="position: relative;">
+							<div class="tian">
+								数据统计
+							</div>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+						</div>
+						<router-view></router-view>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+
+
+
+
+
+		<!----------------------------->
+		<div class="hezi">
+			<template id="fff">
+				<div class="clocks_container">
+					<div class="hour hand" :style="{transform:'rotateZ(' + ahour + 'deg)'}">
+
+					</div>
+					<div class="yi">
+
+					</div>
+					<div class="minute hand" :style="{transform:'rotateZ(' + aminute + 'deg)'}">
+
+					</div>
+
+					<div class="second hand" :style="{transform:'rotateZ(' + asecond + 'deg)'}">
+
+					</div>
+				</div>
+			</template>
+
+			<template id="paging">
+				<div class="fen">
+					<div v-cloak style="position: relative;">
+						<li @click="one()" :class="{'ww':n===yi}">首页</li>
+						<li @click="shang()" :class="{'ww':n===yi}">上一页</li>
+						
+						<li v-for="item,index in xh" @click="aClik(index)" :class="{'ac':n === firstPage + index}">
+							{{firstPage + index}}
+						</li>
+
+						<li @click="xia()" :class="{'ww':n===arr}">下一页</li>
+						<li @click="wei()" :class="{'ww':n===arr}">页尾</li>
+						<li style="width: 130px; font-size: 13px;">总页数：{{ arr}} / {{n}}</li>
+					</div>
+				</div>
+
+			</template>
+
+			<template id="tare">
+				<div class="xx">
+					<li v-for="i in 5" @click="click(i)" @mouseout="out(i)" @mouseenter="hover(i)" :class="{active:currentindex >= i || activeindex >= i}">
+
+					</li>
+				</div>
+			</template>
+		</div>
+
+		<script type="text/javascript">
+			// 配置 路由
+			var routes = [{
+					path: "/home",
+					component: Home
+				},
+				{
+					path: "/news",
+					component: News
+				},
+				{
+					path: "/stars",
+					component: Stars
+				},
+				//首页 显示
+				{
+					path: "/",
+					redirect: "/home"
+				}
+			];
+
+			//生成路由
+			var router = new VueRouter({
+				routes
+			});
+
+			new Vue({
+				router,
+				el: '#app',
+				data: {
+					nav: [{
+							nav_listName: "主页",
+							nav_iconFont: "&#xe66e;",
+							nav_listContent: [{
+									nav_functon: "钟表",
+									nav_icon_x: "×",
+									ourl: "/home",
+								},
+								{
+									nav_functon: "分页器",
+									nav_icon_x: "×",
+									ourl: "/news",
+								},
+								{
+									nav_functon: "星星",
+									nav_icon_x: "×",
+									ourl: "/stars",
+								},
+							],
+						},
+					
+					],
+					arrs:[]
+				},
+				methods: {
+
+					Switch(index) {
+
+						$(".son_li").stop().eq(index).slideToggle("fast", function() {
+
+						});
+
+						$(".son_li").eq(index).css({
+							background: "rgb(24,24,24)",
+						});
+					},
+					aaa(index){
+							var types=true
+							for(var i=0;i<this.arrs.length;i++){
+								if(this.arrs[i].nav_functon==this.nav[0].nav_listContent[index].nav_functon){
+									types=false;
+								}
+							}
+							if(types){
+								this.arrs.push(this.nav[0].nav_listContent[index])
+							}
+					},
+					xxx(i){
+						this.arrs.splice(i,1);
+						
+						this.$router.push(this.nav_listContent[i-1].ourl)
+					}
+				}
+			})
+
+			var when = true;
+
+			$(".click_nav").click(function() {
+				if(when) {
+					$(".admin_menu-nav").stop().animate({
+						left: "-17%"
+					}, 200);
+					$(".admin_menu-content").stop().animate({
+						width: "100%",
+						left: "0px"
+					}, 200);
+					when = !when;
+				} else {
+					$(".admin_menu-nav").stop().animate({
+						left: "0px"
+					}, 200);
+					$(".admin_menu-content").stop().animate({
+						width: "83%",
+						left: "17%"
+					}, 200);
+					when = !when;
+				}
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,3 +1,57 @@
+<template>
+  <div id="app">
+    <header-top @is-show="isShow"></header-top>
+    <transition name="fade" v-if="isShow1">
+      <list-li @data-page="abc"></list-li>
+    </transition>
+    <transition>
+      <right-li :style='{"left":!isShow1?"0":"220px"}' :lopage="page1"></right-li>
+    </transition>
+  </div>
+</template>
+
+<script>
+import  '@/font_1222882_reaajjoamln/iconfont.css'
+import headerTop from '@/components/header'
+import listLi from '@/components/left'
+import rightLi from '@/components/right'
+export default {
+  name: "App",
+  data() {
+      return{
+            isShow1: true,
+            page1: []
+      }
+  },
+  components:{
+    headerTop,
+    listLi,
+    rightLi
+  },
+  methods: {
+    isShow(data) {
+      this.isShow1 = data;
+    },
+    abc(data) {
+      console.log(data.url);
+      this.$router.push({
+        path: data.url
+      });
+      var istrue = true;
+      this.page1.forEach(element => {
+        if (element.title == data.title) {
+          istrue = false;
+        }
+      });
+      if (istrue) {
+        this.page1.push(data);
+      }
+    }
+  }
+};
+</script>
+
+<style>
 /* 重置样式表 */
 
 * {
@@ -40,7 +94,6 @@ body {
     position: relative;
     overflow-x: hidden;
     color: rgb(204, 204, 204);
-    background-color: rgb(17, 17, 17);
 }
 
 
@@ -83,7 +136,11 @@ body {
     text-align: center
 }
 
-a:hover {
+header {
+    background: #000
+}
+
+header a:hover {
     color: white;
 }
 
@@ -118,8 +175,18 @@ main {
     height: 100%;
 }
 
-
-/* .left{line-height: 55px;background-color: rgb(17, 17, 17);max-width:220px ;min-width: 220px;width: 220px;transition:.3s;position: absolute;top: 55px;bottom: 0px;left: 0;} */
+.left {
+    line-height: 55px;
+    background-color: rgb(17, 17, 17);
+    max-width: 220px;
+    min-width: 220px;
+    width: 220px;
+    transition: .3s;
+    position: absolute;
+    top: 55px;
+    bottom: 0px;
+    left: 0;
+}
 
 .isShow {
     transform: translate(-220px);
@@ -281,3 +348,60 @@ layui-tab-title {
     left: 50%;
     margin-left: -10px;
 }
+
+.peg .fl span {
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid;
+    padding: 5px;
+    margin: 3px;
+    user-select: none;
+    color: #000
+}
+
+.peg .bg {
+    background: coral;
+}
+
+.layui-icon {
+    padding: 5px;
+    border-radius: 50%
+}
+
+.layui-icon:hover {
+    background: red
+}
+
+.app .fl {
+    float: left;
+    width: 20%;
+}
+
+.app {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    line-height: 36px;
+}
+
+.app .isshow td {
+    position: relative;
+    height: 36px;
+}
+
+.app td,
+th {
+    border: 1px solid
+}
+
+.app .isshow>td>input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    line-height: 37px;
+    border: none;
+    display: none
+}
+</style>

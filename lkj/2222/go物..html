@@ -281,7 +281,7 @@
 					selec(){
 						var arra = [];
 						this.arr.forEach(element => {
-							if(element.list && element.list>0){
+							if(element.list && element.list.length>0){
 								element.list.forEach(el=>{
 									if(el.num){
 										arra.push(el)

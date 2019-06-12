@@ -1,3 +1,50 @@
+<template>
+    <div id="container" class="clearfix">
+            <!-- 头部 -->
+            <div id="header" class="clearfix">
+                <slot name="page-header"></slot>
+            </div>
+            <!-- 头部over -->
+
+            <!--主体 -->
+            <div id="content" class="clearfix">
+                <!-- 左边导航 -->
+                <transition name="slide">
+                        <div id="main_left" v-show="navShow">
+                            <slot name="page-nav"></slot>
+                        </div>
+                </transition>
+                <!-- 左边导航 over-->
+
+                <!-- 右边内容 -->
+                <div id="main_right" :style="{left:navShow?'221px':'0'}">
+                    <div class="page-tab">
+                        <slot name="page-tab"></slot>
+                    </div>
+                    <div class="right-cont">
+                        <div class="right-page"><slot></slot></div>
+                    </div>
+                </div>
+                <!-- 右边内容over -->
+            </div>
+            <!-- 主体over -->
+        </div>
+</template>
+<script>
+export default {
+     data() {
+        return {
+            navShow: true,
+        }
+    },
+    methods: {
+        shrink() {
+            this.navShow = !this.navShow;
+        }
+    }
+}
+</script>
+<style scoped="scoped">
 * {
     padding: 0;
     margin: 0;
@@ -51,13 +98,14 @@
     text-align: center;
     margin-top: 10px;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(233, 194, 68);
     border-radius: 3px;
     transition: background-color 0.3s ease 0s;
+    display: inline-block;
 }
 
 .left_open span:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255);
 }
 
 #header .right {
@@ -99,7 +147,7 @@
 
 #content {
     width: 100%;
-    height: 600px;
+    height: 673px;
 }
 
 #main_left {
@@ -128,83 +176,6 @@
     transition: .5s;
 }
 
-#nav li {
-    line-height: 50px;
-    font-size: 14px;
-    /* padding: 0 20px; */
-}
-
-#nav li a {
-    text-decoration: none;
-    color: #8e8e8e;
-    padding-left: 20px;
-}
-
-#nav li span {
-    padding-right: 20px;
-}
-
-#nav>li:hover {
-    border-left: 5px solid aqua;
-    background-color: #3e403f;
-}
-
-#nav>li:hover a {
-    color: #fff;
-}
-
-#nav .active {
-    border-left: 5px solid aqua;
-    background-color: #3e403f;
-}
-
-#nav .active a {
-    color: #fff;
-}
-
-.glyphicon-menu-right {
-    float: right;
-    color: #8e8e8e;
-    line-height: 50px;
-    font-size: 12px;
-}
-
-.glyphicon-menu-down {
-    float: right;
-    color: #8e8e8e;
-    line-height: 50px;
-    font-size: 12px;
-}
-
-.sencond_nav {
-    transition: .5s;
-    background-color: rgb(34, 35, 36);
-}
-
-.sencond_nav.sencond_show {
-    display: block;
-}
-
-.sencond_nav li {
-    height: 50px;
-    transition: 0.5s;
-}
-
-#nav .sencond_nav li a {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    color: #8e8e8e;
-    padding: 0;
-}
-
-#nav .sencond_nav li .router-link-active {
-    background-color: rgb(51, 52, 53);
-}
-
-#nav .sencond_nav li span {
-    padding-left: 20px;
-}
 
 .s-right {
     float: left;
@@ -284,58 +255,13 @@
     text-decoration: none;
 }
 
-.tabs {
-    height: 40px;
-    background-color: #ddd;
-    margin-bottom: 0;
-}
-
-.tabs li {
-    float: left;
-    line-height: 30px;
-    font-size: 20px;
-}
-
-.tabs li a {
-    text-decoration: none;
-    color: #000;
-    padding: 5px 15px;
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-}
-
-.router-link-active {
-    background-color: #fff;
-}
-
-.tabs li.active {
-    background-color: rgb(248, 248, 248);
-}
-
-.tabs li i {
-    font-style: normal;
-    margin-left: 10px;
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    line-height: 20px;
-    padding: 5px;
-    border-radius: 50%;
-    background-color: beige;
-    text-align: center;
-    cursor: pointer;
-}
-
-.tabs li i:hover {
-    background-color: rgb(253, 35, 6);
-    color: #fff;
-}
 
 .right-cont {
-    height: 100%;
+    width: 100%;
+    height: 633px;
     padding: 10px;
     background-color: rgb(248, 248, 248);
+    overflow-y:auto;
 }
 
 .right-cont .right-page {
@@ -343,3 +269,4 @@
     height: 100%;
     padding: 10px;
 }
+</style>

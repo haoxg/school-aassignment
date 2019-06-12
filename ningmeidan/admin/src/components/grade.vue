@@ -1,5 +1,16 @@
-var Grade = {
-    template: '#mygrade',
+<template id="mygrade">
+        <div class="my_grade">
+            <h2>评分</h2>
+            <ul class="cleafix gradeList">
+                <li class="star" :class="{'active':currentIndex>=i || activeIndex>=i}" v-for="(i,index) in max" :key="'a'+index" @click="defineActive()" @mouseover="addActive(i)" @mouseout="rmActive()"></li>
+                <li style="margin-left:10px;">{{text1}}</li>
+            </ul>
+        </div>
+</template>
+
+
+<script>
+export default {
     props: {
         value: {
             type: Number
@@ -56,3 +67,27 @@ var Grade = {
         }
     }
 }
+</script>
+
+<style scoped="scoped">
+    .my_grade {
+        height: 100%;
+    }
+    
+    .my_grade ul>li {
+        list-style-type: none;
+        float: left;
+    }
+    
+    .my_grade ul>li.star {
+        width: 20px;
+        height: 20px;
+        border: 1px solid #ccc;
+        margin-left: 10px;
+    }
+    
+    .my_grade ul>li.active {
+        background-color: orange;
+        border: 1px solid orange;
+    }
+</style>

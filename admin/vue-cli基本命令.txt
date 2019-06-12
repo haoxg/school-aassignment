@@ -1,0 +1,22 @@
+npm install -g vue-cli   //安装vue-cli2.0
+npm install -g @vue/cli  //安装vue-cli最新版本（3.x）
+
+2.x版本创建项目
+vue init  template  projectName  //构建项目
+    template :simple / webpack-simple / webpack / browserify /pwa /browserify-simple
+
+cd projectName //进入项目里
+
+npm install   //安装依赖包
+
+npm run dev  //启动项目
+
+3.x版本创建项目
+vue crate projectName  //构建项目
+
+npm ui  //使用图形化界面
+
+npm install   //安装依赖包
+
+npm run serve //启动项目
+

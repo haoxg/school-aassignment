@@ -25,52 +25,19 @@ var leftNav=Vue.extend({
         dataArray:{
             type:Array,
             default:function(){
-                return [
-                    {
+                return [{
                     icon: 'icon-zhuye',
-                    title: '组件',
+                    title: '主页',
                     arr: [{
                         title:'分页器',
                         router:'pagination'
                     },{
-                        title:'钟表',
+                        title:'mine',
                         router:'/' 
                     }]
                 },
-                   // {
-                //     icon: 'icon-zhuye',
-                //     title: '主页',
-                //     arr: ['控制台']
-                // }, {
-                //     icon: 'icon-zuanshi',
-                //     title: '基本元素',
-                //     arr: ['图标字体', '表单元素', '表单组合', '按钮', '导航/面包屑', '选项卡', '进度条', '面板', '微章', '时间线', '静态表格', '动画']
-                // }, {
-                //     icon: 'icon-weibiaoti--',
-                //     title: '组件页面',
-                //     arr: ['文件上传', '分页', '多级分类', '轮播图', '城市三级联动']
-                // }, {
-                //     icon: 'icon-yduipaibanleixingduicheng',
-                //     title: '排版布局',
-                //     arr: ['栅格', '排版']
-                // }, {
-                //     icon: 'icon-dingdanguanli',
-                //     title: '订单管理',
-                //     arr: ['订单列表']
-                // }, {
-                //     icon: 'icon-xiaoshouguanli',
-                //     title: '管理员管理',
-                //     arr: ['图标字体', '表单元素', '表单组合', '按钮', '选项卡']
-                // }, {
-                //     icon: 'icon-ren',
-                //     title: '用户管理',
-                //     arr: ['图标字体', '选项卡', '进度条', '面板', '微章', '时间线', '静态表格', '动画']
-                // }, {
-                //     icon: 'icon-guanli',
-                //     title: '系统统计',
-                //     arr: ['图标字体', '表单元素', '表单组合', '按钮', '选项卡', '进度条', '面板']
-                // }
-                ]
+         
+            ]
             }
         }
     },
@@ -85,7 +52,7 @@ var leftNav=Vue.extend({
         },
         addTab(item1){
             this.$emit('addtab-event',item1)
-        }
+        },
     },
     data() {
         return {

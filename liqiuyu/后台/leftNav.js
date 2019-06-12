@@ -1,20 +1,19 @@
 var leftNav = Vue.extend({
-    template: `<div class="lists" id="lists">
-                    <ul>
-                        <li v-for="item,index in arr" @click="select(item.type,index,item.datas)" id="li">
-                            <span class="list_text">{{item.type}}</span>
-                            <span class="glyphicon glyphicon-menu-right fr list_more"></span>
-                            <ul v-show="false" class="options" >
-                                    <!-- :style="{'height':option==true?54*item.datas.length+'px':'0px'}" -->
-                                <li v-for="o in item.datas" @click.stop="addTab(o)">
-                                    <router-link :to="o.url">
-                                        <span class="glyphicon glyphicon-menu-right fl list_more"></span>{{o.title}}
-                                    </router-link>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>`,
+    template: ` <ul>
+                    <li v-for="item,index in arr" @click="select(item.type,index,item.datas)" id="li">
+                        <span class="list_text">{{item.type}}</span>
+                        <span class="glyphicon glyphicon-menu-right fr list_more"></span>
+                        <ul v-show="false" class="options" >
+                                <!-- :style="{'height':option==true?54*item.datas.length+'px':'0px'}" -->
+                            <li v-for="o in item.datas" @click.stop="addTab(o)">
+                                <router-link :to="o.url">
+                                    <span class="glyphicon glyphicon-menu-right fl list_more"></span>{{o.title}}
+                                </router-link>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                `,
     data() {
         return {
             option: false,

@@ -2,6 +2,10 @@
     margin:0;
     padding:0;
     list-style: none;
+    text-decoration: none;
+}
+li a{
+    color:#42b8f1;
 }
 /* 后台管理系统 */
 
@@ -127,7 +131,9 @@ body {
     height: 100%;
     position: relative;
 }
-
+.content>ol>a.router-link-exact-active{
+    background: #ccc;
+}
 .classifylist {
     padding-top: 10px;
     width: 220px;

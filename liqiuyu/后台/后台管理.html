@@ -24,11 +24,16 @@
     <link rel="stylesheet" href="clock.css">
     <script src="clock.js"></script>
 
+    <script src="header.js"></script>
+
 </head>
 
 <body>
     <div id="app" v-cloak>
         <layout>
+            <template slot="head-nav">
+                <head-tab></head-tab>
+            </template>
             <template slot="page-nav">
                 <left-nav @addtab-event="addTab"></left-nav>
             </template>
@@ -36,11 +41,10 @@
             <template slot="page-tab">
                 <ul>
                     <li v-for="item,index in tabs">
-                        <router-link :to="item.url">{{item.title}}<i @click="rmtab(index)">x</i></router-link>
+                        <router-link :to="item.url">{{item.title}}<i @click.prevent="rmtab(index)">x</i></router-link>
                     </li>
                 </ul>
             </template>
-
         </layout>
 
     </div>
@@ -94,31 +98,40 @@
         el: '#app',
         router,
         components: {
-            'left-nav': leftNav
+            'left-nav': leftNav,
+            'head-tab': headTab
         },
         data: {
             tabs: []
         },
         methods: {
             rmtab(index) {
-                console.log(this.tabs);
                 if (index == this.tabs.length - 1) {
-                    this.tabs.splice(index, 1)
-                    this.$router.push(this.tabs[index - 1].url)
+                    if (this.tabs.length == 1) {
+                        this.tabs.splice(index, 1)
+                        setTimeout(() => {
+                            this.$router.push('/')
+                        }, 0)
+                    } else {
+                        this.tabs.splice(index, 1)
+                        setTimeout(() => {
+                            this.$router.push(this.tabs[index - 1].url)
+                        }, 0)
+                    }
                 } else {
                     this.tabs.splice(index, 1)
                     this.$router.push(this.tabs[index].url)
                 }
             },
             addTab(item) {
-                var idAdd = true;
+                var isAdd = true;
                 this.tabs.forEach(i => {
                     if (item.title == i.title) {
-                        idAdd = false;
+                        isAdd = false;
                     }
                 });
-                if (idAdd) {
-                    this.tabs.push(item)
+                if (isAdd) {
+                    this.tabs.push(item);
                 }
             }
         }

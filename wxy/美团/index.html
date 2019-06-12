@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+</head>
+<style>
+    body {
+        margin: 0 auto;
+        padding: 0;
+        background-color: #f5f5f5;
+    }
+
+
+    #list {
+        position: relative;
+        top: 10px;
+        width: 100%;
+        height: 120px;
+        background-color: #fff;
+        margin-bottom: 10px;
+    }
+
+
+    .list_icon {
+        position: absolute;
+        width: 35px;
+        height: 35px;
+        top: 35px;
+        left: 20px;
+    }
+
+
+    .list_name {
+        position: absolute;
+        top: 30px;
+        left: 180px;
+    }
+
+
+    .list_title {
+        position: absolute;
+        top: 55px;
+        left: 180px;
+        font-size: 15px;
+        color: #CCCCCC;
+    }
+
+
+    .money {
+        position: absolute;
+        top: 78px;
+        left: 180px;
+        font-size: 15px;
+        color: #EC971F;
+    }
+
+
+    .sum_cont {
+        position: absolute;
+        right: 0;
+        bottom: 10px;
+        width: 130px;
+        height: 30px;
+        line-height: 30px;
+    }
+
+
+    .minute {
+        position: absolute;
+        width: 25px;
+        text-align: center;
+        height: 30px;
+        line-height: 30px;
+        left: 10px;
+        font-size: 18px;
+        border: 1px solid #DD524D;
+    }
+
+
+    .add {
+        width: 25px;
+        border: 1px solid #DD524D;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        position: absolute;
+        right: 10px;
+        font-size: 18px;
+    }
+
+
+    .input {
+        width: 40px;
+        height: 26px;
+        display: inline-block;
+        line-height: 30px;
+        text-align: center;
+        position: absolute;
+        right: 45px;
+    }
+
+    .bottom {
+        position: fixed;
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+        bottom: 0px;
+        background-color: #323232
+    }
+
+    .bott_money {
+        padding-left: 20px;
+        color: #fff;
+    }
+
+    .bott_num {
+        padding-left: 50px;
+        color: #fff;
+    }
+
+
+    .btn_sub {
+        position: absolute;
+        right: 0;
+        width: 100px;
+        height: 60px;
+        line-height: 60px;
+        background-color: #CF2D28;
+        color: #fff;
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div id="cont">
+        <div id="list" v-for="(item,index) in list">
+            <img v-if="item.selected" class="list_icon" @click="radios(index)"
+                src="https://img.alicdn.com/tfscom/i2/256691439/TB2wjP9bXgkyKJjSspfXXcj1XXa_!!256691439.jpg_180x180xzq90.jpg_.webp" />
+            <img v-else="!item.selected" class="list_icon" @click="radios(index)"
+                src="https://img.alicdn.com/tfscom/i2/256691439/TB2wjP9bXgkyKJjSspfXXcj1XXa_!!256691439.jpg_180x180xzq90.jpg_.webp" />
+            <label class="list_name">{{item.name}}</label>
+            <label class="list_title">{{item.title}}</label>
+            <label class="money">{{item.money}}</label>
+            <div class="sum_cont">
+                <label class="minute" @click="btn_minute(index)">-</label>
+                <input class="input" v-model="item.num" />
+                <label class="add" @click="btn_add(index)">+</label>
+            </div>
+        </div>
+
+        <div class="bottom">
+            <label class="bott_money">总和：{{money}}</label>
+            <label class="btn_sub" onclick="btn_sub()">结算</label>
+        </div>
+
+    </div>
+    <script type="text/javascript" src="vue.js"></script>
+    <script>
+        var vue = new Vue({
+            el: "#cont",
+            data: {
+                money: 0,
+                num: 0,
+                list: [{
+                    name: "养护液",
+                    num: 1,
+                    money: 100,
+                    src: "https://img.alicdn.com/tfscom/i2/256691439/TB2wjP9bXgkyKJjSspfXXcj1XXa_!!256691439.jpg_180x180xzq90.jpg_.webp",
+                    title: "养护液",
+                    selected: true
+                }, {
+                    name: "养护液",
+                    num: 1,
+                    money: 20,
+                    src: "https://img.alicdn.com/tfscom/i2/256691439/TB2wjP9bXgkyKJjSspfXXcj1XXa_!!256691439.jpg_180x180xzq90.jpg_.webp",
+                    title: "养护液",
+                    selected: false
+                }, {
+                    name: "养护液",
+                    num: 1,
+                    money: 10,
+                    src: "https://img.alicdn.com/tfscom/i2/256691439/TB2wjP9bXgkyKJjSspfXXcj1XXa_!!256691439.jpg_180x180xzq90.jpg_.webp",
+                    title: "养护液",
+                    selected: true
+                }]
+            },
+            created: function () {
+                var price = 0;
+                var numb = 0;
+                var list = this.list;
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].selected) {
+                        price += list[i].num * list[i].money;
+                        numb += list[i].num;
+                    }
+                }
+                this.money = price;
+                this.num = numb;
+            },
+            methods: {
+                hh: function () {
+                    var price = 0;
+                    var numb = 0;
+                    var list = this.list;
+                    for (var i = 0; i < list.length; i++) {
+                        if (list[i].selected) {
+                            price += list[i].num * list[i].money;
+                            numb += list[i].num;
+                        }
+                    }
+                    this.money = price;
+                    this.num = numb;
+                },
+                btn_add: function (index) {
+                    var list = this.list;
+                    var num = list[index].num;
+                    num = num + 1;
+                    list[index].num = num;
+                    this.hh();
+                },
+                btn_minute: function (index) {
+                    var list = this.list;
+                    var num = list[index].num;
+                    if (num > 1) {
+                        num = num - 1;
+                        list[index].num = num;
+                    }
+                    this.hh();
+                },
+
+            }
+        })
+    </script>
+</body>
+
+</html>

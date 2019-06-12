@@ -1,0 +1,245 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+.box {
+    width: 300px;
+    height: 300px;
+    /* border: 10px solid; */
+    border-radius: 50%;
+    margin: auto;
+    position: relative;
+    background: url(http://img2.imgtn.bdimg.com/it/u=655266901,2930845471&fm=26&gp=0.jpg);
+    background-size: 330px 330px;
+    background-position: -15px -15px;
+}
+
+.box::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background: black;
+    position: absolute;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    z-index: 2;
+}
+
+.clock {
+    position: absolute;
+    left: 50%;
+    transform-origin: center bottom;
+}
+
+.hour {
+    width: 7px;
+    height: 70px;
+    background: green;
+    /* background-image: url(http://img4.imgtn.bdimg.com/it/u=2038921295,289134509&fm=26&gp=0.jpg); */
+    background-size: 400px 300px;
+    background-position: 200px 20px;
+    margin-left: -5px;
+    top: 80px
+}
+
+.miute {
+    width: 6px;
+    height: 90px;
+    background: blue;
+    margin-left: -4px;
+    top: 60px
+}
+
+.second {
+    width: 4px;
+    height: 110px;
+    background: red;
+    margin-left: -3px;
+    top: 40px
+}
+
+.warp {
+    position: relative;
+}
+
+.title {
+    width: 100%;
+    height: 55px;
+    background-color: #111;
+    border-bottom: 1px solid rgba(0, 0, 0, .8);
+}
+
+.title .logo a {
+    float: left;
+    color: #fff;
+    font-size: 18px;
+    padding-left: 20px;
+    line-height: 50px;
+    width: 200px;
+    transition: background-color ease .3s;
+}
+
+.left_open {
+    height: 55px;
+    float: left;
+}
+
+.left_open span {
+    display: block;
+    color: rgb(255, 255, 255);
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    margin-top: 10px;
+    cursor: pointer;
+    background: url(xadmin.css) 0px 0px no-repeat rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    transition: background-color 0.3s ease 0s;
+}
+
+.layui-nav {
+    float: right;
+    line-height: 50px;
+    margin-right: 110px;
+    line-height: 50px
+}
+
+.layui-nav-item a {
+    display: block;
+    padding: 0 25px;
+    color: white
+}
+
+.login {
+    width: 100px;
+    height: 150px;
+    background: red;
+    position: relative;
+    top: 5px;
+    display: none;
+}
+
+.layui-nav-item a:hover .login {
+    display: inline-block;
+    background: blue
+}
+
+.left {
+    position: absolute;
+    top: 55px;
+    bottom: 0px;
+    left: 0px;
+    z-index: 2;
+    padding-top: 10px;
+    background-color: rgb(34, 35, 36);
+    width: 220px;
+    max-width: 220px;
+    overflow: hidden;
+    border-right: 1px solid rgb(19, 30, 38);
+}
+
+#con {
+    position: absolute;
+    left: 220px;
+    top: 55px;
+    bottom: 0;
+    right: 0;
+    background: #ccc;
+    /* overflow: hidden; */
+    /* padding: 10px; */
+    padding-top: 0
+}
+
+.view {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+}
+
+.black {
+    background: #000;
+}
+
+.black li {
+    border-left: 4px solid #000;
+    height: auto;
+}
+
+#ha {
+    width: 225px;
+    line-height: 53px;
+    padding-left: 20px;
+    color: #ccc;
+    box-sizing: border-box;
+    user-select: none;
+    border-left: 4px solid rgb(34, 35, 36);
+}
+
+.abc {
+    width: 100%;
+    height: 30px;
+    background: rgb(241, 227, 227);
+    overflow: hidden;
+}
+
+.abc ul li {
+    width: 100px;
+    height: 24px;
+    margin: 3px;
+    /* background: rgb(94, 180, 53); */
+    text-align: center;
+    line-height: 24px;
+    display: inline-block;
+}
+
+#ha:hover {
+    color: white;
+    border-color: blue;
+    background: black;
+}
+
+#fy {
+    padding: 30px;
+}
+
+#fy li {
+    width: 50px;
+    height: 40px;
+    float: left;
+    border: 1px solid;
+    text-align: center;
+    line-height: 40px;
+    user-select: none;
+}
+
+#fy li.active {
+    background: red;
+    color: white;
+}
+
+#pf {
+    padding: 30px
+}
+
+#pf li {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    list-style: none;
+    display: inline-block;
+    margin-left: 5px;
+    transition: .5s
+}
+
+.active {
+    background: red;
+    border: 1px solid red;
+}

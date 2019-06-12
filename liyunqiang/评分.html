@@ -37,10 +37,9 @@
     </div>
     <template id="count">
     <ul>
-        {{activeindex}}
-        {{currentindex}}
+       
         <li v-for="i in max" @mouseover="yiru(i)" :class="{active:currentindex>=i||activeindex>=i}" @mouseout="yichu" @click="dian(i)"   ></li>
-        {{text}}
+        
     </ul>
 </template>
 </body>

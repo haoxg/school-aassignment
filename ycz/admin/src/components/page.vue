@@ -1,7 +1,6 @@
-var pageBreak = Vue.extend({
-    template: `
-        <div class="page">
-            <ul id="content">
+<template id="page">
+    <div class="page">
+            <ul id="page">
                 <li @click="first">首页</li>
                 <li @click="prev">上一页</li>
                 <li v-show="showLeft">1</li>
@@ -13,7 +12,10 @@ var pageBreak = Vue.extend({
                 <li @click="last">尾页</li>
             </ul>
         </div>
-    `,
+</template>
+
+<script>
+export default {
     data() {
         return {
             pageSize: 9,
@@ -72,4 +74,40 @@ var pageBreak = Vue.extend({
             this.currentPage = page;
         }
     },
-})
+}
+</script>
+
+<style scoped>
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+}
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.page #page {
+    float: left;
+    width: 100%;
+    height: 50px;
+}
+
+.page #page>li {
+    float: left;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+.page .active {
+    background-color: #66ccff;
+}
+</style>

@@ -51,16 +51,16 @@ export default{
                     title: '主页',
                     arr: [{
                         title:'分页器',
-                        router:'pagination'
+                        router:'/'
                     },{
                         title:'时钟',
-                        router:'clock' 
+                        router:'/clock' 
                     },{
                         title:'走马灯',
-                        router:'Carousel' 
+                        router:'/Carousel' 
                     },{
                       title:'货单',
-                      router:'currency'
+                      router:'/currency'
                     }]
                   
                 },

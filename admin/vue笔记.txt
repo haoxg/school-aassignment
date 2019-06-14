@@ -130,6 +130,71 @@ Activated/deactivated   组件激活、停用
 1、定义：<slot name="插槽名" v-bind:插槽属性="子组件数据">后备内容（默认）</slot> 
 2、插入内容：<template v-slot:插槽名="插槽属性值">插入内容</template>
 
+--vue-router--
+1、路由功能
+	嵌套的路由、视图表
+	模块化、基于组件的路由配置
+	路由参数、查询、通配符
+	基于vue.js过渡系统的视图过渡效果
+	细粒度的导航控制
+	带自动激活的css class的连接
+	Html5模式和hash模式，ie9中自动降级
+	自定义滚动条行为
+2、起步使用
+	var router = new VueRouter({构建选项}) //创建路由实例
+3、构建选项:定义路由routes
+	New Vue({router:router}) //通过router注入路由
+	This.$router访问路由，this.$route访问当前路由
+	<router-link>匹配成功会对应class属性值. router-link-active
+4、动态路由匹配
+	动态路由：路径以冒号开头，this.$route.params
+	捕获所有路由，使用通配符（*）匹配的部分用pathMatch获取，通常用于客户端 404 错误
+5、嵌套路由
+	Children配置
+	配置空的子路由 path：’’
+6、命名路由（name）
+7、重定向（redirect）、别名（alias）
+8、编程式导航
+	声明式：<router-link :to=“”>
+	router.push(location,oncomplate?,onAbort?);
+	This.$router.push
+		参数1：字符串 ‘/home’
+		参数2：对象 {path:’home’}
+		参数3：命名的路由｛name：‘user’，params：｛传参｝｝
+		参数4：带查询参数｛…,query{plan:’private’}｝?plan=private
+
+
+--axios & vue-axios--
+1、安装
+	npm install --save axios vue-axios
+	import Vue from 'vue'import axios from 'axios'
+	import VueAxios from 'vue-axios'
+	Vue.use(VueAxios, axios)
+2、使用
+	Vue.axios.get(api).then((response) => {})   //全局方法
+	this.axios.get(api).then((response) => {})  //实例方法
+	this.$http.get(api).then((response) => {})  //实例别名
+
+--vuex--
+1、什么是vuex
+	Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化
+2、Vuex VS 单纯的全局对象
+	Vuex 的状态存储是响应式的
+	为什么通过提交mutation方式改变state，是想要更明确地追踪到状态的变化
+3、实例vuex仓库store
+	new Vuex.Store({
+		state：｛｝，
+		getters：｛｝，
+		mutations：｛｝，
+		action：｛｝，
+		modules：｛｝
+	});
+4、使用vuex 
+	import vuex from ‘vuex’
+	vue.use(vuex)
+	//注册到vue实例里
+	new Vue（｛实例的stroe仓库｝）
+
 
 
 

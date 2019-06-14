@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue路由</title>
+    <script src="../assets/js/vue.js"></script>
+    <script src="../assets/js/vue-router.js"></script>
+    <style>
+    .router-link-active{
+        color:red;
+    }
+    </style>
+</head>
+<body>
+    <!-- 
+        路由传参的几种形式
+
+        1、:+参数名  来匹配规则，获取参数    在切换路由时，原来的组件实例会被复用，所以生命周期不会被触发   $route 也可以用watch来监听
+
+        2、通过params来传参, 必须通过name跳转，否则会丢失params
+
+        3、query
+        
+     -->
+    <div id="app">
+        <!-- <router-link :to="{name:'user',query:{userName:'aaa',password:'123456'}}">user1</router-link> -->
+        
+        
+        <router-view></router-view>
+    </div>
+    <script>
+        var home = {
+            template: '<div>hello {{$route.params.id}} <router-link to="/list">list</router-link></div>'
+        }
+        var list = {
+            template: '<div>list</div>'
+        }
+
+
+        const router = new VueRouter({
+            routes:[
+                {
+                    path:'/home/:id',
+                    component:home
+                },
+                {
+                    path:'/list',
+                    component:list
+                }
+            ]
+        });
+
+        // router.beforeEach((to, from, next) => {
+        //     console.log(to);
+        //     console.log(from);
+        //     // console.log(next);
+        // });
+        
+        var vm = new Vue({
+            router,
+            el:'#app',
+        })
+    </script>
+</body>
+</html>

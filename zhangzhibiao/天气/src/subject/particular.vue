@@ -1,15 +1,16 @@
 <template>
     <div id="particulars">
-        <div class="particulars-content">
+        <div class="loading" v-if="!showCard">加载中...</div>
+        <div class="particulars-content"  >
             <div class="site-particulars">
                 <router-link to="/">
                     <i class="iconfont icon-location"></i>
-                    <span>{{cityjson.district||'北京'}}</span>
+                    <span>{{cityjson.district}}</span>
                     <i class="iconfont icon-jiantou-up-down"></i>
                 </router-link>
             </div>
-            <div class="particulars-temperature">
-                <h3>{{cityweather.sk.temp}}°</h3>
+            <div class="particulars-temperature" v-if="showCard">
+                <h3 @click="future">{{cityweather.sk.temp}}°</h3>
                 <div class="condition">{{cityweather.today.weather}}<span>|</span><div><i class="iconfont icon-huanbaoyezishuyemianxing"></i>46 优</div></div>
                 <div class="windpower">
                     <span><i class="iconfont icon-fengli"></i>{{cityweather.sk.wind_strength}}</span>
@@ -18,8 +19,8 @@
                 </div>
             </div>
         </div>
-        <div class="recently">
-            <div  v-for="(item,index) in recentlylist" v-if="index<2" :key="index+'re'" class="day" :style="{'border-right':index==0?'#ccc 0.02rem solid':''}">
+        <div class="recently"  v-if="showCard">
+            <div  @click="future" v-for="(item,index) in recentlylist" v-if="index<2" :key="index+'re'" class="day" :style="{'border-right':index==0?'#ccc 0.02rem solid':''}">
                 <div class="day-condition">
                     {{index==0?'今天':'明天'}}
                     <div>优</div>
@@ -40,24 +41,38 @@ export default {
     },
     data(){
         return {
-            cityjson:this.$route.params,
             cityweather:'',
             recentlylist:[],
+            showCard:false,
         }
     },
-    watch: {
-        cityweather(v1){
-            this.cityweather=v1;
+    computed: {
+        cityjson(){
+            if(this.$route.params.id){
+                return this.$route.params
+            }else{
+                return {
+                    'id':'1',
+                    'district':'北京',
+                }
+            }
         }
     },
     methods: {
          weatherParticulars(){
-            var cityid=this.cityjson.id || 1;
+             console.log(this.cityjson)
+            var cityid=this.cityjson.id;
             var getUrl="/weather/index?cityname="+cityid+"&type=&format=2&key=41b7d14c1a69f20b8c6a11d084f87df9";
             this.$http.get(getUrl).then((response) => {
                 this.cityweather = response.data.result;
+                console.log(response.data.result)
                 this.recentlylist = response.data.result.future;
+                this.showCard=true;
             })
+         },
+         future(){
+             var arr=this.recentlylist;
+             this.$router.push({name:'futureWeather',params:{arr}})
          }
     },
 }
@@ -68,6 +83,11 @@ export default {
         width: 100%;
         height: 100%;
         overflow: auto;
+    }
+    .loading{
+        text-align: center;
+        line-height: 1rem;
+        font-size: 0.4rem;
     }
     .particulars-content{
         height: 9.04rem;

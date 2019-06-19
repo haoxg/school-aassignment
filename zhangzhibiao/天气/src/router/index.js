@@ -1,14 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import search from '@/subject/search'
-import particular from '@/subject/particular'
-import futureWeather from '@/subject/futureWeather'
+var search = () =>
+    import ('@/subject/search')
+var particular = () =>
+    import ('@/subject/particular')
+var futureWeather = () =>
+    import ('@/subject/futureWeather')
 
 Vue.use(Router)
 
 export default new Router({
     routes: [{
         path: '/',
+        redirect: '/search',
+    }, {
+        path: '/search',
         name: 'search',
         component: search
     }, {

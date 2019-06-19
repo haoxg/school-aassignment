@@ -6,16 +6,18 @@
       <span @click="searchArr=[];searchval=''">取消</span>
     </div>
     <ul class="search-list" v-if="searchval">
-      <li v-for="item in searchArr" :key="item.id+'se'" @click="particular(item)">{{item.district+' '+item.province}}</li>
+      <li style="text-align:center" v-if="searchArr.length==0">未找到城市</li>
+      <li v-else v-for="item in searchArr" :key="item.id+'se'" @click="particular(item)">{{item.district+' '+item.province}}</li>
     </ul>
     <div class="hot-list" v-else>
       <h3>猜你想找</h3>
-      <ul class="hot-list-box">
+      <div class="loading" v-if="!showCard">加载中...</div>
+      <ul class="hot-list-box" v-if="showCard">
         <li class="active">定位</li>
         <li v-for="(item,index) in citylist" :key="index+'h'" @click="particular(item)" v-if="index<15">{{item.district}}</li> 
       </ul>
       <h3>历史记录<span @click="rmhistory"><i class="iconfont icon-lajitong"></i>清空</span></h3>
-      <ul class="hot-list-box">
+      <ul class="hot-list-box"  v-if="showCard">
         <li v-for="(item,index) in historyArr" :key="index+'hot'" @click="particular(item)">{{item.district}}</li>
       </ul>
     </div>
@@ -34,6 +36,7 @@ export default {
       citylist:[],
       historyArr:[],
       searchArr:[],
+      showCard:false,
     }
   },
   methods: {
@@ -78,6 +81,7 @@ export default {
       this.$http.get(getUrl).then((response) => {
         this.citylist = response.data.result;
         this.showHistory();
+        this.showCard=true;
       })
     },
     searchajax(){
@@ -99,7 +103,11 @@ export default {
     font-size: 0.2rem;
     padding-top: 0.28rem;
   }
-  
+  .loading{
+        text-align: center;
+        line-height: 1rem;
+        font-size: 0.4rem;
+    }
   .search-input{
     width: 100%;
     padding-left: 0.3rem;
@@ -136,6 +144,7 @@ export default {
     width: 100%;
     box-sizing: border-box;
     overflow: auto;
+    padding-bottom: 2rem;
   }
   .search-list li{
     width: 100%;
@@ -149,6 +158,7 @@ export default {
     padding: 0.3rem;
     box-sizing: border-box;
     overflow: auto;
+    padding-bottom: 2rem;
   }
   .hot-list h3{
     line-height: 0.46rem;

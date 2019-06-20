@@ -36,9 +36,17 @@
         1、redirect / alias
 
         通配符 *  pathMatch
+
+        路由：全局守卫、独享守卫、后置钩子
+        组件：组件内守卫 大内侍卫（进门、出门、更新）
+        from： 从哪里来
+        to：    到哪里去
+        next();   //直接通过。免检测
+        next(false) //禁止通行
+        next(跳转对象，同routerlink to、push 参数相同)
+        next(error)  //终止并且报错
      -->
     <div id="app">
-        <button @click="tiaozhuan">home</button>
         <router-link :to="{path:'/home'}">home</router-link>
         <router-link :to="{path:'/list'}">list</router-link>
         <br>
@@ -48,72 +56,62 @@
         var Home = Vue.extend({
             template:`
                 <div>
-                    home == {{$route.params.a}}
-                    <router-view></router-view>   
+                    home
                 </div>
-            `
+            `,
+            beforeRouteEnter(to,from,next){
+                console.log('我是home的进门大内守卫');
+                next();
+            },
+            // beforeRouteUpdate(to,from,next){
+            //     console.log('更新');
+            //     next();
+            // },
+            beforeRouteLeave(to,from,next){
+                console.log('我是home的出门大内守卫');
+                next();
+            },
         })
-        var User = Vue.extend({
-            template: '<div>user</div>'
-        });
-        var _404 =  Vue.extend({
-            template: '<div>404,找不到页面</div>'
-        });
         var List = Vue.extend({
             template:'<a href="#">List</a>',
-            beforeCreate() {
-                console.log('beforeCreate');
-            },
-            mounted(){
-                console.log('mounted');
-            }
         })
 
         var routes = [{
-            path: '/',
-            component: Home,
-        },{
             name: 'home',
             path: '/home',
             component: Home,
-            children:[{
-                path: 'user',
-                component: User,
-            }]
+            beforeEnter: function(to,from,next){
+                console.log('Home');
+                next('/list');
+            }
         },{
             path: '/list',
             alias: '/aaa',
             component: List,
-        },{
-            path: '/404',
-            component: _404,
-        },{
-            path:'/4*',
-            redirect:'/404',            
         }]
 
         var router = new VueRouter({
             routes,
         });
+        // 全局前置守卫  
+        router.beforeEach(function(to,from,next){
+            console.log('全局前置守卫');
+            next();
+        })
+        // 全局解析守卫 (2.5.0)
+        router.beforeResolve(function(to,from,next){
+            console.log('全局解析守卫');
+            next();
+        });
+        // 全局后置钩子
+        router.afterEach((to, from) => {
+            console.log('全局后置钩子');
+        })
 
         
         var vm = new Vue({
             el:'#app',
-            router,
-            mounted() {
-                console.log(this.$router);
-                console.log(this.$route);
-            },
-            methods:{
-                tiaozhuan(){
-                    this.$router.push({
-                        name:'home',
-                        params:{
-                            a:1,
-                        }
-                    })
-                }
-            }
+            router
         })
     </script>
 </body>

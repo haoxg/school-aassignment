@@ -196,6 +196,51 @@ Activated/deactivated   组件激活、停用
 	new Vue（｛实例的stroe仓库｝）
 
 
+***迟到的笔记***
+
+router导航守卫
+	1、全局前置守卫   beforeEach
+	2、全局解析守卫   beforeResolve
+	3、全局后置钩子   afterEach
+
+	4、路由独享的守卫  beforeEnter
+
+	5、组件内的守卫 beforeRouteEnter 、beforeRouteUpdate beforeRouteLeave、beforeRouteLeave
+
+	守卫的三个参数：
+		to：即将要进入的目标 路由对象	
+		from: 当前导航正要离开的路由
+		next():一定要调用该方法来 resolve 这个钩子。执行效果依赖 next 方法的调用参数
+			false、error
+			同router-link的to、push的参数
+	导航解析流程：
+		1、导航被触发。
+		2、在失活的组件里调用离开守卫。
+		3、调用全局的 beforeEach 守卫。
+		4、在重用的组件里调用 beforeRouteUpdate 守卫 (2.2+)。
+		5、在路由配置里调用 beforeEnter。
+		6、解析异步路由组件。
+		7、在被激活的组件里调用 beforeRouteEnter。
+		8、调用全局的 beforeResolve 守卫 (2.5+)。
+		9、导航被确认。
+		10、调用全局的 afterEach 钩子。
+		11、触发 DOM 更新。
+		12、用创建好的实例调用 beforeRouteEnter 守卫中传给 next 的回调函数。
+
+vue 渲染函数了解
+	render函数
+	参数： createElement回调函数
+		createElement参数：
+			1、标签名称   
+			2、标签内容（字符串）、子节点内容（数组）
+
+			或者
+			1、组件选项对象
+
+	理解：render：h => h(app)
+	
+	
+
 
 
 
